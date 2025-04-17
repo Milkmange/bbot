@@ -312,7 +312,7 @@ class Scanner:
                 self._fail_setup(msg)
 
             total_modules = total_failed + len(self.modules)
-            success_msg = f"Setup succeeded for {len(self.modules):,}/{total_modules:,} modules."
+            success_msg = f"Setup succeeded for {len(self.modules) - 2:,}/{total_modules - 2:,} modules."
 
             self.success(success_msg)
             self._prepped = True
