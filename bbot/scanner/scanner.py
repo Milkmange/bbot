@@ -884,6 +884,7 @@ class Scanner:
             with contextlib.suppress(Exception):
                 self.home.rmdir()
             self.helpers.clean_old_scans()
+        self.status = "FINISHED"
 
     def in_scope(self, *args, **kwargs):
         return self.preset.in_scope(*args, **kwargs)
