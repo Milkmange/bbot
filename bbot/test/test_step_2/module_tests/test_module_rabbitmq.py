@@ -1,5 +1,6 @@
 import json
 import asyncio
+import aio_pika
 from contextlib import suppress
 
 from .base import ModuleTestBase
@@ -17,8 +18,6 @@ class TestRabbitMQ(ModuleTestBase):
     skip_distro_tests = True
 
     async def setup_before_prep(self, module_test):
-        import aio_pika
-
         # Start RabbitMQ
         await asyncio.create_subprocess_exec(
             "docker", "run", "-d", "--rm", "--name", "bbot-test-rabbitmq", "-p", "5672:5672", "rabbitmq:3-management"
@@ -36,18 +35,18 @@ class TestRabbitMQ(ModuleTestBase):
                 self.log.verbose(f"Waiting for RabbitMQ to be ready: {e}")
                 await asyncio.sleep(0.5)  # Wait a bit before retrying
 
-        self.connection = connection
-        self.channel = await self.connection.channel()
-        self.queue = await self.channel.declare_queue("bbot_events", durable=True)
-
     async def check(self, module_test, events):
+        connection = await aio_pika.connect_robust("amqp://guest:guest@localhost/")
+        channel = await connection.channel()
+        queue = await channel.declare_queue("bbot_events", durable=True)
+
         try:
             events_json = [e.json() for e in events]
             events_json.sort(key=lambda x: x["timestamp"])
 
             # Collect events from RabbitMQ
             rabbitmq_events = []
-            async with self.queue.iterator() as queue_iter:
+            async with queue.iterator() as queue_iter:
                 async for message in queue_iter:
                     async with message.process():
                         event_data = json.loads(message.body.decode("utf-8"))
@@ -62,7 +61,7 @@ class TestRabbitMQ(ModuleTestBase):
 
         finally:
             # Clean up: Close the RabbitMQ connection
-            await self.connection.close()
+            await connection.close()
             # Stop RabbitMQ container
             await asyncio.create_subprocess_exec(
                 "docker", "stop", "bbot-test-rabbitmq", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
