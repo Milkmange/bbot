@@ -425,7 +425,6 @@ class Scanner:
             self.debug(f"Awaited {len(tasks):,} tasks")
             await self._report()
             await self._cleanup()
-
             # report on final scan status
             await self.dispatcher.on_finish(self)
 
@@ -457,20 +456,23 @@ class Scanner:
         self.duration_seconds = self.duration.total_seconds()
         self.duration_human = self.helpers.human_timedelta(self.duration)
 
-        self._scan_finish_status_message = f"Scan {self.name} completed in {self.duration_human} with status {status}"
+        self._scan_finish_status_message = (
+            f"Scan {self.name} completed in {self.duration_human} with status {self.status}"
+        )
 
         scan_finish_event = self.finish_event(self._scan_finish_status_message, status)
 
-        # queue final scan event with output modules
-        output_modules = [m for m in self.modules.values() if m._type == "output" and m.name != "python"]
-        for m in output_modules:
-            await m.queue_event(scan_finish_event)
-        # wait until output modules are flushed
-        while 1:
-            modules_finished = all(m.finished for m in output_modules)
-            if modules_finished:
-                break
-            await asyncio.sleep(0.05)
+        if not self._stopping:
+            # queue final scan event with output modules
+            output_modules = [m for m in self.modules.values() if m._type == "output" and m.name != "python"]
+            for m in output_modules:
+                await m.queue_event(scan_finish_event)
+            # wait until output modules are flushed
+            while 1:
+                modules_finished = all([m.finished for m in output_modules])
+                if modules_finished:
+                    break
+                await asyncio.sleep(0.05)
 
         self.status = status
         return scan_finish_event
@@ -971,9 +973,10 @@ class Scanner:
         Block setting after status has been aborted
         """
         status = str(status).strip().upper()
+        self.debug(f"Setting scan status from {self.status} to {status}")
         if status in self._status_codes:
             # if the scan has already been marked as ABORTED/FAILED/FINISHED, don't allow setting status again
-            if self._status_codes[status] >= self._status_codes["ABORTED"]:
+            if self._status_code >= self._status_codes["ABORTED"]:
                 self.debug(f'Attempt to set invalid status "{status}" on already finished scan')
                 return
             if status == self._status:
