@@ -55,7 +55,6 @@ class Scanner:
             - "STARTING" (1): Status when the scan is initializing.
             - "RUNNING" (2): Status when the scan is in progress.
             - "FINISHING" (3): Status when the scan is in the process of finalizing.
-            - "CLEANING_UP" (4): Status when the scan is cleaning up resources.
             - "ABORTING" (5): Status when the scan is in the process of being aborted.
             - "ABORTED" (6): Status when the scan has been aborted.
             - "FAILED" (7): Status when the scan has encountered a failure.
@@ -90,7 +89,6 @@ class Scanner:
         "STARTING": 1,
         "RUNNING": 2,
         "FINISHING": 3,
-        "CLEANING_UP": 4,
         "ABORTING": 5,
         "ABORTED": 6,
         "FAILED": 7,
@@ -870,7 +868,8 @@ class Scanner:
 
         This method is called once at the end of the scan to perform resource cleanup
         tasks. It is executed regardless of whether the scan was aborted or completed
-        successfully. The scan status is set to "CLEANING_UP" during the execution.
+        successfully.
+
         After calling the `cleanup()` method for each module, it performs additional
         cleanup tasks such as removing the scan's home directory if empty and cleaning
         old scans.
@@ -881,7 +880,6 @@ class Scanner:
         # clean up self
         if not self._cleanedup:
             self._cleanedup = True
-            self.status = "CLEANING_UP"
             # clean up modules
             for mod in self.modules.values():
                 await mod._cleanup()
@@ -894,7 +892,6 @@ class Scanner:
             with contextlib.suppress(Exception):
                 self.home.rmdir()
             self.helpers.clean_old_scans()
-        self.status = "FINISHED"
 
     def in_scope(self, *args, **kwargs):
         return self.preset.in_scope(*args, **kwargs)
