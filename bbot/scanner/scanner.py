@@ -425,11 +425,8 @@ class Scanner:
             await self._report()
             await self._cleanup()
 
-            # report on final scan status and shut down dispatcher
+            # report on final scan status
             await self.dispatcher.on_finish(self)
-            self.dispatcher_task.cancel()
-            with contextlib.suppress(asyncio.CancelledError):
-                await self.dispatcher_task.wait()
 
             self._stop_log_handlers()
 
@@ -974,6 +971,10 @@ class Scanner:
                 if status != self._status:
                     self._status = status
                     self._status_code = self._status_codes[status]
+                    # clean out old dispatcher tasks
+                    for task in list(self.dispatcher_tasks):
+                        if task.done():
+                            self.dispatcher_tasks.remove(task)
                     self.dispatcher_tasks.append(
                         asyncio.create_task(
                             self.dispatcher.catch(self.dispatcher.on_status, self._status, self.id),
