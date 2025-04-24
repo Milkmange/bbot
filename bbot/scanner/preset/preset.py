@@ -561,7 +561,7 @@ class Preset(metaclass=BasePreset):
         return self.config.get("scope", {})
 
     @property
-    def strict_dns_scope(self):
+    def strict_scope(self):
         return self.scope_config.get("strict", False)
 
     def apply_log_level(self, apply_core=False):
