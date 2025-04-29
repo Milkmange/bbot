@@ -173,7 +173,7 @@ async def test_huge_target_list(bbot_scanner, monkeypatch):
 async def test_exclude_cdn(bbot_scanner, monkeypatch):
     # test that CDN exclusion works
 
-    from bbot import Preset
+    from bbot.scanner import Preset
 
     dns_mock = {
         "evilcorp.com": {"A": ["127.0.0.1"]},
