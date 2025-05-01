@@ -12,16 +12,6 @@ async def test_events(events, helpers):
     scan = Scanner()
     await scan._prep()
 
-    # port and netloc derived from URL
-    test_vuln = scan.make_event(
-            {"host": "evilcorp.com", "name": "test", "severity": "INFO", "description": "asdf", "url": "http://evilcorp.com/test"},
-            "VULNERABILITY",
-            dummy=True,
-        )
-    assert test_vuln.host == "evilcorp.com"
-    assert test_vuln.port == 80
-    assert test_vuln.netloc == "evilcorp.com:80"
-
     assert events.ipv4.type == "IP_ADDRESS"
     assert events.ipv4.netloc == "8.8.8.8"
     assert events.ipv4.port is None
@@ -384,6 +374,22 @@ async def test_events(events, helpers):
             "VULNERABILITY",
             dummy=True,
         )
+
+    # port and netloc should be derived from URL
+    test_vuln = scan.make_event(
+        {
+            "host": "evilcorp.com",
+            "name": "test",
+            "severity": "INFO",
+            "description": "asdf",
+            "url": "http://evilcorp.com/test",
+        },
+        "VULNERABILITY",
+        dummy=True,
+    )
+    assert test_vuln.host == "evilcorp.com"
+    assert test_vuln.port == 80
+    assert test_vuln.netloc == "evilcorp.com:80"
 
     # test tagging
     ip_event_1 = scan.make_event("8.8.8.8", dummy=True)
