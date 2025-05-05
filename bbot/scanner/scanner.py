@@ -12,6 +12,7 @@ from collections import OrderedDict
 
 from bbot import __version__
 from bbot.core.event import make_event
+from bbot.constants import SCAN_STATUSES
 from .manager import ScanIngress, ScanEgress
 from bbot.core.helpers.misc import sha1, rand_string
 from bbot.core.helpers.names_generator import random_name
@@ -83,17 +84,6 @@ class Scanner:
         - Invalid statuses are logged but not applied.
         - Setting a status will trigger the `on_status` event in the dispatcher.
     """
-
-    _status_codes = {
-        "NOT_STARTED": 0,
-        "STARTING": 1,
-        "RUNNING": 2,
-        "FINISHING": 3,
-        "ABORTING": 5,
-        "ABORTED": 6,
-        "FAILED": 7,
-        "FINISHED": 8,
-    }
 
     def __init__(
         self,
@@ -977,16 +967,16 @@ class Scanner:
         """
         status = str(status).strip().upper()
         self.debug(f"Setting scan status from {self.status} to {status}")
-        if status in self._status_codes:
+        if status in SCAN_STATUSES:
             # if the scan has already been marked as ABORTED/FAILED/FINISHED, don't allow setting status again
-            if self._status_code >= self._status_codes["ABORTED"]:
+            if self._status_code >= SCAN_STATUSES["ABORTED"]:
                 self.debug(f'Attempt to set invalid status "{status}" on already finished scan')
                 return
             if status == self._status:
                 self.debug(f'Scan status is already "{status}"')
                 return
             self._status = status
-            self._status_code = self._status_codes[status]
+            self._status_code = SCAN_STATUSES[status]
             # clean out old dispatcher tasks
             for task in list(self.dispatcher_tasks):
                 if task.done():
