@@ -12,7 +12,6 @@ from collections import OrderedDict
 
 from bbot import __version__
 from bbot.core.event import make_event
-from bbot.constants import SCAN_STATUSES
 from .manager import ScanIngress, ScanEgress
 from bbot.core.helpers.misc import sha1, rand_string
 from bbot.core.helpers.names_generator import random_name
@@ -20,6 +19,18 @@ from bbot.core.config.logger import GzipRotatingFileHandler
 from bbot.core.multiprocess import SHARED_INTERPRETER_STATE
 from bbot.core.helpers.async_helpers import async_to_sync_gen
 from bbot.errors import BBOTError, ScanError, ValidationError
+from bbot.constants import (
+    get_scan_status_code,
+    get_scan_status_name,
+    SCAN_STATUS_NOT_STARTED,
+    SCAN_STATUS_STARTING,
+    SCAN_STATUS_RUNNING,
+    SCAN_STATUS_FINISHING,
+    SCAN_STATUS_ABORTING,
+    SCAN_STATUS_ABORTED,
+    SCAN_STATUS_FAILED,
+    SCAN_STATUS_FINISHED,
+)
 
 log = logging.getLogger("bbot.scanner")
 
@@ -165,8 +176,7 @@ class Scanner:
         else:
             self.home = self.preset.bbot_home / "scans" / self.name
 
-        self._status = "NOT_STARTED"
-        self._status_code = 0
+        self._status_code = SCAN_STATUS_NOT_STARTED
 
         self.modules = OrderedDict({})
         self._modules_loaded = False
@@ -344,18 +354,18 @@ class Scanner:
                 self._status_ticker(self.status_frequency), name=f"{self.name}._status_ticker()"
             )
 
-            self.status = "STARTING"
+            self.status = SCAN_STATUS_STARTING
 
             if not self.modules:
                 self.error("No modules loaded")
-                self.status = "FAILED"
+                self.status = SCAN_STATUS_FAILED
                 return
             else:
                 self.hugesuccess(f"Starting scan {self.name}")
 
             await self.dispatcher.on_start(self)
 
-            self.status = "RUNNING"
+            self.status = SCAN_STATUS_RUNNING
             self._start_modules()
             self.verbose(f"{len(self.modules):,} modules started")
 
@@ -438,12 +448,14 @@ class Scanner:
 
         self._marked_finished = True
 
-        if self.status == "ABORTING":
-            status = "ABORTED"
+        if self._status_code == SCAN_STATUS_ABORTING:
+            status_code = SCAN_STATUS_ABORTED
         elif not self._success:
-            status = "FAILED"
+            status_code = SCAN_STATUS_FAILED
         else:
-            status = "FINISHED"
+            status_code = SCAN_STATUS_FINISHED
+
+        status = get_scan_status_name(status_code)
 
         self.end_time = datetime.now(ZoneInfo("UTC"))
         self.duration = self.end_time - self.start_time
@@ -940,19 +952,19 @@ class Scanner:
 
     @property
     def stopped(self):
-        return self._status_code > 5
+        return self._status_code >= SCAN_STATUS_ABORTED
 
     @property
     def running(self):
-        return 0 < self._status_code < 4
+        return SCAN_STATUS_STARTING <= self._status_code <= SCAN_STATUS_FINISHING
 
     @property
     def aborting(self):
-        return 5 <= self._status_code <= 6
+        return SCAN_STATUS_ABORTING <= self._status_code <= SCAN_STATUS_ABORTED
 
     @property
     def status(self):
-        return self._status
+        return get_scan_status_name(self._status_code)
 
     @property
     def omitted_event_types(self):
@@ -965,30 +977,28 @@ class Scanner:
         """
         Block setting after status has been aborted
         """
-        status = str(status).strip().upper()
-        self.debug(f"Setting scan status from {self.status} to {status}")
-        if status in SCAN_STATUSES:
-            # if the scan has already been marked as ABORTED/FAILED/FINISHED, don't allow setting status again
-            if self._status_code >= SCAN_STATUSES["ABORTED"]:
-                self.debug(f'Attempt to set invalid status "{status}" on already finished scan')
-                return
-            if status == self._status:
-                self.debug(f'Scan status is already "{status}"')
-                return
-            self._status = status
-            self._status_code = SCAN_STATUSES[status]
-            # clean out old dispatcher tasks
-            for task in list(self.dispatcher_tasks):
-                if task.done():
-                    self.dispatcher_tasks.remove(task)
-            self.dispatcher_tasks.append(
-                asyncio.create_task(
-                    self.dispatcher.catch(self.dispatcher.on_status, self._status, self.id),
-                    name=f"{self.name}.dispatcher.on_status({status})",
-                )
-            )
-        else:
+        try:
+            status_code = get_scan_status_code(status)
+            status = get_scan_status_name(status_code)
+        except ValueError:
             self.warning(f'Attempt to set invalid status "{status}" on scan')
+
+        self.debug(f"Setting scan status from {self.status} to {status}")
+        # if the scan has already been marked as ABORTED/FAILED/FINISHED, don't allow setting status again
+        if status_code < self._status_code:
+            self.debug(f'Attempt to set invalid status "{status}" on scan with status "{self.status}"')
+            return
+        self._status_code = status_code
+        # clean out old dispatcher tasks
+        for task in list(self.dispatcher_tasks):
+            if task.done():
+                self.dispatcher_tasks.remove(task)
+        self.dispatcher_tasks.append(
+            asyncio.create_task(
+                self.dispatcher.catch(self.dispatcher.on_status, self.status, self.id),
+                name=f"{self.name}.dispatcher.on_status({status})",
+            )
+        )
 
     def make_event(self, *args, **kwargs):
         kwargs["scan"] = self
@@ -1022,12 +1032,15 @@ class Scanner:
         self._root_event.data["status_code"] = self._status_code
         return self._root_event
 
-    def finish_event(self, context=None, status=None):
+    def finish_event(self, context=None, status_code=None):
         if self._finish_event is None:
-            if context is None or status is None:
-                raise ValueError("Must specify context and status")
+            if context is None or status_code is None:
+                raise ValueError("Must specify context and status_code")
             self._finish_event = self.make_root_event(context)
+            status_code = get_scan_status_code(status_code)
+            status = get_scan_status_name(status_code)
             self._finish_event.data["status"] = status
+            self._finish_event.data["status_code"] = status_code
         return self._finish_event
 
     def make_root_event(self, context):
