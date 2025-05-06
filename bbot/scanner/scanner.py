@@ -974,9 +974,6 @@ class Scanner:
         return self._omitted_event_types
 
     async def _set_status(self, status):
-        """
-        Block setting after status has been aborted
-        """
         try:
             status_code = get_scan_status_code(status)
             status = get_scan_status_name(status_code)
@@ -984,7 +981,7 @@ class Scanner:
             self.warning(f'Attempt to set invalid status "{status}" on scan')
 
         self.debug(f"Setting scan status from {self.status} to {status}")
-        # if the scan has already been marked as ABORTED/FAILED/FINISHED, don't allow setting status again
+        # if the status isn't progressing forward, skip setting it
         if status_code <= self._status_code:
             self.debug(f'Attempt to set invalid status "{status}" on scan with status "{self.status}"')
             return
