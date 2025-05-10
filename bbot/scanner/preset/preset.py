@@ -659,8 +659,11 @@ class Preset(metaclass=BasePreset):
         Examples:
             >>> preset = Preset.from_dict({"target": ["evilcorp.com"], "modules": ["portscan"]})
         """
+        # tolerate both "target" and "targets", since this is a common oopsie
+        targets = preset_dict.get("target", [])
+        targets += preset_dict.get("targets", [])
         new_preset = cls(
-            *preset_dict.get("target", []),
+            *targets,
             whitelist=preset_dict.get("whitelist"),
             blacklist=preset_dict.get("blacklist"),
             modules=preset_dict.get("modules"),

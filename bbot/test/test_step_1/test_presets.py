@@ -617,6 +617,26 @@ def test_preset_scope_round_trip():
     assert baked.to_dict(include_target=True) == preset_dict
 
 
+def test_preset_target_tolerance():
+    # tolerate both "target" and "targets", since this is a common oopsie
+    preset_dict = {
+        "target": ["127.0.0.1"],
+        "targets": ["127.0.0.2"],
+    }
+    preset = Preset.from_dict(preset_dict)
+    baked = preset.bake()
+    assert set(baked.seeds) == {"127.0.0.1", "127.0.0.2"}
+
+    preset = Preset.from_yaml_string("""
+target:
+  - 127.0.0.1
+targets:
+  - 127.0.0.2
+""")
+    baked = preset.bake()
+    assert set(baked.seeds) == {"127.0.0.1", "127.0.0.2"}
+
+
 @pytest.mark.asyncio
 async def test_preset_module_loader():
     custom_module_dir = bbot_test_dir / "custom_module_dir"
