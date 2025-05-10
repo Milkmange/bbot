@@ -76,8 +76,8 @@ class Preset(metaclass=BasePreset):
         Based on the state of the preset, you can print a warning message, abort the scan, enable/disable modules, etc..
 
     Attributes:
-        targets (Target): Target(s) of scan.
-        whitelist (Target): Scan whitelist (by default this is the same as `targets`).
+        target (Target): Target(s) of scan.
+        whitelist (Target): Scan whitelist (by default this is the same as `target`).
         blacklist (Target): Scan blacklist (this takes ultimate precedence).
         helpers (ConfigAwareHelper): Helper containing various reusable functions, regexes, etc.
         output_dir (pathlib.Path): Output directory for scan.
@@ -115,7 +115,7 @@ class Preset(metaclass=BasePreset):
 
     def __init__(
         self,
-        *targets,
+        *target,
         whitelist=None,
         blacklist=None,
         modules=None,
@@ -142,7 +142,7 @@ class Preset(metaclass=BasePreset):
         Initializes the Preset class.
 
         Args:
-            *targets (str): Target(s) to scan. Types supported: hostnames, IPs, CIDRs, emails, open ports.
+            *target (str): Target(s) to scan. Types supported: hostnames, IPs, CIDRs, emails, open ports.
             whitelist (list, optional): Whitelisted target(s) to scan. Defaults to the same as `targets`.
             blacklist (list, optional): Blacklisted target(s). Takes ultimate precedence. Defaults to empty.
             modules (list[str], optional): List of scan modules to enable for the scan. Defaults to empty list.
@@ -262,7 +262,7 @@ class Preset(metaclass=BasePreset):
 
         # target / whitelist / blacklist
         # these are temporary receptacles until they all get .baked() together
-        self._seeds = set(targets if targets else [])
+        self._seeds = set(target if target else [])
         self._whitelist = set(whitelist) if whitelist else whitelist
         self._blacklist = set(blacklist if blacklist else [])
 
@@ -403,6 +403,8 @@ class Preset(metaclass=BasePreset):
     def bake(self, scan=None):
         """
         Return a "baked" copy of this preset, ready for use by a BBOT scan.
+
+        Presets can be merged and modified before baking, but once baked, they are immutable.
 
         Baking a preset finalizes it by populating `preset.modules` based on flags,
         performing final validations, and substituting environment variables in preloaded modules.
@@ -658,7 +660,7 @@ class Preset(metaclass=BasePreset):
             >>> preset = Preset.from_dict({"target": ["evilcorp.com"], "modules": ["portscan"]})
         """
         new_preset = cls(
-            *preset_dict.get("targets", []),
+            *preset_dict.get("target", []),
             whitelist=preset_dict.get("whitelist"),
             blacklist=preset_dict.get("blacklist"),
             modules=preset_dict.get("modules"),

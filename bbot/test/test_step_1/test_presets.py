@@ -601,6 +601,22 @@ class TestModule(BaseModule):
     shutil.rmtree(custom_module_dir)
 
 
+def test_preset_scope_round_trip():
+    preset_dict = {
+        "target": ["127.0.0.1"],
+        "whitelist": ["127.0.0.2"],
+        "blacklist": ["127.0.0.3"],
+        "config": {"scope": {"strict": True}},
+    }
+    preset = Preset.from_dict(preset_dict)
+    baked = preset.bake()
+    assert list(baked.seeds) == ["127.0.0.1"]
+    assert list(baked.whitelist) == ["127.0.0.2"]
+    assert list(baked.blacklist) == ["127.0.0.3"]
+    assert baked.config.scope.strict is True
+    assert baked.to_dict(include_target=True) == preset_dict
+
+
 @pytest.mark.asyncio
 async def test_preset_module_loader():
     custom_module_dir = bbot_test_dir / "custom_module_dir"
