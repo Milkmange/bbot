@@ -181,6 +181,14 @@ def update_docs():
     assert len(bbot_output_module_table.splitlines()) > 10
     update_md_files("BBOT OUTPUT MODULES", bbot_output_module_table)
 
+    # BBOT universal module options
+    from bbot.scanner.preset.args import universal_module_options
+
+    universal_module_options_table = ""
+    for option, description in universal_module_options.items():
+        universal_module_options_table += f"**{option}**: {description}\n"
+    update_md_files("BBOT UNIVERSAL MODULE OPTIONS", universal_module_options_table)
+
     # BBOT module options
     bbot_module_options_table = DEFAULT_PRESET.module_loader.modules_options_table()
     assert len(bbot_module_options_table.splitlines()) > 100
@@ -199,14 +207,16 @@ def update_docs():
 
     # BBOT presets
     for _, (loaded_preset, category, preset_path, original_filename) in DEFAULT_PRESET.all_presets.items():
+        str_category = "" if not category else f"/{category}"
+        filename = f"~/.bbot/presets{str_category}/{original_filename.name}"
         preset_yaml = f"""
-```yaml title={preset_path.name}
+```yaml title={filename}
 {loaded_preset._yaml_str}
 ```
 """
         preset_yaml_expandable = f"""
 <details>
-<summary><b><code>{preset_path.name}</code></b></summary>
+<summary><b><code>{original_filename.name}</code></b></summary>
 
 ```yaml
 {loaded_preset._yaml_str}
@@ -222,7 +232,8 @@ def update_docs():
         yaml_str = loaded_preset._yaml_str
         indent = " " * 4
         yaml_str = f"\n{indent}".join(yaml_str.splitlines())
-        filename = homedir_collapseuser(preset_path)
+        str_category = "" if not category else f"/{category}"
+        filename = f"~/.bbot/presets{str_category}/{original_filename.name}"
 
         num_modules = len(loaded_preset.scan_modules)
         modules = ", ".join(sorted([f"`{m}`" for m in loaded_preset.scan_modules]))
@@ -233,7 +244,7 @@ def update_docs():
 
 {loaded_preset.description}
 
-??? note "`{filename.name}`"
+??? note "`{original_filename.name}`"
     ```yaml title="{filename}"
     {yaml_str}
     ```
