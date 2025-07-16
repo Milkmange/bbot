@@ -178,6 +178,10 @@ class Scanner:
 
         self._status_code = SCAN_STATUS_NOT_STARTED
 
+        # scan temp dir
+        self.temp_dir = self.home / "temp"
+        self.helpers.mkdir(self.temp_dir)
+
         self.modules = OrderedDict({})
         self._modules_loaded = False
         self.dummy_modules = {}
@@ -896,6 +900,7 @@ class Scanner:
                 await self.helpers.web.shutdown()
             with contextlib.suppress(Exception):
                 self.home.rmdir()
+            self.helpers.rm_rf(self.temp_dir, ignore_errors=True)
             self.helpers.clean_old_scans()
 
     def in_scope(self, *args, **kwargs):
