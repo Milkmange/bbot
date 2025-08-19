@@ -150,7 +150,6 @@ class BaseEvent:
         "_discovery_context_regex",
         "_stats_recorded",
         "_internal",
-        "_confidence",
         "_dummy",
         "_module",
         # DNS-related attributes
@@ -179,7 +178,6 @@ class BaseEvent:
         module=None,
         scan=None,
         tags=None,
-        confidence=100,
         timestamp=None,
         _dummy=False,
         _internal=None,
@@ -197,7 +195,6 @@ class BaseEvent:
             module (str, optional): Module that discovered the event. Defaults to None.
             scan (Scan, optional): BBOT Scan object. Required unless _dummy is True. Defaults to None.
             tags (list of str, optional): Descriptive tags for the event. Defaults to None.
-            confidence (int, optional): Confidence level for the event, on a scale of 1-100. Defaults to 100.
             timestamp (datetime, optional): Time of event discovery. Defaults to current UTC time.
             _dummy (bool, optional): If True, disables certain data validations. Defaults to False.
             _internal (Any, optional): If specified, makes the event internal. Defaults to None.
@@ -245,7 +242,6 @@ class BaseEvent:
             except AttributeError:
                 self.timestamp = datetime.datetime.utcnow()
 
-        self.confidence = int(confidence)
         self._internal = False
 
         # self.scan holds the instantiated scan object (for helpers, etc.)
@@ -284,27 +280,6 @@ class BaseEvent:
     @property
     def data(self):
         return self._data
-
-    @property
-    def confidence(self):
-        return self._confidence
-
-    @confidence.setter
-    def confidence(self, confidence):
-        self._confidence = min(100, max(1, int(confidence)))
-
-    @property
-    def cumulative_confidence(self):
-        """
-        Considers the confidence of parent events. This is useful for filtering out speculative/unreliable events.
-
-        E.g. an event with a confidence of 50 whose parent is also 50 would have a cumulative confidence of 25.
-
-        A confidence of 100 will reset the cumulative confidence to 100.
-        """
-        if self._confidence == 100 or self.parent is None or self.parent is self:
-            return self._confidence
-        return int(self._confidence * self.parent.cumulative_confidence / 100)
 
     @property
     def resolved_hosts(self):
@@ -1698,11 +1673,10 @@ class FILESYSTEM(DictPathEvent):
             from bbot.core.helpers.libmagic import get_magic_info, get_compression
 
             try:
-                extension, mime_type, description, confidence = get_magic_info(self.data["path"])
+                extension, mime_type, description = get_magic_info(self.data["path"])
                 self.data["magic_extension"] = extension
                 self.data["magic_mime_type"] = mime_type
                 self.data["magic_description"] = description
-                self.data["magic_confidence"] = confidence
                 # detection compression
                 compression = get_compression(mime_type)
                 if compression:
@@ -1756,7 +1730,6 @@ def make_event(
     module=None,
     scan=None,
     tags=None,
-    confidence=100,
     dummy=False,
     internal=None,
 ):
@@ -1776,7 +1749,6 @@ def make_event(
         scan (Scan, optional): BBOT Scan object associated with the event.
         scans (List[Scan], optional): Multiple BBOT Scan objects, primarily used for unserialization.
         tags (Union[str, List[str]], optional): Descriptive tags for the event, as a list or a single string.
-        confidence (int, optional): Confidence level for the event, on a scale of 1-100. Defaults to 100.
         dummy (bool, optional): Disables data validations if set to True. Defaults to False.
         internal (Any, optional): Makes the event internal if set to True. Defaults to None.
 
@@ -1880,7 +1852,6 @@ def make_event(
             module=module,
             scan=scan,
             tags=tags,
-            confidence=confidence,
             _dummy=dummy,
             _internal=internal,
         )
@@ -1913,7 +1884,6 @@ def event_from_json(j, siem_friendly=False):
         kwargs = {
             "event_type": event_type,
             "tags": j.get("tags", []),
-            "confidence": j.get("confidence", 100),
             "context": j.get("discovery_context", None),
             "dummy": True,
         }
