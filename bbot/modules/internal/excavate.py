@@ -266,20 +266,14 @@ class ExcavateRule:
         Returns:
         None
         """
-        print("!!!!")
-        print(event_type)
-        print(event_data)
-        print("!!!!!")
         # If a description is not set and is needed, provide a basic one
         if event_type == "FINDING":
-            print("THERES A FINDING")
             if "description" not in event_data.keys():
                 event_data["description"] = f"{discovery_context} {yara_rule_settings.description}"
             if "severity" not in event_data.keys():
                 event_data["severity"] = yara_rule_settings.severity
             if "confidence" not in event_data.keys():
                 event_data["confidence"] = yara_rule_settings.confidence
-            print(event_data)
         subject = ""
         if isinstance(event_data, str):
             subject = f" {event_data}"
