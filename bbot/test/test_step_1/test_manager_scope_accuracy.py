@@ -268,7 +268,7 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
 
         async def handle_event(self, event):
             await self.emit_event(
-                {"host": str(event.host), "description": "yep", "severity": "CRITICAL"}, "VULNERABILITY", parent=event
+                {"host": str(event.host), "description": "yep", "severity": "CRITICAL", "confidence": "CONFIRMED"}, "FINDING", parent=event
             )
 
     def custom_setup(scan):
@@ -288,21 +288,21 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
     assert 1 == len([e for e in events if e.type == "IP_ADDRESS" and e.data == "127.0.0.66" and e.internal is False and e.scope_distance == 1])
     assert 0 == len([e for e in events if e.type == "DNS_NAME" and e.data == "test.notrealzies"])
     assert 0 == len([e for e in events if e.type == "IP_ADDRESS" and e.data == "127.0.0.77"])
-    assert 1 == len([e for e in events if e.type == "VULNERABILITY" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
+    assert 1 == len([e for e in events if e.type == "FINDING" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
 
     assert len(all_events) == 8
     assert 1 == len([e for e in all_events if e.type == "DNS_NAME" and e.data == "test.notreal" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.66" and e.internal is False and e.scope_distance == 1])
     assert 2 == len([e for e in all_events if e.type == "DNS_NAME" and e.data == "test.notrealzies" and e.internal is True and e.scope_distance == 2])
     assert 2 == len([e for e in all_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.77" and e.internal is True and e.scope_distance == 3])
-    assert 1 == len([e for e in all_events if e.type == "VULNERABILITY" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
+    assert 1 == len([e for e in all_events if e.type == "FINDING" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
 
     assert len(all_events_nodups) == 6
     assert 1 == len([e for e in all_events_nodups if e.type == "DNS_NAME" and e.data == "test.notreal" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events_nodups if e.type == "IP_ADDRESS" and e.data == "127.0.0.66" and e.internal is False and e.scope_distance == 1])
     assert 1 == len([e for e in all_events_nodups if e.type == "DNS_NAME" and e.data == "test.notrealzies" and e.internal is True and e.scope_distance == 2])
     assert 1 == len([e for e in all_events_nodups if e.type == "IP_ADDRESS" and e.data == "127.0.0.77" and e.internal is True and e.scope_distance == 3])
-    assert 1 == len([e for e in all_events_nodups if e.type == "VULNERABILITY" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
+    assert 1 == len([e for e in all_events_nodups if e.type == "FINDING" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
 
     for _graph_output_events in (graph_output_events, graph_output_batch_events):
         assert len(_graph_output_events) == 7
@@ -310,7 +310,7 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
         assert 1 == len([e for e in _graph_output_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.66" and e.internal is False and e.scope_distance == 1])
         assert 1 == len([e for e in _graph_output_events if e.type == "DNS_NAME" and e.data == "test.notrealzies" and e.internal is True and e.scope_distance == 2])
         assert 1 == len([e for e in _graph_output_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.77" and e.internal is True and e.scope_distance == 3])
-        assert 1 == len([e for e in _graph_output_events if e.type == "VULNERABILITY" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
+        assert 1 == len([e for e in _graph_output_events if e.type == "FINDING" and e.data["host"] == "127.0.0.77" and e.internal is False and e.scope_distance == 3])
 
     # httpx/speculate IP_RANGE --> IP_ADDRESS --> OPEN_TCP_PORT --> URL, search distance = 0
     events, all_events, all_events_nodups, graph_output_events, graph_output_batch_events = await do_scan(

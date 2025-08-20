@@ -20,7 +20,7 @@ class telerik(BaseModule):
     """
 
     watched_events = ["URL", "HTTP_RESPONSE"]
-    produced_events = ["VULNERABILITY", "FINDING"]
+    produced_events = ["FINDING"]
     flags = ["active", "aggressive", "web-thorough"]
     meta = {
         "description": "Scan for critical Telerik vulnerabilities",
@@ -242,7 +242,13 @@ class telerik(BaseModule):
 
                     description = f"Telerik RAU AXD Handler detected. Verbose Errors Enabled: [{str(verbose_errors)}] Version Guess: [{version}]"
                     await self.emit_event(
-                        {"host": str(event.host), "url": f"{base_url}{webresource}", "description": description},
+                        {
+                            "host": str(event.host),
+                            "url": f"{base_url}{webresource}",
+                            "description": description,
+                            "severity": "INFORMATIONAL",
+                            "confidence": "HIGH",
+                        },
                         "FINDING",
                         event,
                         context=f"{{module}} scanned {base_url} and identified {{event.type}}: Telerik RAU AXD Handler",
@@ -264,17 +270,18 @@ class telerik(BaseModule):
                                     result.url,
                                 ]
                                 output = await self.run_process(command)
-                                description = f"[CVE-2017-11317] [{str(version)}] {webresource}"
+                                description = f"Confirmed Vulnerable Telerik (version: {str(version)})"
                                 if "fileInfo" in output.stdout:
                                     self.debug(f"Confirmed Vulnerable Telerik (version: {str(version)}")
                                     await self.emit_event(
                                         {
                                             "severity": "CRITICAL",
+                                            "confidence": "CONFIRMED",
                                             "description": description,
                                             "host": str(event.host),
                                             "url": f"{base_url}{webresource}",
                                         },
-                                        "VULNERABILITY",
+                                        "FINDING",
                                         event,
                                         context=f"{{module}} scanned {base_url} and identified critical {{event.type}}: {description}",
                                     )
@@ -302,7 +309,13 @@ class telerik(BaseModule):
                         self.debug(f"Detected Telerik UI instance ({dh})")
                         description = "Telerik DialogHandler detected"
                         await self.emit_event(
-                            {"host": str(event.host), "url": f"{base_url}{dh}", "description": description},
+                            {
+                                "host": str(event.host),
+                                "url": f"{base_url}{dh}",
+                                "description": description,
+                                "confidence": "CONFIRMED",
+                                "severity": "INFORMATIONAL",
+                            },
                             "FINDING",
                             event,
                         )
@@ -326,6 +339,8 @@ class telerik(BaseModule):
                             "host": str(event.host),
                             "url": f"{base_url}{spellcheckhandler}",
                             "description": description,
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,
@@ -345,6 +360,8 @@ class telerik(BaseModule):
                             "host": str(event.host),
                             "url": f"{base_url}{chartimagehandler}",
                             "description": "Telerik ChartImage AXD Handler Detected",
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,
@@ -361,6 +378,8 @@ class telerik(BaseModule):
                             "host": str(event.host),
                             "url": url,
                             "description": "Telerik DialogHandler [SerializedParameters] Detected in HTTP Response",
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,
@@ -372,6 +391,8 @@ class telerik(BaseModule):
                             "host": str(event.host),
                             "url": url,
                             "description": "Telerik AsyncUpload [serializedConfiguration] Detected in HTTP Response",
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,

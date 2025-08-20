@@ -1157,7 +1157,7 @@ class TestTrufflehog(ModuleTestBase):
         vuln_events = [
             e
             for e in events
-            if e.type == "VULNERABILITY"
+            if e.type == "FINDING"
             and (
                 e.data["host"] == "hub.docker.com"
                 or e.data["host"] == "github.com"
@@ -1229,7 +1229,7 @@ class TestTrufflehog_NonVerified(TestTrufflehog):
         finding_events = [
             e
             for e in events
-            if e.type == e.type == "FINDING"
+            if e.type == "FINDING"
             and (
                 e.data["host"] == "hub.docker.com"
                 or e.data["host"] == "github.com"
@@ -1321,3 +1321,6 @@ class TestTrufflehog_RAWText(ModuleTestBase):
         finding_events = [e for e in events if e.type == "FINDING"]
         assert len(finding_events) == 1
         assert "Possible Secret Found" in finding_events[0].data["description"]
+        # Trufflehog emits HIGH severity and MODERATE confidence for possible secrets
+        assert finding_events[0].data["severity"] == "HIGH"
+        assert finding_events[0].data["confidence"] == "MODERATE"

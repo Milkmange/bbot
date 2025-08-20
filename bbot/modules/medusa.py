@@ -5,7 +5,7 @@ from bbot.errors import WordlistError
 
 class medusa(BaseModule):
     watched_events = ["PROTOCOL"]
-    produced_events = ["VULNERABILITY"]
+    produced_events = ["FINDING"]
     flags = ["active", "aggressive", "deadly"]
     per_host_only = True
     meta = {
@@ -143,8 +143,17 @@ class medusa(BaseModule):
                     self.info(f"Medusa stderr: {result.stderr}")
 
                 async for message in self.parse_output(result.stdout, snmp_version):
-                    vuln_event = self.create_vuln_event("CRITICAL", message, event)
-                    await self.emit_event(vuln_event)
+                    await self.emit_event(
+                        {
+                            "severity": "CRITICAL",
+                            "confidence": "CONFIRMED",
+                            "host": str(event.host),
+                            "port": str(event.port),
+                            "description": message,
+                        },
+                        "FINDING",
+                        parent=event,
+                    )
 
         # else: Medusa supports various protocols which could in theory be implemented later on.
 
@@ -218,18 +227,3 @@ class medusa(BaseModule):
         ]
 
         return cmd
-
-    def create_vuln_event(self, severity, description, source_event):
-        host = str(source_event.host)
-        port = str(source_event.port)
-
-        return self.make_event(
-            {
-                "severity": severity,
-                "host": host,
-                "port": port,
-                "description": description,
-            },
-            "VULNERABILITY",
-            source_event,
-        )

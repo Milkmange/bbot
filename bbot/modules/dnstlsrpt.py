@@ -139,6 +139,3 @@ class dnstlsrpt(BaseModule):
                                                     tags=tags.append(f"tlsrpt-record-{key}"),
                                                     parent=event,
                                                 )
-
-
-# EOF

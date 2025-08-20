@@ -4,7 +4,7 @@ from bbot.modules.base import BaseModule
 
 class wpscan(BaseModule):
     watched_events = ["HTTP_RESPONSE", "TECHNOLOGY"]
-    produced_events = ["URL_UNVERIFIED", "FINDING", "VULNERABILITY", "TECHNOLOGY"]
+    produced_events = ["URL_UNVERIFIED", "FINDING", "TECHNOLOGY"]
     flags = ["active", "aggressive"]
     meta = {
         "description": "Wordpress security scanner. Highly recommended to use an API key for better results.",
@@ -194,11 +194,12 @@ class wpscan(BaseModule):
             yield self.make_event(
                 {
                     "severity": "HIGH",
+                    "confidence": "MODERATE",
                     "host": str(source_event.host),
                     "url": url,
                     "description": self.vulnerability_to_s(wp_vuln),
                 },
-                "VULNERABILITY",
+                "FINDING",
                 source_event,
             )
 
@@ -219,11 +220,12 @@ class wpscan(BaseModule):
             yield self.make_event(
                 {
                     "severity": "HIGH",
+                    "confidence": "MODERATE",
                     "host": str(source_event.host),
                     "url": url,
                     "description": self.vulnerability_to_s(theme_vuln),
                 },
-                "VULNERABILITY",
+                "FINDING",
                 source_event,
             )
 
@@ -248,11 +250,12 @@ class wpscan(BaseModule):
                 yield self.make_event(
                     {
                         "severity": "HIGH",
+                        "confidence": "MODERATE",
                         "host": str(source_event.host),
                         "url": url,
                         "description": self.vulnerability_to_s(vuln),
                     },
-                    "VULNERABILITY",
+                    "FINDING",
                     source_event,
                 )
 

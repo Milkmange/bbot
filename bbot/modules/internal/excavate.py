@@ -105,10 +105,12 @@ def extract_params_location(location_header_value, original_parsed_url):
 
 
 class YaraRuleSettings:
-    def __init__(self, description, tags, emit_match):
+    def __init__(self, description, tags, emit_match, severity, confidence):
         self.description = description
         self.tags = tags
         self.emit_match = emit_match
+        self.severity = severity
+        self.confidence = confidence
 
 
 class ExcavateRule:
@@ -153,6 +155,8 @@ class ExcavateRule:
         description = ""
         tags = []
         emit_match = False
+        severity = "INFORMATIONAL"
+        confidence = "UNKNOWN"
 
         if "description" in r.meta.keys():
             description = r.meta["description"]
@@ -160,8 +164,12 @@ class ExcavateRule:
             tags = self.excavate.helpers.chain_lists(r.meta["tags"])
         if "emit_match" in r.meta.keys():
             emit_match = True
+        if "severity" in r.meta.keys():
+            severity = r.meta["severity"]
+        if "confidence" in r.meta.keys():
+            confidence = r.meta["confidence"]
 
-        yara_rule_settings = YaraRuleSettings(description, tags, emit_match)
+        yara_rule_settings = YaraRuleSettings(description, tags, emit_match, severity, confidence)
         yara_results = {}
         for h in r.strings:
             yara_results[h.identifier.lstrip("$")] = sorted(
@@ -185,7 +193,7 @@ class ExcavateRule:
         event : Event
             The event data associated with the YARA match.
         yara_rule_settings : YaraRuleSettings
-            The settings configured from YARA rule meta tags, including description, tags, and emit_match flag.
+            The settings configured from YARA rule meta tags, including description, severity, confidence, tags, and emit_match flag.
         discovery_context : DiscoveryContext
             The context in which the discovery is made.
 
@@ -245,7 +253,7 @@ class ExcavateRule:
         event : Event
             The parent event to which this event is related.
         yara_rule_settings : YaraRuleSettings
-            The settings configured from YARA rule meta tags, including description and tags.
+            The settings configured from YARA rule meta tags, including description, severity, confidence, and tags.
         discovery_context : DiscoveryContext
             The context in which the discovery is made.
         event_type : str, optional
@@ -258,10 +266,20 @@ class ExcavateRule:
         Returns:
         None
         """
-
+        print("!!!!")
+        print(event_type)
+        print(event_data)
+        print("!!!!!")
         # If a description is not set and is needed, provide a basic one
-        if event_type == "FINDING" and "description" not in event_data.keys():
-            event_data["description"] = f"{discovery_context} {yara_rule_settings['self.description']}"
+        if event_type == "FINDING":
+            print("THERES A FINDING")
+            if "description" not in event_data.keys():
+                event_data["description"] = f"{discovery_context} {yara_rule_settings.description}"
+            if "severity" not in event_data.keys():
+                event_data["severity"] = yara_rule_settings.severity
+            if "confidence" not in event_data.keys():
+                event_data["confidence"] = yara_rule_settings.confidence
+            print(event_data)
         subject = ""
         if isinstance(event_data, str):
             subject = f" {event_data}"
@@ -290,6 +308,9 @@ class CustomExtractor(ExcavateRule):
                 )
                 if yara_rule_settings.emit_match:
                     event_data["description"] += f" and extracted [{result}]"
+                event_data["severity"] = yara_rule_settings.get("severity", "LOW")
+                event_data["confidence"] = yara_rule_settings.get("confidence", "UNKNOWN")
+
                 await self.report(event_data, event, yara_rule_settings, discovery_context)
 
 
@@ -712,7 +733,7 @@ class excavate(BaseInternalModule, BaseInterceptModule):
                 signature_component_list.append(rf"${signature_name} = {signature}")
             signature_component = " ".join(signature_component_list)
             self.yara_rules["error_detection"] = (
-                f'rule error_detection {{meta: description = "contains a verbose error message" strings: {signature_component} condition: any of them}}'
+                f'rule error_detection {{meta: description = "contains a verbose error message" severity = "INFORMATIONAL" confidence = "MODERATE" strings: {signature_component} condition: any of them}}'
             )
 
         async def process(self, yara_results, event, yara_rule_settings, discovery_context):
@@ -743,7 +764,7 @@ class excavate(BaseInternalModule, BaseInterceptModule):
                 regexes_component_list.append(rf"${regex_name} = /\b{regex.pattern}/")
             regexes_component = " ".join(regexes_component_list)
             self.yara_rules["serialization_detection"] = (
-                f'rule serialization_detection {{meta: description = "contains a possible serialized object" strings: {regexes_component} condition: any of them}}'
+                f'rule serialization_detection {{meta: description = "contains a possible serialized object" severity = "INFORMATIONAL" confidence = "MODERATE" strings: {regexes_component} condition: any of them}}'
             )
 
         async def process(self, yara_results, event, yara_rule_settings, discovery_context):

@@ -6,7 +6,7 @@ from bbot.errors import InteractshError
 
 class lightfuzz(BaseModule):
     watched_events = ["URL", "WEB_PARAMETER"]
-    produced_events = ["FINDING", "VULNERABILITY"]
+    produced_events = ["FINDING"]
     flags = ["active", "aggressive", "web-thorough", "deadly"]
 
     options = {
@@ -71,11 +71,12 @@ class lightfuzz(BaseModule):
                 await self.emit_event(
                     {
                         "severity": "CRITICAL",
+                        "confidence": "CONFIRMED",
                         "host": str(details["event"].host),
                         "url": details["event"].data["url"],
                         "description": f"OS Command Injection (OOB Interaction) Type: [{details['type']}] Parameter Name: [{details['name']}] Probe: [{details['probe']}]",
                     },
-                    "VULNERABILITY",
+                    "FINDING",
                     details["event"],
                 )
             else:
@@ -107,11 +108,11 @@ class lightfuzz(BaseModule):
                     # Append the envelope summary to the description
                     event_data["description"] += f" Envelopes: [{envelope_summary}]"
 
-                if r["type"] == "VULNERABILITY":
-                    event_data["severity"] = r["severity"]
+                event_data["severity"] = r["severity"]
+                event_data["confidence"] = r["confidence"]
                 await self.emit_event(
                     event_data,
-                    r["type"],
+                    "FINDING",
                     event,
                 )
 

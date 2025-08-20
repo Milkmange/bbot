@@ -43,13 +43,15 @@ class host_header(BaseModule):
                     return
                 matched_event = match[0]
                 matched_technique = match[1]
-
                 protocol = r.get("protocol").upper()
+                confidence = "HIGH" if protocol == "HTTP" else "MODERATE"
                 await self.emit_event(
                     {
                         "host": str(matched_event.host),
                         "url": matched_event.data["url"],
                         "description": f"Spoofed Host header ({matched_technique}) [{protocol}] interaction",
+                        "severity": "MEDIUM",
+                        "confidence": confidence,
                     },
                     "FINDING",
                     matched_event,
@@ -142,6 +144,8 @@ class host_header(BaseModule):
                     "host": str(event.host),
                     "url": url,
                     "description": description,
+                    "severity": "INFORMATIONAL",
+                    "confidence": "LOW",
                 },
                 "FINDING",
                 event,
@@ -184,6 +188,8 @@ class host_header(BaseModule):
                     "host": str(event.host),
                     "url": url,
                     "description": description,
+                    "severity": "INFORMATIONAL",
+                    "confidence": "LOW",
                 },
                 "FINDING",
                 event,

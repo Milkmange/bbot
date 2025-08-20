@@ -174,12 +174,11 @@ def events(scan):
             "https://[2001:4860:4860::8888]:443/hellofriend", "URL", tags=["status-200"], parent=scan.root_event
         )
         url_hint = scan.make_event("https://api.publicAPIs.org:443/hello.ash", "URL_HINT", parent=url)
-        vulnerability = scan.make_event(
-            {"host": "evilcorp.com", "severity": "INFO", "description": "asdf"},
-            "VULNERABILITY",
+        finding = scan.make_event(
+            {"host": "evilcorp.com", "severity": "INFORMATIONAL", "confidence": "HIGH", "description": "asdf"},
+            "FINDING",
             parent=scan.root_event,
         )
-        finding = scan.make_event({"host": "evilcorp.com", "description": "asdf"}, "FINDING", parent=scan.root_event)
         vhost = scan.make_event({"host": "evilcorp.com", "vhost": "www.evilcorp.com"}, "VHOST", parent=scan.root_event)
         http_response = scan.make_event(httpx_response, "HTTP_RESPONSE", parent=scan.root_event)
         storage_bucket = scan.make_event(
@@ -209,7 +208,6 @@ def events(scan):
         bbot_events.ipv4_url,
         bbot_events.ipv6_url,
         bbot_events.url_hint,
-        bbot_events.vulnerability,
         bbot_events.finding,
         bbot_events.vhost,
         bbot_events.http_response,

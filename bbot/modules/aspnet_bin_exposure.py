@@ -3,7 +3,7 @@ from bbot.modules.base import BaseModule
 
 class aspnet_bin_exposure(BaseModule):
     watched_events = ["URL"]
-    produced_events = ["VULNERABILITY"]
+    produced_events = ["FINDING"]
     flags = ["active", "safe", "web-thorough"]
     meta = {
         "description": "Check for ASP.NET Security Feature Bypasses (CVE-2023-36899 and CVE-2023-36560)",
@@ -64,11 +64,12 @@ class aspnet_bin_exposure(BaseModule):
                                 await self.emit_event(
                                     {
                                         "severity": "HIGH",
+                                        "confidence": "HIGH",
                                         "host": str(event.host),
                                         "url": normalized_url,
                                         "description": description,
                                     },
-                                    "VULNERABILITY",
+                                    "FINDING",
                                     event,
                                     context="{module} detected IIS Bin Directory DLL Exposure vulnerability",
                                 )

@@ -6,7 +6,7 @@ from bbot.modules.base import BaseModule
 
 class nuclei(BaseModule):
     watched_events = ["URL"]
-    produced_events = ["FINDING", "VULNERABILITY", "TECHNOLOGY"]
+    produced_events = ["FINDING", "TECHNOLOGY"]
     flags = ["active", "aggressive", "deadly"]
     meta = {
         "description": "Fast and customisable vulnerability scanner",
@@ -170,28 +170,22 @@ class nuclei(BaseModule):
                 description_string += f" Extracted Data: [{','.join(extracted_results)}]"
 
             if severity in ["INFO", "UNKNOWN"]:
-                await self.emit_event(
-                    {
-                        "host": str(parent_event.host),
-                        "url": url,
-                        "description": description_string,
-                    },
-                    "FINDING",
-                    parent_event,
-                    context=f"{{module}} scanned {url} and identified {{event.type}}: {description_string}",
-                )
+                severity_string = "INFORMATIONAL"
             else:
-                await self.emit_event(
-                    {
-                        "severity": severity,
-                        "host": str(parent_event.host),
-                        "url": url,
-                        "description": description_string,
-                    },
-                    "VULNERABILITY",
-                    parent_event,
-                    context=f"{{module}} scanned {url} and identified {severity.lower()} {{event.type}}: {description_string}",
-                )
+                severity_string = severity
+
+            await self.emit_event(
+                {
+                    "severity": severity_string,
+                    "confidence": "HIGH",
+                    "host": str(parent_event.host),
+                    "url": url,
+                    "description": description_string,
+                },
+                "FINDING",
+                parent_event,
+                context=f"{{module}} scanned {url} and identified {severity.lower()} {{event.type}}: {description_string}",
+            )
 
     def correlate_event(self, events, host):
         for event in events:

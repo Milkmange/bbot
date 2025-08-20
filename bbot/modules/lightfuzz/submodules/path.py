@@ -121,7 +121,8 @@ class path(BaseLightfuzz):
                         if confirmations > 3:
                             self.results.append(
                                 {
-                                    "type": "FINDING",
+                                    "severity": "HIGH",
+                                    "confidence": "LOW",
                                     "description": f"POSSIBLE Path Traversal. {self.metadata()} Detection Method: [{path_technique}]",
                                 }
                             )
@@ -148,7 +149,8 @@ class path(BaseLightfuzz):
             if r and trigger in r.text:
                 self.results.append(
                     {
-                        "type": "FINDING",
+                        "severity": "HIGH",
+                        "confidence": "MODERATE",
                         "description": f"POSSIBLE Path Traversal. {self.metadata()} Detection Method: [Absolute Path: {path}]",
                     }
                 )

@@ -25,7 +25,13 @@ class reflected_parameters(BaseModule):
                 description += (
                     f" Original Value: [{self.helpers.truncate_string(str(event.data['original_value']), 200)}]"
                 )
-            data = {"host": str(event.host), "description": description, "url": url}
+            data = {
+                "host": str(event.host),
+                "description": description,
+                "url": url,
+                "severity": "INFORMATIONAL",
+                "confidence": "HIGH",
+            }
             await self.emit_event(data, "FINDING", event)
 
     async def detect_reflection(self, event, url):

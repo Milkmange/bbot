@@ -585,7 +585,7 @@ from bbot.modules.base import BaseModule
 
 class TestModule1(BaseModule):
     watched_events = ["URL", "HTTP_RESPONSE"]
-    produced_events = ["VULNERABILITY"]
+    produced_events = ["FINDING"]
 """
         )
 

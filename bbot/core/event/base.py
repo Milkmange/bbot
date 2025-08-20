@@ -1517,7 +1517,7 @@ class HTTP_RESPONSE(URL_UNVERIFIED, DictEvent):
         return location
 
 
-class VULNERABILITY(ClosestHostEvent):
+class FINDING(ClosestHostEvent):
     _always_emit = True
     _quick_emit = True
     severity_colors = {
@@ -1525,17 +1525,27 @@ class VULNERABILITY(ClosestHostEvent):
         "HIGH": "🟥",
         "MEDIUM": "🟧",
         "LOW": "🟨",
-        "UNKNOWN": "⬜",
+        "INFORMATIONAL": "⬜",
+    }
+
+    confidence_colors = {
+        "CONFIRMED": "🟣",
+        "HIGH": "🔴",
+        "MODERATE": "🟠",
+        "LOW": "🟡",
+        "UNKNOWN": "⚪",
     }
 
     def sanitize_data(self, data):
-        self.add_tag(data["severity"].lower())
+        self.add_tag(f"severity-{data['severity'].lower()}")
+        self.add_tag(f"confidence-{data['confidence'].lower()}")
         return data
 
     class _data_validator(BaseModel):
         host: Optional[str] = None
-        severity: str
         description: str
+        severity: str
+        confidence: str
         url: Optional[str] = None
         path: Optional[str] = None
         _validate_url = field_validator("url")(validators.validate_url)
@@ -1543,23 +1553,17 @@ class VULNERABILITY(ClosestHostEvent):
         _validate_severity = field_validator("severity")(validators.validate_severity)
 
     def _pretty_string(self):
-        return f"[{self.data['severity']}] {self.data['description']}"
+        severity = self.data["severity"]
+        confidence = self.data["confidence"]
+        description = self.data["description"]
 
+        # Add bold formatting for CONFIRMED confidence
+        if confidence == "CONFIRMED":
+            confidence_str = f"[\033[1m{confidence}\033[0m]"
+        else:
+            confidence_str = f"[{confidence}]"
 
-class FINDING(ClosestHostEvent):
-    _always_emit = True
-    _quick_emit = True
-
-    class _data_validator(BaseModel):
-        host: Optional[str] = None
-        description: str
-        url: Optional[str] = None
-        path: Optional[str] = None
-        _validate_url = field_validator("url")(validators.validate_url)
-        _validate_host = field_validator("host")(validators.validate_host)
-
-    def _pretty_string(self):
-        return self.data["description"]
+        return f"Severity: [{severity}] Confidence: {confidence_str} {description}"
 
 
 class TECHNOLOGY(DictHostEvent):
@@ -1673,10 +1677,11 @@ class FILESYSTEM(DictPathEvent):
             from bbot.core.helpers.libmagic import get_magic_info, get_compression
 
             try:
-                extension, mime_type, description = get_magic_info(self.data["path"])
+                extension, mime_type, description, confidence = get_magic_info(self.data["path"])
                 self.data["magic_extension"] = extension
                 self.data["magic_mime_type"] = mime_type
                 self.data["magic_description"] = description
+                self.data["magic_confidence"] = confidence
                 # detection compression
                 compression = get_compression(mime_type)
                 if compression:

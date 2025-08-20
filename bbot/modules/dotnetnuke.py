@@ -18,7 +18,7 @@ class dotnetnuke(BaseModule):
     }
 
     watched_events = ["HTTP_RESPONSE"]
-    produced_events = ["VULNERABILITY", "TECHNOLOGY"]
+    produced_events = ["FINDING", "TECHNOLOGY"]
     flags = ["active", "aggressive", "web-thorough"]
     meta = {
         "description": "Scan for critical DotNetNuke (DNN) vulnerabilities",
@@ -52,11 +52,12 @@ class dotnetnuke(BaseModule):
                 await self.emit_event(
                     {
                         "severity": "MEDIUM",
+                        "confidence": "HIGH",
                         "host": str(event.host),
                         "url": url,
                         "description": description,
                     },
-                    "VULNERABILITY",
+                    "FINDING",
                     event,
                     context=f"{{module}} scanned {url} and found medium {{event.type}}: {description}",
                 )
@@ -103,11 +104,12 @@ class dotnetnuke(BaseModule):
                         await self.emit_event(
                             {
                                 "severity": "CRITICAL",
+                                "confidence": "CONFIRMED",
                                 "description": description,
                                 "host": str(event.host),
                                 "url": probe_url,
                             },
-                            "VULNERABILITY",
+                            "FINDING",
                             event,
                             context=f"{{module}} scanned {probe_url} and found critical {{event.type}}: {description}",
                         )
@@ -123,11 +125,12 @@ class dotnetnuke(BaseModule):
                         await self.emit_event(
                             {
                                 "severity": "CRITICAL",
+                                "confidence": "CONFIRMED",
                                 "description": description,
                                 "host": str(event.host),
                                 "url": f"{event.data['url']}/DesktopModules/dnnUI_NewsArticlesSlider/ImageHandler.ashx",
                             },
-                            "VULNERABILITY",
+                            "FINDING",
                             event,
                             context=f"{{module}} scanned {event.data['url']} and found critical {{event.type}}: {description}",
                         )
@@ -142,11 +145,12 @@ class dotnetnuke(BaseModule):
                         await self.emit_event(
                             {
                                 "severity": "CRITICAL",
+                                "confidence": "CONFIRMED",
                                 "description": description,
                                 "host": str(event.host),
                                 "url": f"{event.data['url']}/Desktopmodules/DNNArticle/GetCSS.ashx/?CP=%2fweb.config",
                             },
-                            "VULNERABILITY",
+                            "FINDING",
                             event,
                             context=f"{{module}} scanned {event.data['url']} and found critical {{event.type}}: {description}",
                         )
@@ -163,11 +167,12 @@ class dotnetnuke(BaseModule):
                             await self.emit_event(
                                 {
                                     "severity": "CRITICAL",
+                                    "confidence": "CONFIRMED",
                                     "description": description,
                                     "host": str(event.host),
                                     "url": f"{event.data['url']}/Install/InstallWizard.aspx",
                                 },
-                                "VULNERABILITY",
+                                "FINDING",
                                 event,
                                 context=f"{{module}} scanned {event.data['url']} and found critical {{event.type}}: {description}",
                             )

@@ -144,6 +144,8 @@ class bypass403(BaseModule):
                     "description": f"403 Bypass MULTIPLE SIGNATURES (exceeded threshold {str(collapse_threshold)})",
                     "host": str(event.host),
                     "url": event.data,
+                    "severity": "INFORMATIONAL",
+                    "confidence": "LOW",
                 },
                 "FINDING",
                 parent=event,
@@ -152,7 +154,13 @@ class bypass403(BaseModule):
         else:
             for description in results:
                 await self.emit_event(
-                    {"description": description, "host": str(event.host), "url": event.data},
+                    {
+                        "description": description,
+                        "host": str(event.host),
+                        "url": event.data,
+                        "severity": "MEDIUM",
+                        "confidence": "LOW",
+                    },
                     "FINDING",
                     parent=event,
                     context=f"{{module}} discovered potential 403 bypass ({{event.type}}) for {event.data}",

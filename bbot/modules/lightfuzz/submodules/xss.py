@@ -90,7 +90,8 @@ class xss(BaseLightfuzz):
         if probe_result and match in probe_result.text:
             self.results.append(
                 {
-                    "type": "FINDING",
+                    "severity": "MEDIUM",
+                    "confidence": "MODERATE",
                     "description": f"Possible Reflected XSS. Parameter: [{self.event.data['name']}] Context: [{context}] Parameter Type: [{self.event.data['type']}]",
                 }
             )
