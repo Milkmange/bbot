@@ -35,9 +35,9 @@ async def test_scan(
     assert not scan0.in_scope("www.evilcorp.co.uk")
     j = scan0.json
     assert set(j["target"]["seeds"]) == {"1.1.1.0", "1.1.1.0/31", "evilcorp.com", "test.evilcorp.com"}
-    # we preserve the original whitelist inputs
-    assert set(j["target"]["whitelist"]) == {"1.1.1.0/32", "1.1.1.0/31", "evilcorp.com", "test.evilcorp.com"}
-    # but in the background they are collapsed
+    # no whitelist was set
+    assert j["target"]["whitelist"] is None
+    # but functionally it was copied from the seeds, and collapsed
     assert scan0.target.whitelist.hosts == {ip_network("1.1.1.0/31"), "evilcorp.com"}
     assert set(j["target"]["blacklist"]) == {"1.1.1.0/28", "www.evilcorp.com"}
     assert "ipneighbor" in j["preset"]["modules"]
@@ -201,7 +201,7 @@ async def test_python_output_matches_json(bbot_scanner):
     assert len(events) == 5
     scan_events = [e for e in events if e["type"] == "SCAN"]
     assert len(scan_events) == 2
-    assert all(isinstance(e["data"]["status"], str) for e in scan_events)
+    assert all(isinstance(e["data_json"]["status"], str) for e in scan_events)
     assert len([e for e in events if e["type"] == "DNS_NAME"]) == 1
     assert len([e for e in events if e["type"] == "ORG_STUB"]) == 1
     assert len([e for e in events if e["type"] == "IP_ADDRESS"]) == 1
@@ -230,7 +230,7 @@ async def test_huge_target_list(bbot_scanner, monkeypatch):
 async def test_exclude_cdn(bbot_scanner, monkeypatch):
     # test that CDN exclusion works
 
-    from bbot import Preset
+    from bbot.scanner import Preset
 
     dns_mock = {
         "evilcorp.com": {"A": ["127.0.0.1"]},

@@ -569,6 +569,75 @@ def test_preset_module_resolution(clean_default_config):
 
 
 @pytest.mark.asyncio
+async def test_custom_module_dir():
+    custom_module_dir = bbot_test_dir / "custom_modules"
+    custom_module_dir.mkdir(parents=True, exist_ok=True)
+
+    custom_module = custom_module_dir / "testmodule.py"
+    with open(custom_module, "w") as f:
+        f.write(
+            """
+from bbot.modules.base import BaseModule
+
+class TestModule(BaseModule):
+    watched_events = ["SCAN"]
+  
+    async def handle_event(self, event):
+        await self.emit_event("127.0.0.2", parent=event)
+"""
+        )
+
+    preset = {
+        "module_dirs": [str(custom_module_dir)],
+        "modules": ["testmodule"],
+    }
+    preset = Preset.from_dict(preset)
+
+    scan = Scanner("127.0.0.0/24", preset=preset)
+    events = [e async for e in scan.async_start()]
+    event_data = [(str(e.data), str(e.module)) for e in events]
+    assert ("127.0.0.2", "testmodule") in event_data
+
+    shutil.rmtree(custom_module_dir)
+
+
+def test_preset_scope_round_trip():
+    preset_dict = {
+        "target": ["127.0.0.1"],
+        "whitelist": ["127.0.0.2"],
+        "blacklist": ["127.0.0.3"],
+        "config": {"scope": {"strict": True}},
+    }
+    preset = Preset.from_dict(preset_dict)
+    baked = preset.bake()
+    assert list(baked.seeds) == ["127.0.0.1"]
+    assert list(baked.whitelist) == ["127.0.0.2"]
+    assert list(baked.blacklist) == ["127.0.0.3"]
+    assert baked.config.scope.strict is True
+    assert baked.to_dict(include_target=True) == preset_dict
+
+
+def test_preset_target_tolerance():
+    # tolerate both "target" and "targets", since this is a common oopsie
+    preset_dict = {
+        "target": ["127.0.0.1"],
+        "targets": ["127.0.0.2"],
+    }
+    preset = Preset.from_dict(preset_dict)
+    baked = preset.bake()
+    assert set(baked.seeds) == {"127.0.0.1", "127.0.0.2"}
+
+    preset = Preset.from_yaml_string("""
+target:
+  - 127.0.0.1
+targets:
+  - 127.0.0.2
+""")
+    baked = preset.bake()
+    assert set(baked.seeds) == {"127.0.0.1", "127.0.0.2"}
+
+
+@pytest.mark.asyncio
 async def test_preset_module_loader():
     custom_module_dir = bbot_test_dir / "custom_module_dir"
     custom_module_dir_2 = custom_module_dir / "asdf"

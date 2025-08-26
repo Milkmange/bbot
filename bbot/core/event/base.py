@@ -11,6 +11,7 @@ import traceback
 
 from pathlib import Path
 from typing import Optional
+from zoneinfo import ZoneInfo
 from copy import copy, deepcopy
 from contextlib import suppress
 from radixtarget import RadixTarget
@@ -40,6 +41,7 @@ from bbot.core.helpers import (
     validators,
     get_file_extension,
 )
+from bbot.models.helpers import utc_datetime_validator
 from bbot.core.helpers.web.envelopes import BaseEnvelope
 
 
@@ -401,6 +403,8 @@ class BaseEvent:
     @property
     def port(self):
         self.host
+        if self._port:
+            return self._port
         if getattr(self, "parsed_url", None):
             if self.parsed_url.port is not None:
                 return self.parsed_url.port
@@ -408,7 +412,6 @@ class BaseEvent:
                 return 443
             elif self.parsed_url.scheme == "http":
                 return 80
-        return self._port
 
     @property
     def netloc(self):
@@ -811,7 +814,7 @@ class BaseEvent:
             return bool(radixtarget.search(other.host))
         return False
 
-    def json(self, mode="json", siem_friendly=False):
+    def json(self, mode="json"):
         """
         Serializes the event object to a JSON-compatible dictionary.
 
@@ -820,7 +823,6 @@ class BaseEvent:
 
         Parameters:
             mode (str): Specifies the data serialization mode. Default is "json". Other options include "graph", "human", and "id".
-            siem_friendly (bool): Whether to format the JSON in a way that's friendly to SIEM ingestion by Elastic, Splunk, etc. This ensures the value of "data" is always the same type (a dictionary).
 
         Returns:
             dict: JSON-serializable dictionary representation of the event object.
@@ -837,10 +839,12 @@ class BaseEvent:
             data = data_attr
         else:
             data = smart_decode(self.data)
-        if siem_friendly:
-            j["data"] = {self.type: data}
-        else:
+        if isinstance(data, str):
             j["data"] = data
+        elif isinstance(data, dict):
+            j["data_json"] = data
+        else:
+            raise ValueError(f"Invalid data type: {type(data)}")
         # host, dns children
         if self.host:
             j["host"] = str(self.host)
@@ -858,7 +862,7 @@ class BaseEvent:
         if self.scan:
             j["scan"] = self.scan.id
         # timestamp
-        j["timestamp"] = self.timestamp.isoformat()
+        j["timestamp"] = utc_datetime_validator(self.timestamp).timestamp()
         # parent event
         parent_id = self.parent_id
         if parent_id:
@@ -867,8 +871,7 @@ class BaseEvent:
         if parent_uuid:
             j["parent_uuid"] = parent_uuid
         # tags
-        if self.tags:
-            j.update({"tags": list(self.tags)})
+        j.update({"tags": sorted(self.tags)})
         # parent module
         if self.module:
             j.update({"module": str(self.module)})
@@ -1084,9 +1087,10 @@ class ClosestHostEvent(DictHostEvent):
                     parent_path = parent.data.get("path", None)
                     if parent_path is not None:
                         self.data["path"] = parent_path
-                # inherit closest host
+                # inherit closest host+port
                 if parent.host:
                     self.data["host"] = str(parent.host)
+                    self._port = parent.port
                     # we do this to refresh the hash
                     self.data = self.data
                     break
@@ -1097,6 +1101,7 @@ class ClosestHostEvent(DictHostEvent):
 
 class DictPathEvent(DictEvent):
     def sanitize_data(self, data):
+        data = super().sanitize_data(data)
         new_data = dict(data)
         new_data["path"] = str(new_data["path"])
         file_blobs = getattr(self.scan, "_file_blobs", False)
@@ -1550,19 +1555,23 @@ class VULNERABILITY(ClosestHostEvent):
         "HIGH": "🟥",
         "MEDIUM": "🟧",
         "LOW": "🟨",
+        "INFO": "🟦",
         "UNKNOWN": "⬜",
     }
 
     def sanitize_data(self, data):
+        data = super().sanitize_data(data)
         self.add_tag(data["severity"].lower())
         return data
 
     class _data_validator(BaseModel):
         host: Optional[str] = None
         severity: str
+        name: str
         description: str
         url: Optional[str] = None
         path: Optional[str] = None
+        cves: Optional[list[str]] = None
         _validate_url = field_validator("url")(validators.validate_url)
         _validate_host = field_validator("host")(validators.validate_host)
         _validate_severity = field_validator("severity")(validators.validate_severity)
@@ -1577,6 +1586,7 @@ class FINDING(ClosestHostEvent):
 
     class _data_validator(BaseModel):
         host: Optional[str] = None
+        name: str
         description: str
         url: Optional[str] = None
         path: Optional[str] = None
@@ -1594,6 +1604,11 @@ class TECHNOLOGY(DictHostEvent):
         url: Optional[str] = None
         _validate_url = field_validator("url")(validators.validate_url)
         _validate_host = field_validator("host")(validators.validate_host)
+
+    def _sanitize_data(self, data):
+        data = super()._sanitize_data(data)
+        data["technology"] = data["technology"].lower()
+        return data
 
     def _data_id(self):
         # dedupe by host+port+tech
@@ -1724,6 +1739,7 @@ class MOBILE_APP(DictEvent):
     _always_emit = True
 
     def _sanitize_data(self, data):
+        data = super()._sanitize_data(data)
         if isinstance(data, str):
             data = {"url": data}
         if "url" not in data:
@@ -1886,7 +1902,7 @@ def make_event(
         )
 
 
-def event_from_json(j, siem_friendly=False):
+def event_from_json(j):
     """
     Creates an event object from a JSON dictionary.
 
@@ -1917,10 +1933,12 @@ def event_from_json(j, siem_friendly=False):
             "context": j.get("discovery_context", None),
             "dummy": True,
         }
-        if siem_friendly:
-            data = j["data"][event_type]
-        else:
-            data = j["data"]
+        data = j.get("data_json", None)
+        if data is None:
+            data = j.get("data", None)
+        if data is None:
+            json_pretty = json.dumps(j, indent=2)
+            raise ValueError(f"data or data_json must be provided. JSON: {json_pretty}")
         kwargs["data"] = data
         event = make_event(**kwargs)
         event_uuid = j.get("uuid", None)
@@ -1929,7 +1947,12 @@ def event_from_json(j, siem_friendly=False):
 
         resolved_hosts = j.get("resolved_hosts", [])
         event._resolved_hosts = set(resolved_hosts)
-        event.timestamp = datetime.datetime.fromisoformat(j["timestamp"])
+
+        # accept both isoformat and unix timestamp
+        try:
+            event.timestamp = datetime.datetime.fromtimestamp(j["timestamp"], ZoneInfo("UTC"))
+        except Exception:
+            event.timestamp = datetime.datetime.fromisoformat(j["timestamp"])
         event.scope_distance = j["scope_distance"]
         parent_id = j.get("parent", None)
         if parent_id is not None:

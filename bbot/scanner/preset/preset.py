@@ -115,7 +115,7 @@ class Preset(metaclass=BasePreset):
 
     def __init__(
         self,
-        *targets,
+        *target,
         whitelist=None,
         blacklist=None,
         modules=None,
@@ -142,7 +142,7 @@ class Preset(metaclass=BasePreset):
         Initializes the Preset class.
 
         Args:
-            *targets (str): Target(s) to scan. Types supported: hostnames, IPs, CIDRs, emails, open ports.
+            *target (str): Target(s) to scan. Types supported: hostnames, IPs, CIDRs, emails, open ports.
             whitelist (list, optional): Whitelisted target(s) to scan. Defaults to the same as `targets`.
             blacklist (list, optional): Blacklisted target(s). Takes ultimate precedence. Defaults to empty.
             modules (list[str], optional): List of scan modules to enable for the scan. Defaults to empty list.
@@ -262,7 +262,7 @@ class Preset(metaclass=BasePreset):
 
         # target / whitelist / blacklist
         # these are temporary receptacles until they all get .baked() together
-        self._seeds = set(targets if targets else [])
+        self._seeds = set(target if target else [])
         self._whitelist = set(whitelist) if whitelist else whitelist
         self._blacklist = set(blacklist if blacklist else [])
 
@@ -288,7 +288,7 @@ class Preset(metaclass=BasePreset):
 
     @property
     def seeds(self):
-        if self._seeds is None:
+        if self._target is None:
             raise ValueError("Cannot access target before preset is baked (use ._seeds instead)")
         return self.target.seeds
 
@@ -402,6 +402,8 @@ class Preset(metaclass=BasePreset):
         """
         Return a "baked" copy of this preset, ready for use by a BBOT scan.
 
+        Presets can be merged and modified before baking, but once baked, they are immutable.
+
         Baking a preset finalizes it by populating `preset.modules` based on flags,
         performing final validations, and substituting environment variables in preloaded modules.
         It also evaluates custom `conditions` as specified in the preset.
@@ -486,7 +488,7 @@ class Preset(metaclass=BasePreset):
             *list(self._seeds),
             whitelist=self._whitelist,
             blacklist=self._blacklist,
-            strict_scope=self.strict_scope,
+            strict_dns_scope=self.strict_scope,
         )
 
         if scan is not None:
@@ -655,8 +657,11 @@ class Preset(metaclass=BasePreset):
         Examples:
             >>> preset = Preset.from_dict({"target": ["evilcorp.com"], "modules": ["portscan"]})
         """
+        # tolerate both "target" and "targets", since this is a common oopsie
+        targets = preset_dict.get("target", [])
+        targets += preset_dict.get("targets", [])
         new_preset = cls(
-            *preset_dict.get("target", []),
+            *targets,
             whitelist=preset_dict.get("whitelist"),
             blacklist=preset_dict.get("blacklist"),
             modules=preset_dict.get("modules"),
@@ -824,7 +829,7 @@ class Preset(metaclass=BasePreset):
         if self.scan_name:
             preset_dict["scan_name"] = self.scan_name
         if self.scan_name and self.output_dir is not None:
-            preset_dict["output_dir"] = self.output_dir
+            preset_dict["output_dir"] = str(self.output_dir)
 
         # conditions
         if self.conditions:

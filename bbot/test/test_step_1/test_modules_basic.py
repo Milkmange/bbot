@@ -242,7 +242,7 @@ async def test_modules_basic_perhostonly(bbot_scanner):
     scan.modules["mod_host_only"] = mod_host_only(scan)
     scan.modules["mod_hostport_only"] = mod_hostport_only(scan)
     scan.modules["mod_domain_only"] = mod_domain_only(scan)
-    scan.status = "RUNNING"
+    await scan._set_status("RUNNING")
 
     url_1 = scan.make_event("http://evilcorp.com/1", event_type="URL", parent=scan.root_event, tags=["status-200"])
     url_2 = scan.make_event("http://evilcorp.com/2", event_type="URL", parent=scan.root_event, tags=["status-200"])
@@ -310,7 +310,7 @@ async def test_modules_basic_perdomainonly(bbot_scanner, monkeypatch):
 
     await per_domain_scan.load_modules()
     await per_domain_scan.setup_modules()
-    per_domain_scan.status = "RUNNING"
+    await per_domain_scan._set_status("RUNNING")
 
     # ensure that multiple events to the same "host" (schema + host) are blocked and check the per host tracker
 
@@ -354,7 +354,14 @@ async def test_modules_basic_stats(helpers, events, bbot_scanner, httpx_mock, mo
             # quick emit events like FINDINGS behave differently than normal ones
             # hosts are not speculated from them
             await self.emit_event(
-                {"host": "www.evilcorp.com", "url": "http://www.evilcorp.com", "description": "asdf"}, "FINDING", event
+                {
+                    "host": "www.evilcorp.com",
+                    "url": "http://www.evilcorp.com",
+                    "description": "asdf",
+                    "name": "Finding",
+                },
+                "FINDING",
+                event,
             )
             await self.emit_event("https://asdf.evilcorp.com", "URL", event, tags=["status-200"])
 
@@ -449,7 +456,7 @@ async def test_module_loading(bbot_scanner):
         force_start=True,
     )
     await scan2.load_modules()
-    scan2.status = "RUNNING"
+    await scan2._set_status("RUNNING")
 
     # attributes, descriptions, etc.
     for module_name, module in sorted(scan2.modules.items()):
