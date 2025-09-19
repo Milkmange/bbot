@@ -341,6 +341,7 @@ class iis_shortnames(BaseModule):
                             if url_hint.lower().endswith(".zip"):
                                 await self.emit_event(
                                     {
+                                        "name": "Possible backup file (zip) in web root",
                                         "host": str(event.host),
                                         "url": event.data,
                                         "description": f"Possible backup file (zip) in web root: {normalized_url}{url_hint}",
