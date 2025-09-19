@@ -63,6 +63,7 @@ class aspnet_bin_exposure(BaseModule):
                                 description = f"IIS Bin Directory DLL Exposure. Detection Url: [{test_url}]"
                                 await self.emit_event(
                                     {
+                                        "name": "IIS Bin Directory DLL Exposure",
                                         "severity": "HIGH",
                                         "host": str(event.host),
                                         "url": normalized_url,
