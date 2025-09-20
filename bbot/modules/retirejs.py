@@ -183,6 +183,7 @@ class retirejs(BaseModule):
                                     description_parts.append(f"Affected versions: [>= {at_or_above}]")
                                 description = " ".join(description_parts)
                                 data = {
+                                    "name": "Vulnerable JavaScript Library",
                                     "description": description,
                                     "severity": severity,
                                     "component": component,
