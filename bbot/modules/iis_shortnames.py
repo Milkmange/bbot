@@ -116,13 +116,6 @@ class iis_shortnames(BaseModule):
 
         return duplicates
 
-    async def threaded_request(self, method, url, affirmative_status_code, c):
-        r = await self.helpers.request(method=method, url=url, allow_redirects=False, retries=2, timeout=10)
-        if r is not None:
-            if r.status_code == affirmative_status_code:
-                return True, c
-        return None, c
-
     async def solve_valid_chars(self, method, target, affirmative_status_code):
         confirmed_chars = []
         confirmed_exts = []
@@ -348,6 +341,7 @@ class iis_shortnames(BaseModule):
                             if url_hint.lower().endswith(".zip"):
                                 await self.emit_event(
                                     {
+                                        "name": "Possible backup file (zip) in web root",
                                         "host": str(event.host),
                                         "url": event.data,
                                         "description": f"Possible backup file (zip) in web root: {normalized_url}{url_hint}",

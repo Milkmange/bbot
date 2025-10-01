@@ -14,7 +14,7 @@ class trufflehog(BaseModule):
     }
 
     options = {
-        "version": "3.89.2",
+        "version": "3.90.6",
         "config": "",
         "only_verified": True,
         "concurrency": 8,
@@ -199,7 +199,7 @@ class trufflehog(BaseModule):
 
                     yield (decoder_name, detector_name, raw_result, rawv2_result, verified, source_metadata)
         finally:
-            stats_file.unlink()
+            stats_file.unlink(missing_ok=True)
 
     def log_trufflehog_status(self, path, line):
         try:

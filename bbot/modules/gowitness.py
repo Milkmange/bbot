@@ -16,7 +16,7 @@ class gowitness(BaseModule):
     flags = ["active", "safe", "web-screenshots"]
     meta = {"description": "Take screenshots of webpages", "created_date": "2022-07-08", "author": "@TheTechromancer"}
     options = {
-        "version": "2.4.2",
+        "version": "3.0.5",
         "threads": 0,
         "timeout": 10,
         "resolution_x": 1440,
@@ -174,6 +174,7 @@ class gowitness(BaseModule):
         new_screenshots = await self.get_new_screenshots()
         for filename, screenshot in new_screenshots.items():
             url = screenshot["url"]
+            url = self.helpers.clean_url(url).geturl()
             final_url = screenshot["final_url"]
             filename = self.screenshot_path / screenshot["filename"]
             filename = filename.relative_to(self.scan.home)
@@ -191,11 +192,11 @@ class gowitness(BaseModule):
         # emit URLs
         new_network_logs = await self.get_new_network_logs()
         for url, row in new_network_logs.items():
-            ip = row["ip"]
+            ip = row["remote_ip"]
             status_code = row["status_code"]
             tags = [f"status-{status_code}", f"ip-{ip}", "spider-danger"]
 
-            _id = row["url_id"]
+            _id = row["result_id"]
             parent_url = self.screenshots_taken[_id]
             parent_event = event_dict[parent_url]
             if url and url.startswith("http"):
@@ -210,7 +211,7 @@ class gowitness(BaseModule):
         # emit technologies
         new_technologies = await self.get_new_technologies()
         for row in new_technologies.values():
-            parent_id = row["url_id"]
+            parent_id = row["result_id"]
             parent_url = self.screenshots_taken[parent_id]
             parent_event = event_dict[parent_url]
             technology = row["value"]
@@ -224,28 +225,29 @@ class gowitness(BaseModule):
 
     def construct_command(self):
         # base executable
-        command = ["gowitness"]
+        command = ["gowitness", "scan"]
         # chrome path
         if self.chrome_path is not None:
             command += ["--chrome-path", str(self.chrome_path)]
         # db path
-        command += ["--db-path", str(self.db_path)]
+        command += ["--write-db"]
+        command += ["--write-db-uri", f"sqlite://{self.db_path}"]
         # screenshot path
         command += ["--screenshot-path", str(self.screenshot_path)]
         # user agent
-        command += ["--user-agent", f"{self.scan.useragent}"]
+        command += ["--chrome-user-agent", f"{self.scan.useragent}"]
         # proxy
         if self.proxy:
-            command += ["--proxy", str(self.proxy)]
+            command += ["--chrome-proxy", str(self.proxy)]
         # resolution
-        command += ["--resolution-x", str(self.resolution_x)]
-        command += ["--resolution-y", str(self.resolution_y)]
-        # input
-        command += ["file", "-f", "-"]
+        command += ["--chrome-window-x", str(self.resolution_x)]
+        command += ["--chrome-window-y", str(self.resolution_y)]
         # threads
         command += ["--threads", str(self.threads)]
         # timeout
         command += ["--timeout", str(self.timeout)]
+        # input
+        command += ["file", "-f", "-"]
         return command
 
     async def get_new_screenshots(self):
@@ -254,7 +256,7 @@ class gowitness(BaseModule):
             async with aiosqlite.connect(str(self.db_path)) as con:
                 con.row_factory = aiosqlite.Row
                 con.text_factory = self.helpers.smart_decode
-                async with con.execute("SELECT * FROM urls") as cur:
+                async with con.execute("SELECT * FROM results") as cur:
                     async for row in cur:
                         row = dict(row)
                         _id = row["id"]
@@ -271,7 +273,7 @@ class gowitness(BaseModule):
                 async with con.execute("SELECT * FROM network_logs") as cur:
                     async for row in cur:
                         row = dict(row)
-                        url = row["final_url"]
+                        url = row["url"]
                         if url not in self.connections_logged:
                             self.connections_logged.add(url)
                             network_logs[url] = row

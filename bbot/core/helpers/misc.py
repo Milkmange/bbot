@@ -17,6 +17,7 @@ from unidecode import unidecode  # noqa F401
 from asyncio import create_task, gather, sleep, wait_for  # noqa
 from urllib.parse import urlparse, quote, unquote, urlunparse, urljoin  # noqa F401
 
+from .git import *  # noqa F401
 from .url import *  # noqa F401
 from ... import errors
 from . import regexes as bbot_regexes
@@ -216,26 +217,29 @@ def split_host_port(d):
     host = None
     port = None
     scheme = None
+
+    # first, try to parse as an IP address
     if is_ip(d):
         return make_ip_type(d), port
 
+    # if not an IP address, try to parse as a host:port
     match = bbot_regexes.split_host_port_regex.match(d)
     if match is None:
-        raise ValueError(f'split_port() failed to parse "{d}"')
+        raise ValueError(f'split_host_port() failed to parse "{d}"')
     scheme = match.group("scheme")
     netloc = match.group("netloc")
     if netloc is None:
-        raise ValueError(f'split_port() failed to parse "{d}"')
+        raise ValueError(f'split_host_port() failed to parse "{d}"')
 
     match = bbot_regexes.extract_open_port_regex.match(netloc)
     if match is None:
-        raise ValueError(f'split_port() failed to parse netloc "{netloc}" (original value: {d})')
+        raise ValueError(f'split_host_port() failed to parse netloc "{netloc}" (original value: {d})')
 
     host = match.group(2)
     if host is None:
         host = match.group(1)
     if host is None:
-        raise ValueError(f'split_port() failed to locate host in netloc "{netloc}" (original value: {d})')
+        raise ValueError(f'split_host_port() failed to locate host in netloc "{netloc}" (original value: {d})')
 
     port = match.group(3)
     if port is None and scheme is not None:
@@ -831,7 +835,9 @@ def rand_string(length=10, digits=True, numeric_only=False):
     return "".join(random.choice(pool) for _ in range(length))
 
 
-def truncate_string(s, n):
+def truncate_string(s: str, n: int) -> str:
+    if not isinstance(s, str):
+        raise ValueError(f"Expected string, got {type(s)}")
     if len(s) > n:
         return s[: n - 3] + "..."
     else:

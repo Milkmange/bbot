@@ -143,7 +143,8 @@ class medusa(BaseModule):
                     self.info(f"Medusa stderr: {result.stderr}")
 
                 async for message in self.parse_output(result.stdout, snmp_version):
-                    vuln_event = self.create_vuln_event("CRITICAL", message, event)
+                    vuln_name = f"Valid SNMPV{snmp_version} Credentials Found!"
+                    vuln_event = self.create_vuln_event("CRITICAL", vuln_name, message, event)
                     await self.emit_event(vuln_event)
 
         # else: Medusa supports various protocols which could in theory be implemented later on.
@@ -219,17 +220,12 @@ class medusa(BaseModule):
 
         return cmd
 
-    def create_vuln_event(self, severity, description, source_event):
+    def create_vuln_event(self, severity, name, description, source_event):
         host = str(source_event.host)
         port = str(source_event.port)
 
         return self.make_event(
-            {
-                "severity": severity,
-                "host": host,
-                "port": port,
-                "description": description,
-            },
+            {"severity": severity, "host": host, "port": port, "description": description, "name": name},
             "VULNERABILITY",
             source_event,
         )
