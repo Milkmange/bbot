@@ -420,7 +420,6 @@ async def test_events(events, helpers):
             dummy=True,
         )
 
-   
     # technology should be lowercased
     tech_event = scan.make_event(
         {"host": "evilcorp.com", "technology": "HTTP", "url": "http://evilcorp.com/test"},
@@ -982,14 +981,20 @@ def test_event_closest_host():
     assert not event3.host
     # finding automatically uses the host from the second event
     finding = scan.make_event(
-        {"description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"}, "FINDING", parent=event3
+        {"description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"},
+        "FINDING",
+        parent=event3,
     )
     assert finding.data["host"] == "www.evilcorp.com"
     assert finding.data["url"] == "http://www.evilcorp.com/asdf"
     assert finding.data["path"] == "/tmp/asdf.txt"
     assert finding.host == "www.evilcorp.com"
     # same with vuln
-    vuln = scan.make_event({"description": "test", "severity": "HIGH", "confidence": "HIGH", "name": "Test Finding"}, "FINDING", parent=event3)
+    vuln = scan.make_event(
+        {"description": "test", "severity": "HIGH", "confidence": "HIGH", "name": "Test Finding"},
+        "FINDING",
+        parent=event3,
+    )
     assert vuln.data["host"] == "www.evilcorp.com"
     assert vuln.data["url"] == "http://www.evilcorp.com/asdf"
     assert vuln.data["path"] == "/tmp/asdf.txt"
@@ -1000,32 +1005,60 @@ def test_event_closest_host():
     assert not event3.host
     with pytest.raises(ValueError):
         finding = scan.make_event(
-            {"description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"}, "FINDING", parent=event3
+            {"description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"},
+            "FINDING",
+            parent=event3,
         )
     finding = scan.make_event(
-        {"path": "/tmp/asdf.txt", "description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"},
+        {
+            "path": "/tmp/asdf.txt",
+            "description": "test",
+            "severity": "LOW",
+            "confidence": "MODERATE",
+            "name": "Test Finding",
+        },
         "FINDING",
         parent=event3,
     )
     assert finding is not None
     finding = scan.make_event(
-        {"host": "evilcorp.com", "description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"},
+        {
+            "host": "evilcorp.com",
+            "description": "test",
+            "severity": "LOW",
+            "confidence": "MODERATE",
+            "name": "Test Finding",
+        },
         "FINDING",
         parent=event3,
     )
     assert finding is not None
     with pytest.raises(ValueError):
         vuln = scan.make_event(
-            {"description": "test", "severity": "HIGH", "confidence": "CONFIRMED", "name": "Test Finding"}, "FINDING", parent=event3
+            {"description": "test", "severity": "HIGH", "confidence": "CONFIRMED", "name": "Test Finding"},
+            "FINDING",
+            parent=event3,
         )
     vuln = scan.make_event(
-        {"path": "/tmp/asdf.txt", "description": "test", "severity": "HIGH", "confidence": "CONFIRMED", "name": "Test Finding"},
+        {
+            "path": "/tmp/asdf.txt",
+            "description": "test",
+            "severity": "HIGH",
+            "confidence": "CONFIRMED",
+            "name": "Test Finding",
+        },
         "FINDING",
         parent=event3,
     )
     assert vuln is not None
     vuln = scan.make_event(
-        {"host": "evilcorp.com", "description": "test", "severity": "HIGH", "confidence": "CONFIRMED", "name": "Test Finding"},
+        {
+            "host": "evilcorp.com",
+            "description": "test",
+            "severity": "HIGH",
+            "confidence": "CONFIRMED",
+            "name": "Test Finding",
+        },
         "FINDING",
         parent=event3,
     )
