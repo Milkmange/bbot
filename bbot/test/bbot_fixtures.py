@@ -199,13 +199,25 @@ def events(scan):
         )
         url_hint = scan.make_event("https://api.publicAPIs.org:443/hello.ash", "URL_HINT", parent=url)
         finding = scan.make_event(
-            {"host": "evilcorp.com", "severity": "INFORMATIONAL", "confidence": "HIGH", "description": "asdf"},
+            {
+                "host": "evilcorp.com",
+                "severity": "INFORMATIONAL",
+                "confidence": "HIGH",
+                "description": "asdf",
+                "name": "Test Finding",
+            },
             "FINDING",
             parent=scan.root_event,
             module=dummy_module,
         )
         finding = scan.make_event(
-            {"host": "evilcorp.com", "description": "asdf", "name": "Finding"},
+            {
+                "host": "evilcorp.com",
+                "description": "asdf",
+                "name": "Finding",
+                "severity": "INFORMATIONAL",
+                "confidence": "HIGH",
+            },
             "FINDING",
             parent=scan.root_event,
             module=dummy_module,
