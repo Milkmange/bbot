@@ -270,7 +270,7 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
 
         async def handle_event(self, event):
             await self.emit_event(
-                {"host": str(event.host), "description": "yep", "severity": "CRITICAL", "confidence": "CONFIRMED"}, "FINDING", parent=event
+                {"host": str(event.host), "description": "yep", "severity": "CRITICAL", "confidence": "CONFIRMED", "name": "Test Finding"}, "FINDING", parent=event
             )
 
     def custom_setup(scan):
