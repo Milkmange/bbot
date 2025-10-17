@@ -1548,13 +1548,9 @@ class FINDING(ClosestHostEvent):
 
     class _data_validator(BaseModel):
         host: Optional[str] = None
-<<<<<<< HEAD
         severity: str
         name: str
-=======
->>>>>>> vulnerability-funeral
         description: str
-        severity: str
         confidence: str
         url: Optional[str] = None
         path: Optional[str] = None
@@ -1573,8 +1569,8 @@ class FINDING(ClosestHostEvent):
             confidence_str = f"[\033[1m{confidence}\033[0m]"
         else:
             confidence_str = f"[{confidence}]"
+        return f"Severity: [{severity}] Confidence: {confidence_str} {description}"
 
-<<<<<<< HEAD
 class FINDING(ClosestHostEvent):
     _always_emit = True
     _quick_emit = True
@@ -1590,10 +1586,6 @@ class FINDING(ClosestHostEvent):
 
     def _pretty_string(self):
         return self.data["description"]
-=======
-        return f"Severity: [{severity}] Confidence: {confidence_str} {description}"
->>>>>>> vulnerability-funeral
-
 
 class TECHNOLOGY(DictHostEvent):
     class _data_validator(BaseModel):
