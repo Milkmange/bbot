@@ -181,18 +181,18 @@ class TestExcavateInScopeJavascript(TestExcavate):
 
     def check(self, module_test, events):
         found_js_url_event = False
-        found_badsecrets_vulnerability = False
+        found_badsecrets_finding = False
         found_excavate_jwt_finding = False
         for e in events:
             if e.type == "URL" and e.data == "http://127.0.0.1:8888/script.js":
                 found_js_url_event = True
             if e.type == "FINDING" and "JWT" in e.data["description"] and str(e.module) == "excavate":
                 found_excavate_jwt_finding = True
-            if e.type == "VULNERABILITY":
-                found_badsecrets_vulnerability = True
+            if e.type == "FINDING" and "BadSecrets" in e.data["name"] and str(e.module) == "badsecrets":
+                found_badsecrets_finding = True
 
         assert found_js_url_event, "Failed to find URL event for script.js"
-        assert found_badsecrets_vulnerability, "Failed to find BADSECRETs event from script.js"
+        assert found_badsecrets_finding, "Failed to find BADSECRETs finding from script.js"
         assert found_excavate_jwt_finding, "Failed to find JWT finding from script.js"
 
 
