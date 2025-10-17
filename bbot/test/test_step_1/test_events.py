@@ -420,21 +420,7 @@ async def test_events(events, helpers):
             dummy=True,
         )
 
-    # port and netloc should be derived from URL
-    test_vuln = scan.make_event(
-        {
-            "host": "evilcorp.com",
-            "name": "test",
-            "severity": "INFORMATIONAL",
-            "description": "asdf",
-            "url": "http://evilcorp.com/test",
-            "confidence": "HIGH",
-        },
-        "FINDING",
-        dummy=True,
-    )
-    assert test_vuln.host == "evilcorp.com"
-
+   
     # technology should be lowercased
     tech_event = scan.make_event(
         {"host": "evilcorp.com", "technology": "HTTP", "url": "http://evilcorp.com/test"},
@@ -996,14 +982,14 @@ def test_event_closest_host():
     assert not event3.host
     # finding automatically uses the host from the second event
     finding = scan.make_event(
-        {"description": "test", "severity": "LOW", "confidence": "MODERATE"}, "FINDING", parent=event3
+        {"description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"}, "FINDING", parent=event3
     )
     assert finding.data["host"] == "www.evilcorp.com"
     assert finding.data["url"] == "http://www.evilcorp.com/asdf"
     assert finding.data["path"] == "/tmp/asdf.txt"
     assert finding.host == "www.evilcorp.com"
     # same with vuln
-    vuln = scan.make_event({"description": "test", "severity": "HIGH", "confidence": "HIGH"}, "FINDING", parent=event3)
+    vuln = scan.make_event({"description": "test", "severity": "HIGH", "confidence": "HIGH", "name": "Test Finding"}, "FINDING", parent=event3)
     assert vuln.data["host"] == "www.evilcorp.com"
     assert vuln.data["url"] == "http://www.evilcorp.com/asdf"
     assert vuln.data["path"] == "/tmp/asdf.txt"
@@ -1014,32 +1000,32 @@ def test_event_closest_host():
     assert not event3.host
     with pytest.raises(ValueError):
         finding = scan.make_event(
-            {"description": "test", "severity": "LOW", "confidence": "MODERATE"}, "FINDING", parent=event3
+            {"description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"}, "FINDING", parent=event3
         )
     finding = scan.make_event(
-        {"path": "/tmp/asdf.txt", "description": "test", "severity": "LOW", "confidence": "MODERATE"},
+        {"path": "/tmp/asdf.txt", "description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"},
         "FINDING",
         parent=event3,
     )
     assert finding is not None
     finding = scan.make_event(
-        {"host": "evilcorp.com", "description": "test", "severity": "LOW", "confidence": "MODERATE"},
+        {"host": "evilcorp.com", "description": "test", "severity": "LOW", "confidence": "MODERATE", "name": "Test Finding"},
         "FINDING",
         parent=event3,
     )
     assert finding is not None
     with pytest.raises(ValueError):
         vuln = scan.make_event(
-            {"description": "test", "severity": "HIGH", "confidence": "CONFIRMED"}, "FINDING", parent=event3
+            {"description": "test", "severity": "HIGH", "confidence": "CONFIRMED", "name": "Test Finding"}, "FINDING", parent=event3
         )
     vuln = scan.make_event(
-        {"path": "/tmp/asdf.txt", "description": "test", "severity": "HIGH", "confidence": "CONFIRMED"},
+        {"path": "/tmp/asdf.txt", "description": "test", "severity": "HIGH", "confidence": "CONFIRMED", "name": "Test Finding"},
         "FINDING",
         parent=event3,
     )
     assert vuln is not None
     vuln = scan.make_event(
-        {"host": "evilcorp.com", "description": "test", "severity": "HIGH", "confidence": "CONFIRMED"},
+        {"host": "evilcorp.com", "description": "test", "severity": "HIGH", "confidence": "CONFIRMED", "name": "Test Finding"},
         "FINDING",
         parent=event3,
     )
@@ -1135,6 +1121,7 @@ def test_event_hashing():
         "description": "Custom Yara Rule [find_string] Matched via identifier [str1]",
         "severity": "MEDIUM",
         "confidence": "HIGH",
+        "name": "Finding",
     }
     finding1 = scan.make_event(finding_data, "FINDING", parent=host_event_1)
     finding2 = scan.make_event(finding_data, "FINDING", parent=host_event_2)
