@@ -20,7 +20,7 @@ class telerik(BaseModule):
     """
 
     watched_events = ["URL", "HTTP_RESPONSE"]
-    produced_events = ["VULNERABILITY", "FINDING"]
+    produced_events = ["FINDING"]
     flags = ["active", "aggressive", "web-thorough"]
     meta = {
         "description": "Scan for critical Telerik vulnerabilities",
@@ -247,6 +247,8 @@ class telerik(BaseModule):
                             "url": f"{base_url}{webresource}",
                             "description": description,
                             "name": "Telerik Handler",
+                            "severity": "INFORMATIONAL",
+                            "confidence": "HIGH",
                         },
                         "FINDING",
                         event,
@@ -274,18 +276,19 @@ class telerik(BaseModule):
                                     command.append(self.scan.http_proxy)
 
                                 output = await self.run_process(command)
-                                description = f"[CVE-2017-11317] [{str(version)}] {webresource}"
+                                description = f"Confirmed Vulnerable Telerik (version: {str(version)})"
                                 if "fileInfo" in output.stdout:
                                     self.debug(f"Confirmed Vulnerable Telerik (version: {str(version)}")
                                     await self.emit_event(
                                         {
                                             "severity": "CRITICAL",
+                                            "confidence": "CONFIRMED",
                                             "description": description,
                                             "host": str(event.host),
                                             "url": f"{base_url}{webresource}",
                                             "name": "Telerik RCE",
                                         },
-                                        "VULNERABILITY",
+                                        "FINDING",
                                         event,
                                         context=f"{{module}} scanned {base_url} and identified critical {{event.type}}: {description}",
                                     )
@@ -318,6 +321,8 @@ class telerik(BaseModule):
                                 "url": f"{base_url}{dh}",
                                 "description": description,
                                 "name": "Telerik Handler",
+                                "confidence": "CONFIRMED",
+                                "severity": "INFORMATIONAL",
                             },
                             "FINDING",
                             event,
@@ -343,6 +348,8 @@ class telerik(BaseModule):
                             "url": f"{base_url}{spellcheckhandler}",
                             "description": description,
                             "name": "Telerik Handler",
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,
@@ -363,6 +370,8 @@ class telerik(BaseModule):
                             "url": f"{base_url}{chartimagehandler}",
                             "description": "Telerik ChartImage AXD Handler Detected",
                             "name": "Telerik Handler",
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,
@@ -380,6 +389,8 @@ class telerik(BaseModule):
                             "url": url,
                             "description": "Telerik DialogHandler [SerializedParameters] Detected in HTTP Response",
                             "name": "Telerik Handler",
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,
@@ -392,6 +403,8 @@ class telerik(BaseModule):
                             "url": url,
                             "description": "Telerik AsyncUpload [serializedConfiguration] Detected in HTTP Response",
                             "name": "Telerik AsyncUpload",
+                            "confidence": "CONFIRMED",
+                            "severity": "INFORMATIONAL",
                         },
                         "FINDING",
                         event,

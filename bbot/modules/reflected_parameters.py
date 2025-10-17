@@ -30,6 +30,8 @@ class reflected_parameters(BaseModule):
                 "description": description,
                 "url": url,
                 "name": "Reflected Parameter",
+                "severity": "INFORMATIONAL",
+                "confidence": "HIGH",
             }
             await self.emit_event(data, "FINDING", event)
 

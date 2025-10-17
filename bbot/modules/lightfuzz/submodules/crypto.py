@@ -284,9 +284,9 @@ class crypto(BaseLightfuzz):
                 context = f"Lightfuzz Cryptographic Probe Submodule detected a probable padding oracle vulnerability after manipulating parameter: [{self.event.data['name']}]"
                 self.results.append(
                     {
-                        "type": "VULNERABILITY",
                         "severity": "HIGH",
                         "name": "Padding Oracle Vulnerability",
+                        "confidence": "HIGH",
                         "description": f"Padding Oracle Vulnerability. Block size: [{str(block_size)}] {self.metadata()}",
                         "context": context,
                     }
@@ -320,8 +320,9 @@ class crypto(BaseLightfuzz):
             if unique_matches:
                 self.results.append(
                     {
-                        "type": "FINDING",
-                        "name": "Lightfuzz - Possible Cryptographic Error",
+                        "name": "Possible Cryptographic Error",
+                        "severity": "INFORMATIONAL",
+                        "confidence": "LOW",
                         "description": f"Possible Cryptographic Error. {self.metadata()} Strings: [{','.join(unique_matches)}] Detection Technique(s): [{','.join(matching_techniques)}]",
                         "context": context,
                     }
@@ -415,8 +416,9 @@ class crypto(BaseLightfuzz):
             context = f"Lightfuzz Cryptographic Probe Submodule detected a parameter ({self.event.data['name']}) to appears to drive a cryptographic operation"
             self.results.append(
                 {
-                    "type": "FINDING",
-                    "name": "Lightfuzz - Probable Cryptographic Parameter",
+                    "name": "Probable Cryptographic Parameter",
+                    "severity": "INFORMATIONAL",
+                    "confidence": "LOW",
                     "description": f"Probable Cryptographic Parameter. {self.metadata()} Detection Technique(s): [{', '.join(confirmed_techniques)}]",
                     "context": context,
                 }
@@ -470,8 +472,9 @@ class crypto(BaseLightfuzz):
                             context = f"Lightfuzz Cryptographic Probe Submodule detected a parameter ({self.event.data['name']}) that is a likely a hash, which is connected to another parameter {additional_param_name})"
                             self.results.append(
                                 {
-                                    "type": "FINDING",
-                                    "name": "Lightfuzz - Possible Length Extension Attack",
+                                    "name": "Possible Length Extension Attack",
+                                    "severity": "INFORMATIONAL",
+                                    "confidence": "LOW",
                                     "description": f"Possible {self.event.data['type']} parameter with {hash_instance.name.upper()} Hash as value. {self.metadata()}, linked to additional parameter [{additional_param_name}]",
                                     "context": context,
                                 }

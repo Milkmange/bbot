@@ -1076,7 +1076,7 @@ class Testwpscan(ModuleTestBase):
 
     def check(self, module_test, events):
         findings = [e for e in events if e.type == "FINDING"]
-        vulnerabilities = [e for e in events if e.type == "VULNERABILITY"]
+        vulnerabilities = [e for e in events if e.type == "FINDING"]
         technologies = [e for e in events if e.type == "TECHNOLOGY"]
         assert len(findings) == 1
         assert len(vulnerabilities) == 59

@@ -45,6 +45,8 @@ class smuggler(BaseModule):
                             "url": event.data,
                             "description": description,
                             "name": "Possible HTTP Smuggling",
+                            "severity": "MEDIUM",
+                            "confidence": "LOW",
                         },
                         "FINDING",
                         parent=event,

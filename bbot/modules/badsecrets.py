@@ -6,7 +6,7 @@ from badsecrets.base import carve_all_modules
 
 class badsecrets(BaseModule):
     watched_events = ["HTTP_RESPONSE"]
-    produced_events = ["FINDING", "VULNERABILITY", "TECHNOLOGY"]
+    produced_events = ["FINDING", "TECHNOLOGY"]
     flags = ["active", "safe", "web-basic"]
     meta = {
         "description": "Library for detecting known or weak secrets across many web frameworks",
@@ -73,10 +73,11 @@ class badsecrets(BaseModule):
                             "description": f"Known Secret Found. Secret Type: [{r['description']['secret']}] Secret: [{r['secret']}] Product Type: [{r['description']['product']}] Product: [{self.helpers.truncate_string(r['product'], 2000)}] Detecting Module: [{r['detecting_module']}] Details: [{r['details']}]",
                             "url": event.data["url"],
                             "host": str(event.host),
+                            "confidence": "CONFIRMED",
                         }
                         await self.emit_event(
                             data,
-                            "VULNERABILITY",
+                            "FINDING",
                             event,
                             context=f'{{module}}\'s "{r["detecting_module"]}" module found known {r["description"]["product"]} secret ({{event.type}}): "{r["secret"]}"',
                         )
@@ -96,6 +97,8 @@ class badsecrets(BaseModule):
                                 "description": f"Cryptographic Product identified. Product Type: [{r['description']['product']}] Product: [{self.helpers.truncate_string(r['product'], 2000)}] Detecting Module: [{r['detecting_module']}]",
                                 "url": event.data["url"],
                                 "host": str(event.host),
+                                "severity": "INFORMATIONAL",
+                                "confidence": "CONFIRMED",
                             }
                             await self.emit_event(
                                 data,

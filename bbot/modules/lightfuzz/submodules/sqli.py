@@ -99,8 +99,9 @@ class sqli(BaseLightfuzz):
                     if sqli_error_string.lower() in single_quote[3].text.lower():
                         self.results.append(
                             {
-                                "type": "FINDING",
-                                "name": "Lightfuzz - Possible SQL Injection",
+                                "name": "Possible SQL Injection",
+                                "severity": "HIGH",
+                                "confidence": "MODERATE",
                                 "description": f"Possible SQL Injection. {self.metadata()} Detection Method: [SQL Error Detection] Detected String: [{sqli_error_string}]",
                             }
                         )
@@ -120,8 +121,9 @@ class sqli(BaseLightfuzz):
                     ):
                         self.results.append(
                             {
-                                "type": "FINDING",
-                                "name": "Lightfuzz - Possible SQL Injection",
+                                "name": "Possible SQL Injection",
+                                "severity": "HIGH",
+                                "confidence": "MODERATE",
                                 "description": f"Possible SQL Injection. {self.metadata()} Detection Method: [Single Quote/Two Single Quote, Code Change ({http_compare.baseline.status_code}->{single_quote[3].status_code}->{double_single_quote[3].status_code})]",
                             }
                         )
@@ -181,8 +183,9 @@ class sqli(BaseLightfuzz):
                 if confirmations == 3:
                     self.results.append(
                         {
-                            "type": "FINDING",
-                            "name": "Lightfuzz - Possible Blind SQL Injection",
+                            "name": "Possible Blind SQL Injection",
+                            "severity": "HIGH",
+                            "confidence": "LOW",
                             "description": f"Possible Blind SQL Injection. {self.metadata()} Detection Method: [Delay Probe ({p})]",
                         }
                     )

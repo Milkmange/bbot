@@ -197,12 +197,20 @@ def events(scan):
         url_hint = scan.make_event(
             "https://api.publicAPIs.org:443/hello.ash", "URL_HINT", parent=url, module=dummy_module
         )
+<<<<<<< HEAD
         vulnerability = scan.make_event(
             {"host": "evilcorp.com", "severity": "INFO", "description": "asdf", "name": "Vulnerability"},
             "VULNERABILITY",
+=======
+        url_hint = scan.make_event("https://api.publicAPIs.org:443/hello.ash", "URL_HINT", parent=url)
+        finding = scan.make_event(
+            {"host": "evilcorp.com", "severity": "INFORMATIONAL", "confidence": "HIGH", "description": "asdf"},
+            "FINDING",
+>>>>>>> vulnerability-funeral
             parent=scan.root_event,
             module=dummy_module,
         )
+<<<<<<< HEAD
         finding = scan.make_event(
             {"host": "evilcorp.com", "description": "asdf", "name": "Finding"},
             "FINDING",
@@ -213,6 +221,10 @@ def events(scan):
             {"host": "evilcorp.com", "vhost": "www.evilcorp.com"}, "VHOST", parent=scan.root_event, module=dummy_module
         )
         http_response = scan.make_event(httpx_response, "HTTP_RESPONSE", parent=scan.root_event, module=dummy_module)
+=======
+        vhost = scan.make_event({"host": "evilcorp.com", "vhost": "www.evilcorp.com"}, "VHOST", parent=scan.root_event)
+        http_response = scan.make_event(httpx_response, "HTTP_RESPONSE", parent=scan.root_event)
+>>>>>>> vulnerability-funeral
         storage_bucket = scan.make_event(
             {"name": "storage", "url": "https://storage.blob.core.windows.net"},
             "STORAGE_BUCKET",
@@ -241,7 +253,6 @@ def events(scan):
         bbot_events.ipv4_url,
         bbot_events.ipv6_url,
         bbot_events.url_hint,
-        bbot_events.vulnerability,
         bbot_events.finding,
         bbot_events.vhost,
         bbot_events.http_response,

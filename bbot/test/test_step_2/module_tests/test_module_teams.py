@@ -32,7 +32,7 @@ class TestTeams(DiscordBase):
         module_test.httpx_mock.add_callback(custom_response, url=self.webhook_url)
 
     def check(self, module_test, events):
-        vulns = [e for e in events if e.type == "VULNERABILITY"]
+        vulns = [e for e in events if e.type == "FINDING"]
         findings = [e for e in events if e.type == "FINDING"]
         assert len(findings) == 1
         assert len(vulns) == 2

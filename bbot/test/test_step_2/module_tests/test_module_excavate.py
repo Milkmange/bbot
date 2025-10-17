@@ -11,7 +11,7 @@ import yara
 class TestExcavate(ModuleTestBase):
     targets = ["http://127.0.0.1:8888/", "test.notreal", "http://127.0.0.1:8888/subdir/links.html"]
     modules_overrides = ["excavate", "httpx"]
-    config_overrides = {"web": {"spider_distance": 1, "spider_depth": 1}}
+    config_overrides = {"web": {"spider_distance": 1, "spider_depth": 1}, "omit_event_types": []}
 
     async def setup_before_prep(self, module_test):
         response_data = """
@@ -198,7 +198,7 @@ class TestExcavateInScopeJavascript(TestExcavate):
 
 class TestExcavateRedirect(TestExcavate):
     targets = ["http://127.0.0.1:8888/", "http://127.0.0.1:8888/relative/", "http://127.0.0.1:8888/nonhttpredirect/"]
-    config_overrides = {"scope": {"report_distance": 1}}
+    config_overrides = {"scope": {"report_distance": 1}, "omit_event_types": []}
 
     async def setup_before_prep(self, module_test):
         # absolute redirect
@@ -265,7 +265,7 @@ class TestExcavateRedirect(TestExcavate):
 
 class TestExcavateQuerystringRemoveTrue(TestExcavate):
     targets = ["http://127.0.0.1:8888/"]
-    config_overrides = {"url_querystring_remove": True, "url_querystring_collapse": True}
+    config_overrides = {"url_querystring_remove": True, "url_querystring_collapse": True, "omit_event_types": []}
     lots_of_params = """
     <a href="http://127.0.0.1:8888/endpoint?foo=1"/>
     <a href="http://127.0.0.1:8888/endpoint?foo=2"/>
@@ -290,7 +290,7 @@ class TestExcavateQuerystringRemoveTrue(TestExcavate):
 
 
 class TestExcavateQuerystringRemoveFalse(TestExcavateQuerystringRemoveTrue):
-    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": True}
+    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": True, "omit_event_types": []}
 
     def check(self, module_test, events):
         assert (
@@ -306,7 +306,7 @@ class TestExcavateQuerystringRemoveFalse(TestExcavateQuerystringRemoveTrue):
 
 
 class TestExcavateQuerystringCollapseFalse(TestExcavateQuerystringRemoveTrue):
-    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": False}
+    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": False, "omit_event_types": []}
 
     def check(self, module_test, events):
         assert (
@@ -323,7 +323,7 @@ class TestExcavateQuerystringCollapseFalse(TestExcavateQuerystringRemoveTrue):
 
 class TestExcavateMaxLinksPerPage(TestExcavate):
     targets = ["http://127.0.0.1:8888/"]
-    config_overrides = {"web": {"spider_links_per_page": 10, "spider_distance": 1}}
+    config_overrides = {"web": {"spider_links_per_page": 10, "spider_distance": 1}, "omit_event_types": []}
 
     lots_of_links = """
     <a href="http://127.0.0.1:8888/1"/>
@@ -1081,6 +1081,7 @@ class TestExcavateSpiderDedupe(ModuleTestBase):
     dummy_text = "<a href='/spider'>spider</a>"
     modules_overrides = ["excavate", "httpx"]
     targets = ["http://127.0.0.1:8888/"]
+    config_overrides = {"omit_event_types": []}
 
     async def setup_after_prep(self, module_test):
         self.dummy_module = self.DummyModule(module_test.scan)
@@ -1256,6 +1257,7 @@ class TestExcavateRAWTEXT(ModuleTestBase):
         "modules": {
             "filedownload": {"output_folder": str(bbot_test_dir / "filedownload")},
         },
+        "omit_event_types": [],
     }
 
     pdf_data = r"""%PDF-1.3
@@ -1433,7 +1435,7 @@ class TestExcavateHeaders_blacklist(ModuleTestBase):
 class TestExcavateBadURLs(ModuleTestBase):
     targets = ["http://127.0.0.1:8888/"]
     modules_overrides = ["excavate", "httpx", "hunt"]
-    config_overrides = {"interactsh_disable": True, "scope": {"report_distance": 10}}
+    config_overrides = {"interactsh_disable": True, "scope": {"report_distance": 10}, "omit_event_types": []}
 
     bad_url_data = """
 <a href='mailto:bob@evilcorp.org?subject=help'>Help</a>

@@ -148,6 +148,8 @@ class shodan_idb(BaseModule):
                     "host": str(event.host),
                     "cves": vulns,
                     "name": "Shodan - Possible Vulnerabilities",
+                    "severity": "MEDIUM",
+                    "confidence": "LOW",
                 },
                 "FINDING",
                 parent=event,

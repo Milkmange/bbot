@@ -152,7 +152,6 @@ class BaseEvent:
         "_discovery_context_regex",
         "_stats_recorded",
         "_internal",
-        "_confidence",
         "_dummy",
         "_module",
         # DNS-related attributes
@@ -181,7 +180,6 @@ class BaseEvent:
         module=None,
         scan=None,
         tags=None,
-        confidence=100,
         timestamp=None,
         _dummy=False,
         _internal=None,
@@ -199,7 +197,6 @@ class BaseEvent:
             module (str, optional): Module that discovered the event. Defaults to None.
             scan (Scan, optional): BBOT Scan object. Required unless _dummy is True. Defaults to None.
             tags (list of str, optional): Descriptive tags for the event. Defaults to None.
-            confidence (int, optional): Confidence level for the event, on a scale of 1-100. Defaults to 100.
             timestamp (datetime, optional): Time of event discovery. Defaults to current UTC time.
             _dummy (bool, optional): If True, disables certain data validations. Defaults to False.
             _internal (Any, optional): If specified, makes the event internal. Defaults to None.
@@ -247,7 +244,6 @@ class BaseEvent:
             except AttributeError:
                 self.timestamp = datetime.datetime.utcnow()
 
-        self.confidence = int(confidence)
         self._internal = False
 
         # self.scan holds the instantiated scan object (for helpers, etc.)
@@ -286,27 +282,6 @@ class BaseEvent:
     @property
     def data(self):
         return self._data
-
-    @property
-    def confidence(self):
-        return self._confidence
-
-    @confidence.setter
-    def confidence(self, confidence):
-        self._confidence = min(100, max(1, int(confidence)))
-
-    @property
-    def cumulative_confidence(self):
-        """
-        Considers the confidence of parent events. This is useful for filtering out speculative/unreliable events.
-
-        E.g. an event with a confidence of 50 whose parent is also 50 would have a cumulative confidence of 25.
-
-        A confidence of 100 will reset the cumulative confidence to 100.
-        """
-        if self._confidence == 100 or self.parent is None or self.parent is self:
-            return self._confidence
-        return int(self._confidence * self.parent.cumulative_confidence / 100)
 
     @property
     def resolved_hosts(self):
@@ -1547,7 +1522,7 @@ class HTTP_RESPONSE(URL_UNVERIFIED, DictEvent):
         return location
 
 
-class VULNERABILITY(ClosestHostEvent):
+class FINDING(ClosestHostEvent):
     _always_emit = True
     _quick_emit = True
     severity_colors = {
@@ -1555,20 +1530,32 @@ class VULNERABILITY(ClosestHostEvent):
         "HIGH": "🟥",
         "MEDIUM": "🟧",
         "LOW": "🟨",
-        "INFO": "🟦",
-        "UNKNOWN": "⬜",
+        "INFORMATIONAL": "⬜",
+    }
+
+    confidence_colors = {
+        "CONFIRMED": "🟣",
+        "HIGH": "🔴",
+        "MODERATE": "🟠",
+        "LOW": "🟡",
+        "UNKNOWN": "⚪",
     }
 
     def sanitize_data(self, data):
-        data = super().sanitize_data(data)
-        self.add_tag(data["severity"].lower())
+        self.add_tag(f"severity-{data['severity'].lower()}")
+        self.add_tag(f"confidence-{data['confidence'].lower()}")
         return data
 
     class _data_validator(BaseModel):
         host: Optional[str] = None
+<<<<<<< HEAD
         severity: str
         name: str
+=======
+>>>>>>> vulnerability-funeral
         description: str
+        severity: str
+        confidence: str
         url: Optional[str] = None
         path: Optional[str] = None
         cves: Optional[list[str]] = None
@@ -1577,9 +1564,17 @@ class VULNERABILITY(ClosestHostEvent):
         _validate_severity = field_validator("severity")(validators.validate_severity)
 
     def _pretty_string(self):
-        return f"[{self.data['severity']}] {self.data['description']}"
+        severity = self.data["severity"]
+        confidence = self.data["confidence"]
+        description = self.data["description"]
 
+        # Add bold formatting for CONFIRMED confidence
+        if confidence == "CONFIRMED":
+            confidence_str = f"[\033[1m{confidence}\033[0m]"
+        else:
+            confidence_str = f"[{confidence}]"
 
+<<<<<<< HEAD
 class FINDING(ClosestHostEvent):
     _always_emit = True
     _quick_emit = True
@@ -1595,6 +1590,9 @@ class FINDING(ClosestHostEvent):
 
     def _pretty_string(self):
         return self.data["description"]
+=======
+        return f"Severity: [{severity}] Confidence: {confidence_str} {description}"
+>>>>>>> vulnerability-funeral
 
 
 class TECHNOLOGY(DictHostEvent):
@@ -1772,7 +1770,6 @@ def make_event(
     module=None,
     scan=None,
     tags=None,
-    confidence=100,
     dummy=False,
     internal=None,
 ):
@@ -1792,7 +1789,6 @@ def make_event(
         scan (Scan, optional): BBOT Scan object associated with the event.
         scans (List[Scan], optional): Multiple BBOT Scan objects, primarily used for unserialization.
         tags (Union[str, List[str]], optional): Descriptive tags for the event, as a list or a single string.
-        confidence (int, optional): Confidence level for the event, on a scale of 1-100. Defaults to 100.
         dummy (bool, optional): Disables data validations if set to True. Defaults to False.
         internal (Any, optional): Makes the event internal if set to True. Defaults to None.
 
@@ -1896,7 +1892,6 @@ def make_event(
             module=module,
             scan=scan,
             tags=tags,
-            confidence=confidence,
             _dummy=dummy,
             _internal=internal,
         )
@@ -1929,7 +1924,6 @@ def event_from_json(j):
         kwargs = {
             "event_type": event_type,
             "tags": j.get("tags", []),
-            "confidence": j.get("confidence", 100),
             "context": j.get("discovery_context", None),
             "dummy": True,
         }

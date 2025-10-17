@@ -37,6 +37,8 @@ class git(BaseModule):
                             "url": url,
                             "description": description,
                             "name": "Exposed .git config",
+                            "severity": "MEDIUM",
+                            "confidence": "HIGH",
                         },
                         "FINDING",
                         event,

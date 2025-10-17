@@ -34,8 +34,6 @@ class TestDiscord(ModuleTestBase):
         module_test.httpx_mock.add_callback(custom_response, url=self.webhook_url)
 
     def check(self, module_test, events):
-        vulns = [e for e in events if e.type == "VULNERABILITY"]
         findings = [e for e in events if e.type == "FINDING"]
-        assert len(findings) == 1
-        assert len(vulns) == 2
+        assert len(findings) == 3
         assert module_test.request_count == 4

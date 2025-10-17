@@ -72,6 +72,8 @@ class bucket_template(BaseModule):
                     "url": url,
                     "description": description,
                     "name": "Open Storage Bucket",
+                    "severity": "LOW",
+                    "confidence": "HIGH",
                 }
                 await self.emit_event(
                     event_data,
