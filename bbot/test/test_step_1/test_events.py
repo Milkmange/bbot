@@ -334,14 +334,20 @@ async def test_events(events, helpers):
     assert "affiliate" in corrected_event4.tags
 
     test_vuln = scan.make_event(
-{"host": "EVILcorp.com", "severity": "iNformational ", "confidence": "HIGH", "description": "asdf"},
-"FINDING",
+        {"host": "EVILcorp.com", "severity": "iNformational ", "confidence": "HIGH", "description": "asdf"},
+        "FINDING",
         dummy=True,
     )
     assert test_vuln.data["host"] == "evilcorp.com"
     assert test_vuln.data["severity"] == "INFORMATIONAL"
     test_vuln2 = scan.make_event(
-        {"host": "192.168.1.1", "severity": "INFORMATIONAL", "confidence": "HIGH", "description": "asdf", "name": "Vulnerability"},
+        {
+            "host": "192.168.1.1",
+            "severity": "INFORMATIONAL",
+            "confidence": "HIGH",
+            "description": "asdf",
+            "name": "Vulnerability",
+        },
         "FINDING",
         dummy=True,
     )
