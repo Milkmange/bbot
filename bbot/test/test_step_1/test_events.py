@@ -334,7 +334,13 @@ async def test_events(events, helpers):
     assert "affiliate" in corrected_event4.tags
 
     test_vuln = scan.make_event(
-        {"host": "EVILcorp.com", "severity": "iNformational ", "confidence": "HIGH", "description": "asdf"},
+        {
+            "host": "EVILcorp.com",
+            "severity": "iNformational ",
+            "confidence": "HIGH",
+            "description": "asdf",
+            "name": "Test Finding",
+        },
         "FINDING",
         dummy=True,
     )
@@ -358,7 +364,9 @@ async def test_events(events, helpers):
         test_vuln = scan.make_event({"host": "evilcorp.com", "description": "asdf"}, "FINDING", dummy=True)
     with pytest.raises(ValidationError, match=".*host.*\n.*Invalid host.*"):
         test_vuln = scan.make_event(
-            {"host": "!@#$", "severity": "INFO", "confidence": "HIGH", "description": "asdf"}, "FINDING", dummy=True
+            {"host": "!@#$", "severity": "INFORMATIONAL", "confidence": "HIGH", "description": "asdf"},
+            "FINDING",
+            dummy=True,
         )
     # invalid severity
     with pytest.raises(ValidationError, match=".*severity.*\n.*Invalid severity.*"):
@@ -367,11 +375,48 @@ async def test_events(events, helpers):
             "FINDING",
             dummy=True,
         )
+    # invalid confidence
+    with pytest.raises(ValidationError, match=".*confidence.*\n.*Invalid confidence.*"):
+        test_vuln = scan.make_event(
+            {
+                "host": "evilcorp.com",
+                "severity": "HIGH",
+                "confidence": "INVALID",
+                "description": "asdf",
+                "name": "Test",
+            },
+            "FINDING",
+            dummy=True,
+        )
+    # must have confidence
+    with pytest.raises(ValidationError, match=".*confidence.*\n.*Field required.*"):
+        test_vuln = scan.make_event(
+            {"host": "evilcorp.com", "severity": "HIGH", "description": "asdf", "name": "Test"},
+            "FINDING",
+            dummy=True,
+        )
+
+    # test confidence colors and formatting
+    from bbot.core.event.base import FINDING
+
+    expected_colors = {"CONFIRMED": "🟣", "HIGH": "🔴", "MODERATE": "🟠", "LOW": "🟡", "UNKNOWN": "⚪"}
+    assert FINDING.confidence_colors == expected_colors
+
+    # test CONFIRMED gets bold formatting
+    confirmed_finding = scan.make_event(
+        {"host": "test.com", "name": "Test", "description": "Test", "severity": "HIGH", "confidence": "CONFIRMED"},
+        "FINDING",
+        dummy=True,
+    )
+    pretty_string = confirmed_finding._pretty_string()
+    assert "[\033[1mCONFIRMED\033[0m]" in pretty_string
+    assert f"confidence-{confirmed_finding.data['confidence'].lower()}" in confirmed_finding.tags
+
     # must have name
     with pytest.raises(ValidationError, match=".*name.*\n.*Field required.*"):
         test_vuln = scan.make_event(
-            {"host": "evilcorp.com", "severity": "INFO", "description": "asdf"},
-            "VULNERABILITY",
+            {"host": "evilcorp.com", "severity": "INFORMATIONAL", "description": "asdf", "confidence": "HIGH"},
+            "FINDING",
             dummy=True,
         )
 
@@ -380,16 +425,15 @@ async def test_events(events, helpers):
         {
             "host": "evilcorp.com",
             "name": "test",
-            "severity": "INFO",
+            "severity": "INFORMATIONAL",
             "description": "asdf",
             "url": "http://evilcorp.com/test",
+            "confidence": "HIGH",
         },
-        "VULNERABILITY",
+        "FINDING",
         dummy=True,
     )
     assert test_vuln.host == "evilcorp.com"
-    assert test_vuln.port == 80
-    assert test_vuln.netloc == "evilcorp.com:80"
 
     # technology should be lowercased
     tech_event = scan.make_event(

@@ -1064,6 +1064,56 @@ class TestExcavateYaraCustom(TestExcavateYara):
     config_overrides = {"modules": {"excavate": {"custom_yara_rules": f}}}
 
 
+class TestExcavateYaraConfidence(ModuleTestBase):
+    """Test YARA rules with confidence options."""
+
+    targets = ["http://127.0.0.1:8888/"]
+    modules_overrides = ["excavate", "httpx"]
+
+    async def setup_before_prep(self, module_test):
+        yara_test_html = """
+        <html><body>
+            <p>CONFIRMED_SECRET_DATA</p>
+            <p>HIGH_CONFIDENCE_INDICATOR</p>
+            <p>MODERATE_RISK_PATTERN</p>
+            <p>LOW_CONFIDENCE_MATCH</p>
+            <p>UNKNOWN_PATTERN_TYPE</p>
+        </body></html>
+        """
+        module_test.httpserver.expect_request("/").respond_with_data(yara_test_html)
+
+    async def setup_after_prep(self, module_test):
+        excavate_module = module_test.scan.modules["excavate"]
+        excavateruleinstance = excavateTestRule(excavate_module)
+
+        # Add YARA rules with different confidence levels
+        yara_rules = {
+            "ConfirmedRule": 'rule ConfirmedRule { meta: description = "Confirmed rule" severity = "HIGH" confidence = "CONFIRMED" strings: $text = "CONFIRMED_SECRET_DATA" condition: $text }',
+            "HighConfidenceRule": 'rule HighConfidenceRule { meta: description = "High confidence rule" severity = "MEDIUM" confidence = "HIGH" strings: $text = "HIGH_CONFIDENCE_INDICATOR" condition: $text }',
+            "ModerateConfidenceRule": 'rule ModerateConfidenceRule { meta: description = "Moderate confidence rule" severity = "LOW" confidence = "MODERATE" strings: $text = "MODERATE_RISK_PATTERN" condition: $text }',
+            "LowConfidenceRule": 'rule LowConfidenceRule { meta: description = "Low confidence rule" severity = "INFORMATIONAL" confidence = "LOW" strings: $text = "LOW_CONFIDENCE_MATCH" condition: $text }',
+            "UnknownConfidenceRule": 'rule UnknownConfidenceRule { meta: description = "Unknown confidence rule" severity = "INFORMATIONAL" confidence = "UNKNOWN" strings: $text = "UNKNOWN_PATTERN_TYPE" condition: $text }',
+        }
+
+        for rule_name, rule_content in yara_rules.items():
+            excavate_module.add_yara_rule(rule_name, rule_content, excavateruleinstance)
+
+        excavate_module.yara_rules = yara.compile(source="\n".join(excavate_module.yara_rules_dict.values()))
+
+    def check(self, module_test, events):
+        """Verify findings are created with correct confidence levels."""
+        findings = [e for e in events if e.type == "FINDING"]
+        confidence_findings = {f.data.get("confidence", "UNKNOWN"): f for f in findings}
+
+        # Verify all confidence levels are present
+        expected_confidences = ["CONFIRMED", "HIGH", "MODERATE", "LOW", "UNKNOWN"]
+        for confidence in expected_confidences:
+            assert confidence in confidence_findings, f"Missing finding with confidence: {confidence}"
+            finding = confidence_findings[confidence]
+            assert finding.data["confidence"] == confidence
+            assert f"confidence-{confidence.lower()}" in finding.tags
+
+
 class TestExcavateSpiderDedupe(ModuleTestBase):
     class DummyModule(BaseModule):
         watched_events = ["URL_UNVERIFIED"]

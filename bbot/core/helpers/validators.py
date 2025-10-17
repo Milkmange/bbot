@@ -132,9 +132,17 @@ def validate_host(host: Union[str, ipaddress.IPv4Address, ipaddress.IPv6Address]
 @validator
 def validate_severity(severity: str):
     severity = str(severity).strip().upper()
-    if severity not in ("UNKNOWN", "INFORMATIONAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"):
+    if severity not in ("INFORMATIONAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"):
         raise ValueError(f"Invalid severity: {severity}")
     return severity
+
+
+@validator
+def validate_confidence(confidence: str):
+    confidence = str(confidence).strip().upper()
+    if confidence not in ("UNKNOWN", "LOW", "MODERATE", "HIGH", "CONFIRMED"):
+        raise ValueError(f"Invalid confidence: {confidence}")
+    return confidence
 
 
 @validator

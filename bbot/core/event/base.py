@@ -1558,6 +1558,7 @@ class FINDING(ClosestHostEvent):
         _validate_url = field_validator("url")(validators.validate_url)
         _validate_host = field_validator("host")(validators.validate_host)
         _validate_severity = field_validator("severity")(validators.validate_severity)
+        _validate_confidence = field_validator("confidence")(validators.validate_confidence)
 
     def _pretty_string(self):
         severity = self.data["severity"]
