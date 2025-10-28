@@ -184,6 +184,7 @@ class serial(BaseLightfuzz):
                             self.debug(f"Error string '{serialization_error}' found in response for {type}")
                             self.results.append(
                                 {
+                                    "name": "Possible Unsafe Deserialization",
                                     "severity": "HIGH",
                                     "confidence": "LOW",
                                     "description": f"POSSIBLE Unsafe Deserialization. {self.metadata()} Technique: [Differential Error Analysis] Error-String: [{serialization_error}] Payload: [{type}]",
