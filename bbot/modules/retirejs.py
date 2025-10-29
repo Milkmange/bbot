@@ -186,6 +186,7 @@ class retirejs(BaseModule):
                                     "name": "Vulnerable JavaScript Library",
                                     "description": description,
                                     "severity": severity,
+                                    "confidence": "HIGH",
                                     "component": component,
                                     "url": event.parent.data["url"],
                                 }
