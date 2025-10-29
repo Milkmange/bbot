@@ -179,6 +179,8 @@ class wpscan(BaseModule):
                         "url": url,
                         "host": str(source_event.host),
                         "name": "WPScan - Possible Vulnerability",
+                        "severity": "INFORMATIONAL",
+                        "confidence": "MODERATE",
                     },
                     "FINDING",
                     source_event,
