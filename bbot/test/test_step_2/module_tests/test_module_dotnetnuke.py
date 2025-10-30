@@ -95,26 +95,23 @@ MAPI=1
             if e.type == "TECHNOLOGY" and "dotnetnuke" in e.data["technology"]:
                 dnn_technology_detection = True
 
-            if (
-                e.type == "VULNERABILITY"
-                and "DotNetNuke Personalization Cookie Deserialization" in e.data["description"]
-            ):
+            if e.type == "FINDING" and "DotNetNuke Personalization Cookie Deserialization" in e.data["description"]:
                 dnn_personalization_deserialization_detection = True
 
             if (
-                e.type == "VULNERABILITY"
+                e.type == "FINDING"
                 and "DotNetNuke DNNArticle Module GetCSS.ashx Arbitrary File Read" in e.data["description"]
             ):
                 dnn_getcss_fileread_detection = True
 
             if (
-                e.type == "VULNERABILITY"
+                e.type == "FINDING"
                 and "DotNetNuke dnnUI_NewsArticlesSlider Module Arbitrary File Read" in e.data["description"]
             ):
                 dnn_imagehandler_fileread_detection = True
 
             if (
-                e.type == "VULNERABILITY"
+                e.type == "FINDING"
                 and "DotNetNuke InstallWizard SuperUser Privilege Escalation" in e.data["description"]
             ):
                 dnn_installwizard_privesc_detection = True
@@ -168,7 +165,7 @@ class TestDotnetnuke_blindssrf(ModuleTestBase):
             if e.type == "TECHNOLOGY" and "dotnetnuke" in e.data["technology"]:
                 dnn_technology_detection = True
 
-            if e.type == "VULNERABILITY" and "DotNetNuke Blind-SSRF (CVE 2017-0929)" in e.data["description"]:
+            if e.type == "FINDING" and "DotNetNuke Blind-SSRF (CVE 2017-0929)" in e.data["description"]:
                 dnn_dnnimagehandler_blindssrf = True
 
         assert dnn_technology_detection, "DNN Technology Detection Failed"

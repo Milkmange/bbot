@@ -359,6 +359,8 @@ async def test_modules_basic_stats(helpers, events, bbot_scanner, httpx_mock, mo
                     "url": "http://www.evilcorp.com",
                     "description": "asdf",
                     "name": "Finding",
+                    "severity": "LOW",
+                    "confidence": "MODERATE",
                 },
                 "FINDING",
                 event,

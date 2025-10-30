@@ -34,7 +34,7 @@ def test_pydantic_models(events, bbot_scanner):
     ]
 
     # convert events to pydantic and back, making sure they're exactly the same
-    for event in ("ipv4", "http_response", "finding", "vulnerability", "storage_bucket"):
+    for event in ("ipv4", "http_response", "finding", "storage_bucket"):
         e = getattr(events, event)
         event_json = e.json()
         event_pydantic = Event(**event_json)

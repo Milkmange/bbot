@@ -316,6 +316,8 @@ class hunt(BaseModule):
                 "host": str(event.host),
                 "description": description,
                 "name": "Potentially Interesting Parameter",
+                "severity": "INFORMATIONAL",
+                "confidence": "LOW",
             }
             url = event.data.get("url", "")
             if url:

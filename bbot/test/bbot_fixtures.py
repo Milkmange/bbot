@@ -197,14 +197,27 @@ def events(scan):
         url_hint = scan.make_event(
             "https://api.publicAPIs.org:443/hello.ash", "URL_HINT", parent=url, module=dummy_module
         )
-        vulnerability = scan.make_event(
-            {"host": "evilcorp.com", "severity": "INFO", "description": "asdf", "name": "Vulnerability"},
-            "VULNERABILITY",
+        url_hint = scan.make_event("https://api.publicAPIs.org:443/hello.ash", "URL_HINT", parent=url)
+        finding = scan.make_event(
+            {
+                "host": "evilcorp.com",
+                "severity": "INFORMATIONAL",
+                "confidence": "HIGH",
+                "description": "asdf",
+                "name": "Test Finding",
+            },
+            "FINDING",
             parent=scan.root_event,
             module=dummy_module,
         )
         finding = scan.make_event(
-            {"host": "evilcorp.com", "description": "asdf", "name": "Finding"},
+            {
+                "host": "evilcorp.com",
+                "description": "asdf",
+                "name": "Finding",
+                "severity": "INFORMATIONAL",
+                "confidence": "HIGH",
+            },
             "FINDING",
             parent=scan.root_event,
             module=dummy_module,
@@ -241,7 +254,6 @@ def events(scan):
         bbot_events.ipv4_url,
         bbot_events.ipv6_url,
         bbot_events.url_hint,
-        bbot_events.vulnerability,
         bbot_events.finding,
         bbot_events.vhost,
         bbot_events.http_response,

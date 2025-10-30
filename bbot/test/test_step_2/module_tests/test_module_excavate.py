@@ -11,7 +11,7 @@ import yara
 class TestExcavate(ModuleTestBase):
     targets = ["http://127.0.0.1:8888/", "test.notreal", "http://127.0.0.1:8888/subdir/links.html"]
     modules_overrides = ["excavate", "httpx"]
-    config_overrides = {"web": {"spider_distance": 1, "spider_depth": 1}}
+    config_overrides = {"web": {"spider_distance": 1, "spider_depth": 1}, "omit_event_types": []}
 
     async def setup_before_prep(self, module_test):
         response_data = """
@@ -181,24 +181,24 @@ class TestExcavateInScopeJavascript(TestExcavate):
 
     def check(self, module_test, events):
         found_js_url_event = False
-        found_badsecrets_vulnerability = False
+        found_badsecrets_finding = False
         found_excavate_jwt_finding = False
         for e in events:
             if e.type == "URL" and e.data == "http://127.0.0.1:8888/script.js":
                 found_js_url_event = True
             if e.type == "FINDING" and "JWT" in e.data["description"] and str(e.module) == "excavate":
                 found_excavate_jwt_finding = True
-            if e.type == "VULNERABILITY":
-                found_badsecrets_vulnerability = True
+            if e.type == "FINDING" and "BadSecrets" in e.data["name"] and str(e.module) == "badsecrets":
+                found_badsecrets_finding = True
 
         assert found_js_url_event, "Failed to find URL event for script.js"
-        assert found_badsecrets_vulnerability, "Failed to find BADSECRETs event from script.js"
+        assert found_badsecrets_finding, "Failed to find BADSECRETs finding from script.js"
         assert found_excavate_jwt_finding, "Failed to find JWT finding from script.js"
 
 
 class TestExcavateRedirect(TestExcavate):
     targets = ["http://127.0.0.1:8888/", "http://127.0.0.1:8888/relative/", "http://127.0.0.1:8888/nonhttpredirect/"]
-    config_overrides = {"scope": {"report_distance": 1}}
+    config_overrides = {"scope": {"report_distance": 1}, "omit_event_types": []}
 
     async def setup_before_prep(self, module_test):
         # absolute redirect
@@ -265,7 +265,7 @@ class TestExcavateRedirect(TestExcavate):
 
 class TestExcavateQuerystringRemoveTrue(TestExcavate):
     targets = ["http://127.0.0.1:8888/"]
-    config_overrides = {"url_querystring_remove": True, "url_querystring_collapse": True}
+    config_overrides = {"url_querystring_remove": True, "url_querystring_collapse": True, "omit_event_types": []}
     lots_of_params = """
     <a href="http://127.0.0.1:8888/endpoint?foo=1"/>
     <a href="http://127.0.0.1:8888/endpoint?foo=2"/>
@@ -290,7 +290,7 @@ class TestExcavateQuerystringRemoveTrue(TestExcavate):
 
 
 class TestExcavateQuerystringRemoveFalse(TestExcavateQuerystringRemoveTrue):
-    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": True}
+    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": True, "omit_event_types": []}
 
     def check(self, module_test, events):
         assert (
@@ -306,7 +306,7 @@ class TestExcavateQuerystringRemoveFalse(TestExcavateQuerystringRemoveTrue):
 
 
 class TestExcavateQuerystringCollapseFalse(TestExcavateQuerystringRemoveTrue):
-    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": False}
+    config_overrides = {"url_querystring_remove": False, "url_querystring_collapse": False, "omit_event_types": []}
 
     def check(self, module_test, events):
         assert (
@@ -323,7 +323,7 @@ class TestExcavateQuerystringCollapseFalse(TestExcavateQuerystringRemoveTrue):
 
 class TestExcavateMaxLinksPerPage(TestExcavate):
     targets = ["http://127.0.0.1:8888/"]
-    config_overrides = {"web": {"spider_links_per_page": 10, "spider_distance": 1}}
+    config_overrides = {"web": {"spider_links_per_page": 10, "spider_distance": 1}, "omit_event_types": []}
 
     lots_of_links = """
     <a href="http://127.0.0.1:8888/1"/>
@@ -1064,6 +1064,56 @@ class TestExcavateYaraCustom(TestExcavateYara):
     config_overrides = {"modules": {"excavate": {"custom_yara_rules": f}}}
 
 
+class TestExcavateYaraConfidence(ModuleTestBase):
+    """Test YARA rules with confidence options."""
+
+    targets = ["http://127.0.0.1:8888/"]
+    modules_overrides = ["excavate", "httpx"]
+
+    async def setup_before_prep(self, module_test):
+        yara_test_html = """
+        <html><body>
+            <p>CONFIRMED_SECRET_DATA</p>
+            <p>HIGH_CONFIDENCE_INDICATOR</p>
+            <p>MODERATE_RISK_PATTERN</p>
+            <p>LOW_CONFIDENCE_MATCH</p>
+            <p>UNKNOWN_PATTERN_TYPE</p>
+        </body></html>
+        """
+        module_test.httpserver.expect_request("/").respond_with_data(yara_test_html)
+
+    async def setup_after_prep(self, module_test):
+        excavate_module = module_test.scan.modules["excavate"]
+        excavateruleinstance = excavateTestRule(excavate_module)
+
+        # Add YARA rules with different confidence levels
+        yara_rules = {
+            "ConfirmedRule": 'rule ConfirmedRule { meta: description = "Confirmed rule" severity = "HIGH" confidence = "CONFIRMED" strings: $text = "CONFIRMED_SECRET_DATA" condition: $text }',
+            "HighConfidenceRule": 'rule HighConfidenceRule { meta: description = "High confidence rule" severity = "MEDIUM" confidence = "HIGH" strings: $text = "HIGH_CONFIDENCE_INDICATOR" condition: $text }',
+            "ModerateConfidenceRule": 'rule ModerateConfidenceRule { meta: description = "Moderate confidence rule" severity = "LOW" confidence = "MODERATE" strings: $text = "MODERATE_RISK_PATTERN" condition: $text }',
+            "LowConfidenceRule": 'rule LowConfidenceRule { meta: description = "Low confidence rule" severity = "INFORMATIONAL" confidence = "LOW" strings: $text = "LOW_CONFIDENCE_MATCH" condition: $text }',
+            "UnknownConfidenceRule": 'rule UnknownConfidenceRule { meta: description = "Unknown confidence rule" severity = "INFORMATIONAL" confidence = "UNKNOWN" strings: $text = "UNKNOWN_PATTERN_TYPE" condition: $text }',
+        }
+
+        for rule_name, rule_content in yara_rules.items():
+            excavate_module.add_yara_rule(rule_name, rule_content, excavateruleinstance)
+
+        excavate_module.yara_rules = yara.compile(source="\n".join(excavate_module.yara_rules_dict.values()))
+
+    def check(self, module_test, events):
+        """Verify findings are created with correct confidence levels."""
+        findings = [e for e in events if e.type == "FINDING"]
+        confidence_findings = {f.data.get("confidence", "UNKNOWN"): f for f in findings}
+
+        # Verify all confidence levels are present
+        expected_confidences = ["CONFIRMED", "HIGH", "MODERATE", "LOW", "UNKNOWN"]
+        for confidence in expected_confidences:
+            assert confidence in confidence_findings, f"Missing finding with confidence: {confidence}"
+            finding = confidence_findings[confidence]
+            assert finding.data["confidence"] == confidence
+            assert f"confidence-{confidence.lower()}" in finding.tags
+
+
 class TestExcavateSpiderDedupe(ModuleTestBase):
     class DummyModule(BaseModule):
         watched_events = ["URL_UNVERIFIED"]
@@ -1081,6 +1131,7 @@ class TestExcavateSpiderDedupe(ModuleTestBase):
     dummy_text = "<a href='/spider'>spider</a>"
     modules_overrides = ["excavate", "httpx"]
     targets = ["http://127.0.0.1:8888/"]
+    config_overrides = {"omit_event_types": []}
 
     async def setup_after_prep(self, module_test):
         self.dummy_module = self.DummyModule(module_test.scan)
@@ -1256,6 +1307,7 @@ class TestExcavateRAWTEXT(ModuleTestBase):
         "modules": {
             "filedownload": {"output_folder": str(bbot_test_dir / "filedownload")},
         },
+        "omit_event_types": [],
     }
 
     pdf_data = r"""%PDF-1.3
@@ -1433,7 +1485,7 @@ class TestExcavateHeaders_blacklist(ModuleTestBase):
 class TestExcavateBadURLs(ModuleTestBase):
     targets = ["http://127.0.0.1:8888/"]
     modules_overrides = ["excavate", "httpx", "hunt"]
-    config_overrides = {"interactsh_disable": True, "scope": {"report_distance": 10}}
+    config_overrides = {"interactsh_disable": True, "scope": {"report_distance": 10}, "omit_event_types": []}
 
     bad_url_data = """
 <a href='mailto:bob@evilcorp.org?subject=help'>Help</a>

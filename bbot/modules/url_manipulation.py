@@ -84,6 +84,8 @@ class url_manipulation(BaseModule):
                                         "host": str(event.host),
                                         "url": event.data,
                                         "name": "URL Manipulation",
+                                        "severity": "INFORMATIONAL",
+                                        "confidence": "LOW",
                                     },
                                     "FINDING",
                                     parent=event,

@@ -6,7 +6,7 @@ from bbot.modules.base import BaseModule
 
 class nuclei(BaseModule):
     watched_events = ["URL"]
-    produced_events = ["FINDING", "VULNERABILITY", "TECHNOLOGY"]
+    produced_events = ["FINDING", "TECHNOLOGY"]
     flags = ["active", "aggressive", "deadly"]
     meta = {
         "description": "Fast and customisable vulnerability scanner",
@@ -176,6 +176,8 @@ class nuclei(BaseModule):
                         "url": url,
                         "description": description_string,
                         "name": f"Nuclei Vuln - {name}",
+                        "severity": "INFORMATIONAL",
+                        "confidence": "HIGH",
                     },
                     "FINDING",
                     parent_event,
@@ -189,8 +191,9 @@ class nuclei(BaseModule):
                         "url": url,
                         "description": description_string,
                         "name": f"Nuclei Vuln - {name}",
+                        "confidence": "HIGH",
                     },
-                    "VULNERABILITY",
+                    "FINDING",
                     parent_event,
                     context=f"{{module}} scanned {url} and identified {severity.lower()} {{event.type}}: {description_string}",
                 )

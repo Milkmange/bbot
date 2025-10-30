@@ -121,6 +121,8 @@ class ntlm(BaseModule):
                         "url": url,
                         "description": f"NTLM AUTH: {ntlm_resp_decoded}",
                         "name": "NTLM Authentication",
+                        "severity": "INFORMATIONAL",
+                        "confidence": "HIGH",
                     },
                     "FINDING",
                     parent=event,

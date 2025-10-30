@@ -142,6 +142,8 @@ fragment TypeRef on __Type {
                         "url": url,
                         "description": f"GraphQL Schema at {url}",
                         "path": relative_path,
+                        "severity": "INFORMATIONAL",
+                        "confidence": "CONFIRMED",
                     },
                     "FINDING",
                     event,
