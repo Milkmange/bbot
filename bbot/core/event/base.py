@@ -1542,6 +1542,7 @@ class FINDING(ClosestHostEvent):
     }
 
     def sanitize_data(self, data):
+        data = super().sanitize_data(data)
         self.add_tag(f"severity-{data['severity'].lower()}")
         self.add_tag(f"confidence-{data['confidence'].lower()}")
         return data
