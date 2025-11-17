@@ -404,10 +404,14 @@ async def test_events(events, helpers):
 
     # test CONFIRMED gets bold formatting
     confirmed_finding = scan.make_event(
-        {"host": "test.com", "name": "Test", "description": "Test", "severity": "HIGH", "confidence": "CONFIRMED"},
+        {"host": "test.com", "name": "Test", "description": "Test", "severity": "HIGH", "confidence": "CONFIRMED", "url": "http://test.com"},
         "FINDING",
         dummy=True,
     )
+    assert confirmed_finding.host == "test.com"
+    assert confirmed_finding.port == 80
+    assert confirmed_finding.netloc == "test.com:80"
+    assert confirmed_finding.parsed_url.geturl() == "http://test.com/"
     pretty_string = confirmed_finding._pretty_string()
     assert "[\033[1mCONFIRMED\033[0m]" in pretty_string
     assert f"confidence-{confirmed_finding.data['confidence'].lower()}" in confirmed_finding.tags
