@@ -130,6 +130,8 @@ def validate_host(host: Union[str, ipaddress.IPv4Address, ipaddress.IPv6Address]
 
 
 FINDING_SEVERITY_LEVELS = ("INFORMATIONAL", "LOW", "MEDIUM", "HIGH", "CRITICAL")
+
+
 @validator
 def validate_severity(severity: str):
     severity = str(severity).strip().upper()
@@ -139,6 +141,8 @@ def validate_severity(severity: str):
 
 
 FINDING_CONFIDENCE_LEVELS = ("UNKNOWN", "LOW", "MODERATE", "HIGH", "CONFIRMED")
+
+
 @validator
 def validate_confidence(confidence: str):
     confidence = str(confidence).strip().upper()

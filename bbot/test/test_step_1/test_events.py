@@ -404,7 +404,14 @@ async def test_events(events, helpers):
 
     # test CONFIRMED gets bold formatting
     confirmed_finding = scan.make_event(
-        {"host": "test.com", "name": "Test", "description": "Test", "severity": "HIGH", "confidence": "CONFIRMED", "url": "http://test.com"},
+        {
+            "host": "test.com",
+            "name": "Test",
+            "description": "Test",
+            "severity": "HIGH",
+            "confidence": "CONFIRMED",
+            "url": "http://test.com",
+        },
         "FINDING",
         dummy=True,
     )
