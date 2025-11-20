@@ -40,8 +40,8 @@ class BaseOutputModule(BaseModule):
 
         # omit certain event types
         if event._omit:
-            if "target" in event.tags:
-                reason = "it's a target"
+            if "seed" in event.tags:
+                reason = "it's a seed"
                 self.debug(f"Allowing omitted event: {event} because {reason}")
             elif event.type in self.get_watched_events():
                 reason = "its type is explicitly in watched_events"

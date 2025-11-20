@@ -49,7 +49,7 @@ class ScanIngress(BaseInterceptModule):
             # queue root scan event
             await self.queue_event(root_event, {})
             target_module = self.scan._make_dummy_module(name="TARGET", _type="TARGET")
-            # queue each target in turn
+            # queue each seed in turn
             for event_seed in event_seeds:
                 event = self.scan.make_event(
                     event_seed.data,
@@ -57,9 +57,12 @@ class ScanIngress(BaseInterceptModule):
                     parent=root_event,
                     module=target_module,
                     context=f"Scan {self.scan.name} seeded with " + "{event.type}: {event.data}",
-                    tags=["target"],
+                    tags=["seed"],
                 )
-                self.verbose(f"Target: {event}")
+                # If the seed is also in the target scope, add the target tag
+                if self.scan.in_target(event):
+                    event.add_tag("target")
+                self.verbose(f"Seed: {event}")
                 # don't fill up the queue with too many events
                 while self.incoming_event_queue.qsize() > 100:
                     await asyncio.sleep(0.2)
@@ -114,9 +117,19 @@ class ScanIngress(BaseInterceptModule):
         # Scope shepherding
         # here is where we make sure in-scope events are set to their proper scope distance
         if event.host:
-            event_whitelisted = self.scan.whitelisted(event)
-            if event_whitelisted:
-                self.debug(f"Making {event} in-scope because its main host matches the scan target")
+            event_in_target = self.scan.in_target(event)
+            # Also check resolved IPs for DNS name events
+            if not event_in_target and hasattr(event, "resolved_hosts") and event.resolved_hosts:
+                for resolved_ip in event.resolved_hosts:
+                    if self.scan.in_target(resolved_ip):
+                        event_in_target = True
+                        self.debug(
+                            f"Making {event} in-scope because its resolved IP {resolved_ip} matches the scan target"
+                        )
+                        break
+            if event_in_target:
+                if not (hasattr(event, "resolved_hosts") and event.resolved_hosts):
+                    self.debug(f"Making {event} in-scope because its main host matches the scan target")
                 event.scope_distance = 0
 
         # nerf event's priority if it's not in scope
@@ -190,8 +203,8 @@ class ScanEgress(BaseInterceptModule):
 
         # omit certain event types
         if event.type in self.scan.omitted_event_types:
-            if "target" in event.tags:
-                self.debug(f"Allowing omitted event: {event} because it's a target")
+            if "seed" in event.tags:
+                self.debug(f"Allowing omitted event: {event} because it's a seed")
             else:
                 event._omit = True
 

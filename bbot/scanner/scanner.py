@@ -76,7 +76,7 @@ class Scanner:
         target (Target): Target of scan (alias to `self.preset.target`).
         preset (Preset): The main scan Preset in its baked form.
         config (omegaconf.dictconfig.DictConfig): BBOT config (alias to `self.preset.config`).
-        whitelist (Target): Scan whitelist (by default this is the same as `target`) (alias to `self.preset.whitelist`).
+        seeds (Target): Scan seeds (by default this is the same as `target`) (alias to `self.preset.seeds`).
         blacklist (Target): Scan blacklist (this takes ultimate precedence) (alias to `self.preset.blacklist`).
         helpers (ConfigAwareHelper): Helper containing various reusable functions, regexes, etc. (alias to `self.preset.helpers`).
         output_dir (pathlib.Path): Output directory for scan (alias to `self.preset.output_dir`).
@@ -283,10 +283,10 @@ class Scanner:
                 f.write(self.preset.to_yaml())
 
             # log scan overview
-            start_msg = f"Scan seeded with {len(self.seeds):,} targets"
+            start_msg = f"Scan seeded with {len(self.seeds):,} seed(s)"
             details = []
-            if self.whitelist != self.target:
-                details.append(f"{len(self.whitelist):,} in whitelist")
+            if self.target.target:
+                details.append(f"{len(self.target.target):,} in target")
             if self.blacklist:
                 details.append(f"{len(self.blacklist):,} in blacklist")
             if details:
@@ -910,8 +910,8 @@ class Scanner:
     def in_scope(self, *args, **kwargs):
         return self.preset.in_scope(*args, **kwargs)
 
-    def whitelisted(self, *args, **kwargs):
-        return self.preset.whitelisted(*args, **kwargs)
+    def in_target(self, *args, **kwargs):
+        return self.preset.in_target(*args, **kwargs)
 
     def blacklisted(self, *args, **kwargs):
         return self.preset.blacklisted(*args, **kwargs)
@@ -931,10 +931,6 @@ class Scanner:
     @property
     def seeds(self):
         return self.preset.seeds
-
-    @property
-    def whitelist(self):
-        return self.preset.whitelist
 
     @property
     def blacklist(self):
@@ -1053,13 +1049,13 @@ class Scanner:
         A list of DNS hostname strings generated from the scan target
         """
         if self._dns_strings is None:
-            dns_whitelist = {t.host for t in self.whitelist if t.host and isinstance(t.host, str)}
-            dns_whitelist = sorted(dns_whitelist, key=len)
-            dns_whitelist_set = set()
+            dns_target = {t.host for t in self.target.target if t.host and isinstance(t.host, str)}
+            dns_target = sorted(dns_target, key=len)
+            dns_target_set = set()
             dns_strings = []
-            for t in dns_whitelist:
-                if not any(x in dns_whitelist_set for x in self.helpers.domain_parents(t, include_self=True)):
-                    dns_whitelist_set.add(t)
+            for t in dns_target:
+                if not any(x in dns_target_set for x in self.helpers.domain_parents(t, include_self=True)):
+                    dns_target_set.add(t)
                     dns_strings.append(t)
             self._dns_strings = dns_strings
         return self._dns_strings
@@ -1158,7 +1154,7 @@ class Scanner:
     @property
     def json(self):
         """
-        A dictionary representation of the scan including its name, ID, targets, whitelist, blacklist, and modules
+        A dictionary representation of the scan including its name, ID, targets, target, blacklist, and modules
         """
         j = {}
         for i in ("id", "name"):

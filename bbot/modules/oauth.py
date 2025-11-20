@@ -26,7 +26,7 @@ class OAUTH(BaseModule):
         return True
 
     async def filter_event(self, event):
-        if event.module == self or any(t in event.tags for t in ("target", "domain", "ms-auth-url")):
+        if event.module == self or any(t in event.tags for t in ("seed", "domain", "ms-auth-url")):
             return True
         elif self.try_all and event.scope_distance == 0:
             return True

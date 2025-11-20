@@ -51,6 +51,9 @@ class BaseModule:
 
         target_only (bool): Accept only the initial target event(s). Default is False.
 
+        accept_seeds (bool): Accept seed events (events from initial scan seeds).
+            Defaults to True for passive modules, False otherwise. Can be explicitly set to override the default.
+
         in_scope_only (bool): Accept only explicitly in-scope events, regardless of the scan's search distance. Default is False.
 
         accept_url_special (bool): Accept "special" URLs not typically distributed to web modules, e.g. JS URLs. Default is False.
@@ -98,6 +101,7 @@ class BaseModule:
     per_domain_only = False
     scope_distance_modifier = 0
     target_only = False
+    _accept_seeds = None  # None means "use default based on flags"
     in_scope_only = False
     accept_url_special = False
     _module_threads = 1
@@ -736,6 +740,23 @@ class BaseModule:
         self.log.trace("Worker stopped")
 
     @property
+    def accept_seeds(self):
+        """
+        Returns whether the module accepts seed events.
+        Defaults to True for passive modules, False otherwise.
+        Can be explicitly overridden by setting _accept_seeds.
+        """
+        if self._accept_seeds is not None:
+            return self._accept_seeds
+        # Default to True for passive modules, False otherwise
+        return "passive" in self.flags
+
+    @accept_seeds.setter
+    def accept_seeds(self, value):
+        """Allow explicit setting of accept_seeds to override the default."""
+        self._accept_seeds = value
+
+    @property
     def max_scope_distance(self):
         if self.in_scope_only or self.target_only:
             return 0
@@ -778,7 +799,12 @@ class BaseModule:
         if self.errored:
             return False, "module is in error state"
         # exclude non-watched types
-        if not any(t in self.get_watched_events() for t in ("*", event.type)):
+        watched_events = self.get_watched_events()
+        event_type_watched = any(t in watched_events for t in ("*", event.type))
+        # Check if module accepts seeds and event is a seed (only if event type is watched)
+        if self.accept_seeds and "seed" in event.tags and event_type_watched:
+            return True, "it is a seed event and module accepts seeds"
+        if not event_type_watched:
             return False, "its type is not in watched_events"
         if self.target_only:
             if "target" not in event.tags:
@@ -857,6 +883,9 @@ class BaseModule:
         return True, ""
 
     def _scope_distance_check(self, event):
+        # Seeds bypass scope distance checks
+        if self.accept_seeds and "seed" in event.tags:
+            return True, "it is a seed event and module accepts seeds"
         if self.in_scope_only:
             if event.scope_distance > 0:
                 return False, "it did not meet in_scope_only filter criteria"
