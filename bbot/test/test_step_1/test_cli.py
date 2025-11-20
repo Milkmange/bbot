@@ -12,10 +12,10 @@ async def test_cli_scope(monkeypatch, capsys):
     monkeypatch.setattr(sys, "exit", lambda *args, **kwargs: True)
     monkeypatch.setattr(os, "_exit", lambda *args, **kwargs: True)
 
-    # basic target without whitelist
+    # basic target (seeds and target are the same)
     monkeypatch.setattr(
         "sys.argv",
-        ["bbot", "-t", "one.one.one.one", "-c", "scope.report_distance=10", "dns.minimal=false", "--json"],
+        ["bbot", "-t", "one.one.one.one", "-c", "scope.report_distance=10", "dns.minimal=false", "--json", "-y"],
     )
     result = await cli._main()
     out, err = capsys.readouterr()
@@ -41,20 +41,21 @@ async def test_cli_scope(monkeypatch, capsys):
     assert ip_events
     assert all(l["scope_distance"] == 1 and "distance-1" in l["tags"] for l in ip_events)
 
-    # with whitelist
+    # with target_list different from seeds (seeds are one.one.one.one, target is 192.168.0.1)
     monkeypatch.setattr(
         "sys.argv",
         [
             "bbot",
             "-t",
-            "one.one.one.one",
-            "-w",
             "192.168.0.1",
+            "-s",
+            "one.one.one.one",
             "-c",
             "scope.report_distance=10",
             "dns.minimal=false",
             "dns.search_distance=2",
             "--json",
+            "-y",
         ],
     )
     result = await cli._main()
