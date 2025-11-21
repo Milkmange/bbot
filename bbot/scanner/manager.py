@@ -193,8 +193,8 @@ class ScanEgress(BaseInterceptModule):
 
         # omit certain event types
         if event.type in self.scan.omitted_event_types:
-            if "seed" in event.tags:
-                self.debug(f"Allowing omitted event: {event} because it's a seed")
+            if "target" in event.tags:
+                self.debug(f"Allowing omitted event: {event} because it's a target")
             else:
                 event._omit = True
 
