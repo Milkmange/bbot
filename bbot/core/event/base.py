@@ -1712,7 +1712,7 @@ class FILESYSTEM(DictPathEvent):
 
 class RAW_DNS_RECORD(DictHostEvent, DnsEvent):
     # don't emit raw DNS records for affiliates
-    _always_emit_tags = ["seed"]
+    _always_emit_tags = ["target"]
 
 
 class MOBILE_APP(DictEvent):
