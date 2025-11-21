@@ -169,7 +169,6 @@ class BaseModule:
         self._default_handle_batch_timeout = self.scan.config.get(
             "module_handle_batch_timeout", 60 * 60 * 2
         )  # 2 hours
-        self._event_handler_watchdog_task = None
         self._event_handler_watchdog_interval = self.event_handler_timeout / 10
 
         # used for optional "per host" tracking
@@ -627,10 +626,11 @@ class BaseModule:
             asyncio.create_task(self._worker(), name=f"{self.scan.name}.{self.name}._worker()")
             for _ in range(self.module_threads)
         ]
-        self._event_handler_watchdog_task = asyncio.create_task(
+        watchdog_task = asyncio.create_task(
             self._event_handler_watchdog(),
             name=f"{self.scan.name}.{self.name}._event_handler_watchdog()",
         )
+        self._tasks.append(watchdog_task)
 
     async def _setup(self, deps_only=False):
         """ """
@@ -1765,6 +1765,7 @@ class BaseInterceptModule(BaseModule):
     """
 
     accept_dupes = True
+    accept_url_special = True
     _intercept = True
 
     async def _worker(self):
