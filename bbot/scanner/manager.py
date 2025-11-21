@@ -116,20 +116,10 @@ class ScanIngress(BaseInterceptModule):
 
         # Scope shepherding
         # here is where we make sure in-scope events are set to their proper scope distance
+
         if event.host:
-            event_in_target = self.scan.in_target(event)
-            # Also check resolved IPs for DNS name events
-            if not event_in_target and hasattr(event, "resolved_hosts") and event.resolved_hosts:
-                for resolved_ip in event.resolved_hosts:
-                    if self.scan.in_target(resolved_ip):
-                        event_in_target = True
-                        self.debug(
-                            f"Making {event} in-scope because its resolved IP {resolved_ip} matches the scan target"
-                        )
-                        break
-            if event_in_target:
-                if not (hasattr(event, "resolved_hosts") and event.resolved_hosts):
-                    self.debug(f"Making {event} in-scope because its main host matches the scan target")
+            if self.scan.in_target(event):
+                self.debug(f"Making {event} in-scope because its main host matches the scan target")
                 event.scope_distance = 0
 
         # nerf event's priority if it's not in scope

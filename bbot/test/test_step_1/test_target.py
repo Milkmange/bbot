@@ -207,7 +207,7 @@ async def test_target_basic(bbot_scanner):
     assert bbottarget5 != bbottarget6
     assert bbottarget6 != bbottarget5
 
-    # make sure swapped target <--> whitelist result in different hash
+    # make sure swapped target <--> blacklist result in different hash
     assert bbottarget8 != bbottarget9
     assert bbottarget9 != bbottarget8
 
@@ -311,7 +311,7 @@ async def test_target_basic(bbot_scanner):
     assert target_dict["blacklist_hash"] == "f7afa1da3422433a13f432c32cc3a99f15156e5c"
     assert target_dict["scope_hash"] == "66e101635e33f5d234428750a0476c713070334a"
 
-    # make sure child subnets/IPs don't get added to whitelist/blacklist
+    # make sure child subnets/IPs don't get added to target/blacklist
     target = RadixTarget("1.2.3.4/24", "1.2.3.4/28", acl_mode=True)
     assert set(target) == {ip_network("1.2.3.0/24")}
     target = RadixTarget("1.2.3.4/28", "1.2.3.4/24", acl_mode=True)

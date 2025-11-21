@@ -55,7 +55,7 @@ class TestSubdomainEnum(ModuleTestBase):
 
 class TestSubdomainEnumHighestParent(TestSubdomainEnum):
     targets = ["api.test.asdf.www.blacklanternsecurity.com", "evilcorp.com"]
-    whitelist = ["www.blacklanternsecurity.com"]
+    target_list = ["www.blacklanternsecurity.com"]
     modules_overrides = ["speculate"]
     dedup_strategy = "highest_parent"
     txt = None
@@ -89,7 +89,6 @@ class TestSubdomainEnumLowestParent(TestSubdomainEnumHighestParent):
 class TestSubdomainEnumWildcardBaseline(ModuleTestBase):
     # oh walmart.cn why are you like this
     targets = ["www.walmart.cn"]
-    whitelist = ["walmart.cn"]
     modules_overrides = []
     config_overrides = {"dns": {"minimal": False}, "scope": {"report_distance": 10}, "omit_event_types": []}
     dedup_strategy = "highest_parent"

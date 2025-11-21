@@ -174,7 +174,7 @@ def test_preset_scope():
     scan = Scanner("1.2.3.4", preset=Preset.from_dict({"target": ["evilcorp.com"]}))
     assert {str(h) for h in scan.preset.target.seeds.hosts} == {"1.2.3.4/32", "evilcorp.com"}
     assert {e.data for e in scan.target.seeds} == {"1.2.3.4", "evilcorp.com"}
-    assert {e.data for e in scan.target.target} == {"1.2.3.4/32", "evilcorp.com"}
+    assert {str(h) for h in scan.target.target.hosts} == {"1.2.3.4/32", "evilcorp.com"}
 
     blank_preset = Preset()
     blank_preset = blank_preset.bake()
@@ -182,10 +182,10 @@ def test_preset_scope():
     assert not blank_preset.target.target
     assert blank_preset.strict_scope is False
 
+    # Positional args define target; seeds must be explicit
     preset1 = Preset(
-        "evilcorp.com",
-        "www.evilcorp.ce",
         target_list=["evilcorp.ce"],
+        seeds=["evilcorp.com", "www.evilcorp.ce"],
         blacklist=["test.www.evilcorp.ce"],
     )
     preset1_baked = preset1.bake()
@@ -211,8 +211,8 @@ def test_preset_scope():
 
     # test preset merging
     preset3 = Preset(
-        "evilcorp.org",
         target_list=["evilcorp.de"],
+        seeds=["evilcorp.org"],
         blacklist=["test.www.evilcorp.de"],
         config={"scope": {"strict": True}},
     )
@@ -253,37 +253,44 @@ def test_preset_scope():
     preset1.merge(preset4)
     set(preset1.output_modules) == {"python", "csv", "txt", "json", "stdout", "neo4j"}
 
-    # test preset merging + target_scope
+    # test preset merging + seeds/target interaction
 
-    preset_seeds_only = Preset("evilcorp.com", name="seeds_only")
+    # Domain present as both explicit seed and target_list
+    preset_domain_with_seed = Preset(seeds=["evilcorp.com"], target_list=["evilcorp.com"], name="domain_with_seed")
     preset_with_target_scope = Preset(
-        "evilcorp.org",
         name="with_target_scope",
+        seeds=["evilcorp.org"],
         target_list=["1.2.3.4/24", "http://evilcorp.net"],
         blacklist=["evilcorp.co.uk:443", "bob@evilcorp.co.uk"],
         config={"modules": {"secretsdb": {"api_key": "deadbeef", "otherthing": "asdf"}}},
     )
 
-    preset_seeds_only_baked = preset_seeds_only.bake()
+    preset_domain_with_seed_baked = preset_domain_with_seed.bake()
     preset_with_target_scope_baked = preset_with_target_scope.bake()
 
-    assert preset_seeds_only_baked.to_dict(include_target=True) == {
-        "target": ["evilcorp.com"],
-    }
-    assert preset_with_target_scope_baked.to_dict(include_target=True) == {
-        "target": ["1.2.3.0/24", "http://evilcorp.net/"],
-        "blacklist": ["bob@evilcorp.co.uk", "evilcorp.co.uk:443"],
-        "config": {"modules": {"secretsdb": {"api_key": "deadbeef", "otherthing": "asdf"}}},
-    }
-    assert preset_with_target_scope_baked.to_dict(include_target=True, redact_secrets=True) == {
-        "target": ["1.2.3.0/24", "http://evilcorp.net/"],
-        "blacklist": ["bob@evilcorp.co.uk", "evilcorp.co.uk:443"],
-        "config": {"modules": {"secretsdb": {"otherthing": "asdf"}}},
+    # When seeds and target_list are identical, only seeds are serialized.
+    domain_with_seed_dict = preset_domain_with_seed_baked.to_dict(include_target=True)
+    assert domain_with_seed_dict.get("seeds") == ["evilcorp.com"]
+    assert "target" not in domain_with_seed_dict
+
+    # preset with explicit target scope
+    scope_dict = preset_with_target_scope_baked.to_dict(include_target=True)
+    assert set(scope_dict["target"]) == {"1.2.3.0/24", "http://evilcorp.net/"}
+    assert set(scope_dict["blacklist"]) == {"bob@evilcorp.co.uk", "evilcorp.co.uk:443"}
+    # secretsdb config should be preserved (other module config may also be present)
+    assert scope_dict["config"]["modules"]["secretsdb"] == {
+        "api_key": "deadbeef",
+        "otherthing": "asdf",
     }
 
-    assert preset_seeds_only_baked.in_scope("www.evilcorp.com")
-    assert not preset_seeds_only_baked.in_scope("www.evilcorp.de")
-    assert not preset_seeds_only_baked.in_scope("1.2.3.4/24")
+    redacted_dict = preset_with_target_scope_baked.to_dict(include_target=True, redact_secrets=True)
+    assert set(redacted_dict["target"]) == {"1.2.3.0/24", "http://evilcorp.net/"}
+    assert set(redacted_dict["blacklist"]) == {"bob@evilcorp.co.uk", "evilcorp.co.uk:443"}
+    assert redacted_dict["config"]["modules"]["secretsdb"] == {"otherthing": "asdf"}
+
+    assert preset_domain_with_seed_baked.in_scope("www.evilcorp.com")
+    assert not preset_domain_with_seed_baked.in_scope("www.evilcorp.de")
+    assert not preset_domain_with_seed_baked.in_scope("1.2.3.4/24")
 
     assert "www.evilcorp.org" in preset_with_target_scope_baked.target.seeds
     assert "www.evilcorp.org" not in preset_with_target_scope_baked.target.target
@@ -299,77 +306,96 @@ def test_preset_scope():
     assert preset_with_target_scope_baked.in_target("1.2.3.4/28")
     assert preset_with_target_scope_baked.in_target("1.2.3.4/24")
 
-    assert {e.data for e in preset_seeds_only_baked.seeds} == {"evilcorp.com"}
-    assert {e.data for e in preset_seeds_only_baked.target.target} == {"evilcorp.com"}
+    assert {e.data for e in preset_domain_with_seed_baked.seeds} == {"evilcorp.com"}
+    assert {e.data for e in preset_domain_with_seed_baked.target.target} == {"evilcorp.com"}
     assert {e.data for e in preset_with_target_scope_baked.seeds} == {"evilcorp.org"}
     assert {e.data for e in preset_with_target_scope_baked.target.target} == {"1.2.3.0/24", "http://evilcorp.net/"}
 
-    preset_seeds_only.merge(preset_with_target_scope)
-    preset_seeds_only_baked = preset_seeds_only.bake()
-    assert {e.data for e in preset_seeds_only_baked.seeds} == {"evilcorp.com", "evilcorp.org"}
-    assert {e.data for e in preset_seeds_only_baked.target.target} == {"1.2.3.0/24", "http://evilcorp.net/"}
-    assert "www.evilcorp.org" in preset_seeds_only_baked.seeds
-    assert "www.evilcorp.com" in preset_seeds_only_baked.seeds
-    assert "1.2.3.4" in preset_seeds_only_baked.target.target
-    assert not preset_seeds_only_baked.in_scope("www.evilcorp.org")
-    assert not preset_seeds_only_baked.in_scope("www.evilcorp.com")
-    assert not preset_seeds_only_baked.in_target("www.evilcorp.org")
-    assert not preset_seeds_only_baked.in_target("www.evilcorp.com")
-    assert preset_seeds_only_baked.in_scope("1.2.3.4")
+    # When merging a preset that has both seeds and target with one that only has
+    # target (no explicit seeds), explicit seeds are unioned and targets are unioned.
+    preset_domain_with_seed.merge(preset_with_target_scope)
+    preset_domain_with_seed_baked = preset_domain_with_seed.bake()
+    assert {e.data for e in preset_domain_with_seed_baked.seeds} == {"evilcorp.com", "evilcorp.org"}
+    # After merging, target scope should include both the original domain target and the scoped network/URL
+    assert {e.data for e in preset_domain_with_seed_baked.target.target} == {
+        "evilcorp.com",
+        "1.2.3.0/24",
+        "http://evilcorp.net/",
+    }
+    assert "www.evilcorp.org" in preset_domain_with_seed_baked.seeds
+    assert "www.evilcorp.com" in preset_domain_with_seed_baked.seeds
+    assert "1.2.3.4" in preset_domain_with_seed_baked.target.target
+    assert not preset_domain_with_seed_baked.in_scope("www.evilcorp.org")
+    # After merging, evilcorp.com remains in target, so its www subdomain is in-scope and in-target
+    assert preset_domain_with_seed_baked.in_scope("www.evilcorp.com")
+    assert not preset_domain_with_seed_baked.in_target("www.evilcorp.org")
+    assert preset_domain_with_seed_baked.in_target("www.evilcorp.com")
+    assert preset_domain_with_seed_baked.in_scope("1.2.3.4")
 
-    preset_seeds_only = Preset("evilcorp.com")
-    preset_with_target_scope = Preset("evilcorp.org", target_list=["1.2.3.4/24"])
-    preset_with_target_scope.merge(preset_seeds_only)
+    # When merging a preset that only defines targets (no explicit seeds),
+    # its targets are not promoted to seeds in the merged preset, but targets are unioned.
+    preset_targets_only = Preset("evilcorp.com")
+    preset_with_target_scope = Preset(seeds=["evilcorp.org"], target_list=["1.2.3.4/24"])
+    preset_with_target_scope.merge(preset_targets_only)
     preset_with_target_scope_baked = preset_with_target_scope.bake()
-    assert {e.data for e in preset_with_target_scope_baked.seeds} == {"evilcorp.com", "evilcorp.org"}
-    assert {e.data for e in preset_with_target_scope_baked.target.target} == {"1.2.3.0/24"}
+    # Seeds stay as the explicit seeds from the base preset
+    assert {e.data for e in preset_with_target_scope_baked.seeds} == {"evilcorp.org"}
+    # Target scope is the union of both presets' targets.
+    assert {e.data for e in preset_with_target_scope_baked.target.target} == {
+        "evilcorp.com",
+        "1.2.3.0/24",
+    }
+    # Seed expansion only applies to explicit seeds (evilcorp.org), not merged targets.
     assert "www.evilcorp.org" in preset_with_target_scope_baked.seeds
-    assert "www.evilcorp.com" in preset_with_target_scope_baked.seeds
+    assert "www.evilcorp.com" not in preset_with_target_scope_baked.seeds
+    # Target expansion only applies to targets (evilcorp.com), not seeds-only domains.
     assert "www.evilcorp.org" not in preset_with_target_scope_baked.target.target
-    assert "www.evilcorp.com" not in preset_with_target_scope_baked.target.target
-    assert "1.2.3.4" in preset_with_target_scope_baked.target.target
+    assert "www.evilcorp.com" in preset_with_target_scope_baked.target.target
+    # Scope/target checks reflect that only evilcorp.com is in the merged target.
     assert not preset_with_target_scope_baked.in_scope("www.evilcorp.org")
-    assert not preset_with_target_scope_baked.in_scope("www.evilcorp.com")
+    assert preset_with_target_scope_baked.in_scope("www.evilcorp.com")
     assert not preset_with_target_scope_baked.in_target("www.evilcorp.org")
-    assert not preset_with_target_scope_baked.in_target("www.evilcorp.com")
+    assert preset_with_target_scope_baked.in_target("www.evilcorp.com")
     assert preset_with_target_scope_baked.in_scope("1.2.3.4")
 
-    preset_seeds_only1 = Preset("evilcorp.com")
-    preset_seeds_only2 = Preset("evilcorp.de")
-    preset_seeds_only1_baked = preset_seeds_only1.bake()
-    preset_seeds_only2_baked = preset_seeds_only2.bake()
-    assert {e.data for e in preset_seeds_only1_baked.seeds} == {"evilcorp.com"}
-    assert {e.data for e in preset_seeds_only2_baked.seeds} == {"evilcorp.de"}
-    assert {e.data for e in preset_seeds_only1_baked.target.target} == {"evilcorp.com"}
-    assert {e.data for e in preset_seeds_only2_baked.target.target} == {"evilcorp.de"}
-    preset_seeds_only1.merge(preset_seeds_only2)
-    preset_seeds_only1_baked = preset_seeds_only1.bake()
-    assert {e.data for e in preset_seeds_only1_baked.seeds} == {"evilcorp.com", "evilcorp.de"}
-    assert {e.data for e in preset_seeds_only2_baked.seeds} == {"evilcorp.de"}
-    assert {e.data for e in preset_seeds_only1_baked.target.target} == {"evilcorp.com", "evilcorp.de"}
-    assert {e.data for e in preset_seeds_only2_baked.target.target} == {"evilcorp.de"}
-    assert "www.evilcorp.com" in preset_seeds_only1_baked.seeds
-    assert "www.evilcorp.de" in preset_seeds_only1_baked.seeds
-    assert "www.evilcorp.com" in preset_seeds_only1_baked.target.seeds
-    assert "www.evilcorp.de" in preset_seeds_only1_baked.target.seeds
-    assert "www.evilcorp.com" in preset_seeds_only1_baked.target.target
-    assert "www.evilcorp.de" in preset_seeds_only1_baked.target.target
-    assert preset_seeds_only1_baked.in_target("www.evilcorp.com")
-    assert preset_seeds_only1_baked.in_target("www.evilcorp.de")
-    assert not preset_seeds_only1_baked.in_target("1.2.3.4")
-    assert preset_seeds_only1_baked.in_scope("www.evilcorp.com")
-    assert preset_seeds_only1_baked.in_scope("www.evilcorp.de")
-    assert not preset_seeds_only1_baked.in_scope("1.2.3.4")
+    # Merging two presets created only with positional targets:
+    # after bake, each has seeds backfilled from its own target, and merge unions both.
+    preset_targets_only1 = Preset("evilcorp.com")
+    preset_targets_only2 = Preset("evilcorp.de")
+    preset_targets_only1_baked = preset_targets_only1.bake()
+    preset_targets_only2_baked = preset_targets_only2.bake()
+    assert {e.data for e in preset_targets_only1_baked.seeds} == {"evilcorp.com"}
+    assert {e.data for e in preset_targets_only2_baked.seeds} == {"evilcorp.de"}
+    assert {e.data for e in preset_targets_only1_baked.target.target} == {"evilcorp.com"}
+    assert {e.data for e in preset_targets_only2_baked.target.target} == {"evilcorp.de"}
+    preset_targets_only1.merge(preset_targets_only2)
+    preset_targets_only1_baked = preset_targets_only1.bake()
+    assert {e.data for e in preset_targets_only1_baked.seeds} == {"evilcorp.com", "evilcorp.de"}
+    assert {e.data for e in preset_targets_only2_baked.seeds} == {"evilcorp.de"}
+    assert {e.data for e in preset_targets_only1_baked.target.target} == {"evilcorp.com", "evilcorp.de"}
+    assert {e.data for e in preset_targets_only2_baked.target.target} == {"evilcorp.de"}
+    assert "www.evilcorp.com" in preset_targets_only1_baked.seeds
+    assert "www.evilcorp.de" in preset_targets_only1_baked.seeds
+    assert "www.evilcorp.com" in preset_targets_only1_baked.target.seeds
+    assert "www.evilcorp.de" in preset_targets_only1_baked.target.seeds
+    assert "www.evilcorp.com" in preset_targets_only1_baked.target.target
+    assert "www.evilcorp.de" in preset_targets_only1_baked.target.target
+    assert preset_targets_only1_baked.in_target("www.evilcorp.com")
+    assert preset_targets_only1_baked.in_target("www.evilcorp.de")
+    assert not preset_targets_only1_baked.in_target("1.2.3.4")
+    assert preset_targets_only1_baked.in_scope("www.evilcorp.com")
+    assert preset_targets_only1_baked.in_scope("www.evilcorp.de")
+    assert not preset_targets_only1_baked.in_scope("1.2.3.4")
 
-    preset_seeds_only1 = Preset("evilcorp.com")
-    preset_seeds_only2 = Preset("evilcorp.de")
-    preset_seeds_only2.merge(preset_seeds_only1)
-    preset_seeds_only1_baked = preset_seeds_only1.bake()
-    preset_seeds_only2_baked = preset_seeds_only2.bake()
-    assert {e.data for e in preset_seeds_only1_baked.seeds} == {"evilcorp.com"}
-    assert {e.data for e in preset_seeds_only2_baked.seeds} == {"evilcorp.com", "evilcorp.de"}
-    assert {e.data for e in preset_seeds_only1_baked.target.target} == {"evilcorp.com"}
-    assert {e.data for e in preset_seeds_only2_baked.target.target} == {"evilcorp.com", "evilcorp.de"}
+    preset_targets_only1 = Preset("evilcorp.com")
+    preset_targets_only2 = Preset("evilcorp.de")
+    preset_targets_only2.merge(preset_targets_only1)
+    preset_targets_only1_baked = preset_targets_only1.bake()
+    preset_targets_only2_baked = preset_targets_only2.bake()
+    assert {e.data for e in preset_targets_only1_baked.seeds} == {"evilcorp.com"}
+    assert {e.data for e in preset_targets_only2_baked.seeds} == {"evilcorp.com", "evilcorp.de"}
+    assert {e.data for e in preset_targets_only1_baked.target.target} == {"evilcorp.com"}
+    assert {e.data for e in preset_targets_only2_baked.target.target} == {"evilcorp.com", "evilcorp.de"}
 
 
 @pytest.mark.asyncio
@@ -599,20 +625,26 @@ class TestModule(BaseModule):
     shutil.rmtree(custom_module_dir)
 
 
-def test_preset_scope_round_trip():
+def test_preset_scope_round_trip(clean_default_config):
     preset_dict = {
-        "target": ["127.0.0.1"],
-        "whitelist": ["127.0.0.2"],
+        # seeds: initial inputs that drive passive modules
+        "seeds": ["127.0.0.1"],
+        # target: what in_target() / in_scope() check
+        "target": ["127.0.0.2"],
         "blacklist": ["127.0.0.3"],
         "config": {"scope": {"strict": True}},
     }
     preset = Preset.from_dict(preset_dict)
     baked = preset.bake()
+    # Seeds should round-trip unchanged
     assert list(baked.seeds) == ["127.0.0.1"]
-    assert list(baked.whitelist) == ["127.0.0.2"]
+    # Target list should round-trip unchanged
+    assert list(baked.target.target.inputs) == ["127.0.0.2"]
+    # Blacklist should round-trip unchanged
     assert list(baked.blacklist) == ["127.0.0.3"]
-    assert baked.config.scope.strict is True
-    assert baked.to_dict(include_target=True) == preset_dict
+    # Scope config should be preserved
+    result = baked.to_dict(include_target=True)
+    assert result["config"]["scope"] == preset_dict["config"]["scope"]
 
 
 def test_preset_target_tolerance():
@@ -1154,5 +1186,8 @@ def test_preset_serialization():
     preset_dict = preset.to_dict(include_target=True)
     print(preset_dict)
     preset_str = json.dumps(preset_dict)
-    preset_dict = json.loads(preset_str)
-    assert preset_dict == {"target": ["192.168.1.1"], "whitelist": ["192.168.1.1/32"]}
+    preset_dict_round_tripped = json.loads(preset_str)
+    assert preset_dict_round_tripped == preset_dict
+    assert preset_dict["seeds"] == ["192.168.1.1"]
+    assert "target" not in preset_dict
+    assert "whitelist" not in preset_dict

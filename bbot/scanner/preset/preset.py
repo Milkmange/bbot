@@ -674,14 +674,14 @@ class Preset(metaclass=BasePreset):
             >>> preset = Preset.from_dict({"target": ["evilcorp.com"], "modules": ["portscan"]})
         """
         # Handle seeds and target_list from dict
-        # "target" key in dict represents target_list (what in_target() checks)
-        # "seeds" key in dict represents seeds (if present)
-        # "targets" key is legacy and treated as target_list
+        # - "target" key represents target_list (what in_target() checks)
+        # - "targets" is legacy and also treated as target_list
+        # - "seeds" key represents explicit seeds (never positional args)
         target_list = preset_dict.get("target") or preset_dict.get("targets")
         seeds = preset_dict.get("seeds")
         new_preset = cls(
-            *(seeds if seeds else []),
             target_list=target_list,
+            seeds=seeds,
             blacklist=preset_dict.get("blacklist"),
             modules=preset_dict.get("modules"),
             output_modules=preset_dict.get("output_modules"),

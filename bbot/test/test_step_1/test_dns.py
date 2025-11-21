@@ -254,7 +254,7 @@ def custom_lookup(query, rdtype):
 
     scan = bbot_scanner(
         "bbot.fdsa.www.test.evilcorp.com",
-        whitelist=["evilcorp.com"],
+        target_list=["evilcorp.com"],
         config={
             "dns": {"minimal": False, "disable": False, "search_distance": 5, "wildcard_ignore": ["evilcorp.com"]},
             "speculate": True,
@@ -311,7 +311,7 @@ def custom_lookup(query, rdtype):
 
     scan = bbot_scanner(
         "bbot.fdsa.www.test.evilcorp.com",
-        whitelist=["evilcorp.com"],
+        target_list=["evilcorp.com"],
         config={
             "dns": {"minimal": False, "disable": False, "search_distance": 5, "wildcard_ignore": []},
             "speculate": True,
@@ -539,7 +539,7 @@ def custom_lookup(query, rdtype):
     from bbot.scanner import Scanner
 
     # test with full scan
-    scan2 = Scanner("asdfl.gashdgkjsadgsdf.github.io", whitelist=["github.io"], config={"dns": {"minimal": False}})
+    scan2 = Scanner("asdfl.gashdgkjsadgsdf.github.io", target_list=["github.io"], config={"dns": {"minimal": False}})
     await scan2._prep()
     other_event = scan2.make_event(
         "lkjg.sdfgsg.jgkhajshdsadf.github.io", module=scan2.modules["dnsresolve"], parent=scan2.root_event
@@ -582,7 +582,7 @@ def custom_lookup(query, rdtype):
     # test with full scan (wildcard detection disabled for domain)
     scan2 = Scanner(
         "asdfl.gashdgkjsadgsdf.github.io",
-        whitelist=["github.io"],
+        target_list=["github.io"],
         config={"dns": {"wildcard_ignore": ["github.io"]}},
         exclude_modules=["cloudcheck"],
     )

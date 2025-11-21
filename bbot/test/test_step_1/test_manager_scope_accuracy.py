@@ -564,7 +564,7 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
     # 2 events from a single HTTP_RESPONSE
     events, all_events, all_events_nodups, graph_output_events, graph_output_batch_events = await do_scan(
         "127.0.0.111/31",
-        whitelist=["127.0.0.111/31", "127.0.0.222", "127.0.0.33"],
+        target_list=["127.0.0.111/31", "127.0.0.222", "127.0.0.33"],
         modules=["httpx"],
         output_modules=["python"],
         _config={
@@ -752,7 +752,7 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
     events, all_events, all_events_nodups, graph_output_events, graph_output_batch_events = await do_scan(
         "127.0.0.0/31",
         modules=["sslcert"],
-        whitelist=["127.0.1.0"],
+        target_list=["127.0.1.0"],
         _config={"scope": {"search_distance": 1, "report_distance": 0}, "speculate": True, "modules": {"speculate": {"ports": "9999"}}},
         _dns_mock={"www.bbottest.notreal": {"A": ["127.0.0.1"]}, "test.notreal": {"A": ["127.0.1.0"]}},
     )
@@ -809,7 +809,7 @@ async def test_manager_blacklist(bbot_scanner, bbot_httpserver, caplog):
         "http://127.0.0.1:8888",
         modules=["httpx"],
         config={"excavate": True, "dns": {"minimal": False, "search_distance": 1}, "scope": {"report_distance": 0}},
-        whitelist=["127.0.0.0/29", "test.notreal"],
+        target_list=["127.0.0.0/29", "test.notreal"],
         blacklist=["127.0.0.64/29"],
     )
     await scan.helpers.dns._mock_dns({
