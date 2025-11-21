@@ -108,7 +108,8 @@ class BaseEvent:
     # Always emit this event type even if it's not in scope
     _always_emit = False
     # Always emit events with these tags even if they're not in scope
-    _always_emit_tags = ["affiliate", "target"]
+
+    _always_emit_tags = ["affiliate", "seed"]
     # Bypass scope checking and dns resolution, distribute immediately to modules
     # This is useful for "end-of-line" events like FINDING and VULNERABILITY
     _quick_emit = False
@@ -1187,6 +1188,8 @@ class IP_RANGE(DnsEvent):
 
 
 class DNS_NAME(DnsEvent):
+    _always_emit_tags = ["affiliate", "seed"]
+
     def sanitize_data(self, data):
         return validators.validate_host(data)
 
@@ -1712,7 +1715,7 @@ class FILESYSTEM(DictPathEvent):
 
 class RAW_DNS_RECORD(DictHostEvent, DnsEvent):
     # don't emit raw DNS records for affiliates
-    _always_emit_tags = ["target"]
+    _always_emit_tags = ["seed"]
 
 
 class MOBILE_APP(DictEvent):

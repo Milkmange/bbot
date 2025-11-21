@@ -28,10 +28,7 @@ async def test_cli_scope(monkeypatch, capsys):
         [
             l
             for l in dns_events
-            if l["module"] == "TARGET"
-            and l["scope_distance"] == 0
-            and "in-scope" in l["tags"]
-            and "target" in l["tags"]
+            if l["module"] == "TARGET" and l["scope_distance"] == 0 and "in-scope" in l["tags"] and "seed" in l["tags"]
         ]
     )
     ip_events = [l for l in lines if l["type"] == "IP_ADDRESS" and l["data"] == "1.1.1.1"]
@@ -67,17 +64,17 @@ async def test_cli_scope(monkeypatch, capsys):
     assert not any(l["scope_distance"] == 0 for l in lines)
     dns_events = [l for l in lines if l["type"] == "DNS_NAME" and l["data"] == "one.one.one.one"]
     assert dns_events
+    # When seeds are different from target, the seed DNS_NAME should be out-of-scope
+    # (distance-1) and tagged as a seed, but NOT tagged as a target (since it is not
+    # part of the target set that in_target() checks).
     assert all(l["scope_distance"] == 1 and "distance-1" in l["tags"] for l in dns_events)
-    assert 1 == len(
-        [
-            l
-            for l in dns_events
-            if l["module"] == "TARGET"
-            and l["scope_distance"] == 1
-            and "distance-1" in l["tags"]
-            and "target" in l["tags"]
-        ]
-    )
+    target_seed_events = [
+        l
+        for l in dns_events
+        if l["module"] == "TARGET" and l["scope_distance"] == 1 and "distance-1" in l["tags"] and "seed" in l["tags"]
+    ]
+    assert len(target_seed_events) == 1
+    assert all("target" not in l["tags"] for l in target_seed_events)
     ip_events = [l for l in lines if l["type"] == "IP_ADDRESS" and l["data"] == "1.1.1.1"]
     assert ip_events
     assert all(l["scope_distance"] == 2 and "distance-2" in l["tags"] for l in ip_events)
