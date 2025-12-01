@@ -253,8 +253,8 @@ def custom_lookup(query, rdtype):
     # first, we check with wildcard detection disabled
 
     scan = bbot_scanner(
-        "bbot.fdsa.www.test.evilcorp.com",
-        target_list=["evilcorp.com"],
+        target_list=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
+        seeds=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
         config={
             "dns": {"minimal": False, "disable": False, "search_distance": 5, "wildcard_ignore": ["evilcorp.com"]},
             "speculate": True,
@@ -263,11 +263,13 @@ def custom_lookup(query, rdtype):
     await scan.helpers.dns._mock_dns(mock_data, custom_lookup_fn=custom_lookup)
 
     events = [e async for e in scan.async_start()]
-    assert len(events) == 12
-    assert len([e for e in events if e.type == "DNS_NAME"]) == 5
+
+    assert len(events) == 13
+    assert len([e for e in events if e.type == "DNS_NAME"]) == 6
     assert len([e for e in events if e.type == "RAW_DNS_RECORD"]) == 4
     assert sorted([e.data for e in events if e.type == "DNS_NAME"]) == [
         "bbot.fdsa.www.test.evilcorp.com",
+        "evilcorp.com",
         "evilcorp.com",
         "fdsa.www.test.evilcorp.com",
         "test.evilcorp.com",
@@ -275,7 +277,12 @@ def custom_lookup(query, rdtype):
     ]
 
     dns_names_by_host = {e.host: e for e in events if e.type == "DNS_NAME"}
-    assert dns_names_by_host["evilcorp.com"].tags == {"domain", "private-ip", "in-scope", "a-record"}
+    assert dns_names_by_host["evilcorp.com"].tags == {
+        "domain",
+        "private-ip",
+        "in-scope",
+        "a-record",
+    }
     assert dns_names_by_host["evilcorp.com"].resolved_hosts == {"127.0.0.1"}
     assert dns_names_by_host["test.evilcorp.com"].tags == {
         "subdomain",
@@ -294,6 +301,7 @@ def custom_lookup(query, rdtype):
         "subdomain",
         "in-scope",
         "txt-record",
+        "seed",
     }
     assert dns_names_by_host["bbot.fdsa.www.test.evilcorp.com"].resolved_hosts == set()
 
@@ -310,8 +318,8 @@ def custom_lookup(query, rdtype):
     # then we run it again with wildcard detection enabled
 
     scan = bbot_scanner(
-        "bbot.fdsa.www.test.evilcorp.com",
-        target_list=["evilcorp.com"],
+        target_list=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
+        seeds=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
         config={
             "dns": {"minimal": False, "disable": False, "search_distance": 5, "wildcard_ignore": []},
             "speculate": True,
@@ -320,19 +328,26 @@ def custom_lookup(query, rdtype):
     await scan.helpers.dns._mock_dns(mock_data, custom_lookup_fn=custom_lookup)
 
     events = [e async for e in scan.async_start()]
-    assert len(events) == 12
-    assert len([e for e in events if e.type == "DNS_NAME"]) == 5
+
+    assert len(events) == 13
+    assert len([e for e in events if e.type == "DNS_NAME"]) == 6
     assert len([e for e in events if e.type == "RAW_DNS_RECORD"]) == 4
     assert sorted([e.data for e in events if e.type == "DNS_NAME"]) == [
         "_wildcard.test.evilcorp.com",
         "bbot.fdsa.www.test.evilcorp.com",
+        "evilcorp.com",
         "evilcorp.com",
         "test.evilcorp.com",
         "www.test.evilcorp.com",
     ]
 
     dns_names_by_host = {e.host: e for e in events if e.type == "DNS_NAME"}
-    assert dns_names_by_host["evilcorp.com"].tags == {"domain", "private-ip", "in-scope", "a-record"}
+    assert dns_names_by_host["evilcorp.com"].tags == {
+        "domain",
+        "private-ip",
+        "in-scope",
+        "a-record",
+    }
     assert dns_names_by_host["evilcorp.com"].resolved_hosts == {"127.0.0.1"}
     assert dns_names_by_host["test.evilcorp.com"].tags == {
         "subdomain",
@@ -366,6 +381,7 @@ def custom_lookup(query, rdtype):
         "txt-record",
         "txt-wildcard",
         "wildcard",
+        "seed",
     }
     assert dns_names_by_host["bbot.fdsa.www.test.evilcorp.com"].resolved_hosts == set()
 
@@ -437,6 +453,7 @@ def custom_lookup(query, rdtype):
         "domain",
         "srv-record",
         "private-ip",
+        "seed",
     }
     assert dns_names_by_host["test.evilcorp.com"].tags == {
         "in-scope",
@@ -539,13 +556,19 @@ def custom_lookup(query, rdtype):
     from bbot.scanner import Scanner
 
     # test with full scan
-    scan2 = Scanner("asdfl.gashdgkjsadgsdf.github.io", target_list=["github.io"], config={"dns": {"minimal": False}})
+
+    scan2 = Scanner(
+        "github.io",
+        seeds=["asdfl.gashdgkjsadgsdf.github.io"],
+        config={"dns": {"minimal": False}},
+    )
     await scan2._prep()
     other_event = scan2.make_event(
         "lkjg.sdfgsg.jgkhajshdsadf.github.io", module=scan2.modules["dnsresolve"], parent=scan2.root_event
     )
     await scan2.ingress_module.queue_event(other_event, {})
     events = [e async for e in scan2.async_start()]
+
     assert len(events) == 4
     assert 2 == len([e for e in events if e.type == "SCAN"])
     unmodified_wildcard_events = [
@@ -581,8 +604,8 @@ def custom_lookup(query, rdtype):
 
     # test with full scan (wildcard detection disabled for domain)
     scan2 = Scanner(
-        "asdfl.gashdgkjsadgsdf.github.io",
-        target_list=["github.io"],
+        "github.io",
+        seeds=["asdfl.gashdgkjsadgsdf.github.io"],
         config={"dns": {"wildcard_ignore": ["github.io"]}},
         exclude_modules=["cloudcheck"],
     )
