@@ -92,7 +92,12 @@ class BaseTarget(RadixTarget):
         event_seeds = sorted(event_seeds, key=lambda e: ((0, 0) if not e.host else host_size_key(e.host)))
         for event_seed in event_seeds:
             self.event_seeds.add(event_seed)
-            self._add(event_seed.host, data=(event_seed if data is None else data))
+            # Some event seeds (e.g. ORG_STUB, USERNAME) are not host-based and have
+            # host == None. These are still useful as seeds, but cannot be represented
+            # in the underlying RadixTarget tree, which expects a concrete host.
+            # Skip adding them at the radix level to avoid errors inside radixtarget.
+            if event_seed.host is not None:
+                self._add(event_seed.host, data=(event_seed if data is None else data))
 
     def __iter__(self):
         yield from self.event_seeds
