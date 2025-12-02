@@ -92,12 +92,26 @@ class BaseTarget(RadixTarget):
         event_seeds = sorted(event_seeds, key=lambda e: ((0, 0) if not e.host else host_size_key(e.host)))
         for event_seed in event_seeds:
             self.event_seeds.add(event_seed)
-            # Some event seeds (e.g. ORG_STUB, USERNAME) are not host-based and have
-            # host == None. These are still useful as seeds, but cannot be represented
-            # in the underlying RadixTarget tree, which expects a concrete host.
-            # Skip adding them at the radix level to avoid errors inside radixtarget.
-            if event_seed.host is not None:
-                self._add(event_seed.host, data=(event_seed if data is None else data))
+            # Some event seeds (e.g. ORG_STUB, USERNAME, BLACKLIST_REGEX) are not host-based and have
+            # host == None. These are still useful as parsed target entries, but cannot always be
+            # represented in the underlying RadixTarget tree, which expects a concrete host.
+            # Subclasses like ScanBlacklist may still need to see these entries (for regex handling,
+            # etc.), so we always call self._add() and let the subclass decide whether to forward to
+            # the radix layer.
+            self._add(event_seed.host, data=(event_seed if data is None else data))
+
+    def _add(self, host, data):
+        """
+        Wrapper around RadixTarget._add().
+
+        The radix tree cannot handle host == None, but some subclasses (e.g. ScanBlacklist)
+        need to receive non-host-based entries such as BLACKLIST_REGEX. BaseTarget.add()
+        always calls self._add(); this default implementation safely ignores hostless
+        entries while still delegating normal hosts to the underlying RadixTarget.
+        """
+        if host is None:
+            return
+        super()._add(host, data)
 
     def __iter__(self):
         yield from self.event_seeds
