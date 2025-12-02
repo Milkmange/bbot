@@ -678,7 +678,11 @@ class Preset(metaclass=BasePreset):
         # - "target" key represents target_list (what in_target() checks)
         # - "targets" is legacy and also treated as target_list
         # - "seeds" key represents explicit seeds (never positional args)
-        target_list = preset_dict.get("target") or preset_dict.get("targets")
+        #
+        # If BOTH "target" and "targets" are present, treat this as a user typo
+        # and merge them into a single target_list (order-preserving, deduped).
+        target_vals = (preset_dict.get("target") or []) + (preset_dict.get("targets") or [])
+        target_list = list(dict.fromkeys(target_vals)) or None
         seeds = preset_dict.get("seeds")
         new_preset = cls(
             target_list=target_list,
