@@ -502,7 +502,7 @@ class Preset(metaclass=BasePreset):
         from bbot.scanner.target import BBOTTarget
 
         baked_preset._target = BBOTTarget(
-            *list(self._seeds),
+            seeds=list(self._seeds),
             target=list(self._target_list) if self._target_list else None,
             blacklist=self._blacklist,
             strict_dns_scope=self.strict_scope,
