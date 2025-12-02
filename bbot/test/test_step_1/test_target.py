@@ -14,7 +14,7 @@ async def test_target_basic(bbot_scanner):
     scan5 = bbot_scanner()
 
     # test different types of inputs
-    target = BBOTTarget("evilcorp.com", "1.2.3.4/8")
+    target = BBOTTarget(target=["evilcorp.com", "1.2.3.4/8"])
     assert "www.evilcorp.com" in target.seeds
     assert "www.evilcorp.com:80" in target.seeds
     assert "http://www.evilcorp.com:80" in target.seeds
@@ -161,21 +161,22 @@ async def test_target_basic(bbot_scanner):
     assert target1.hash == target2.hash
 
     # test default target
-    bbottarget = BBOTTarget("http://1.2.3.4:8443", "bob@evilcorp.com")
+    bbottarget = BBOTTarget(target=["http://1.2.3.4:8443", "bob@evilcorp.com"])
+
     assert bbottarget.seeds.hosts == {ip_network("1.2.3.4"), "evilcorp.com"}
     assert bbottarget.target.hosts == {ip_network("1.2.3.4"), "evilcorp.com"}
     assert {e.data for e in bbottarget.seeds.event_seeds} == {"http://1.2.3.4:8443/", "bob@evilcorp.com"}
-    assert {e.data for e in bbottarget.target.event_seeds} == {"1.2.3.4/32", "evilcorp.com"}
+    assert {e.data for e in bbottarget.target.event_seeds} == {"http://1.2.3.4:8443/", "bob@evilcorp.com"}
 
-    bbottarget1 = BBOTTarget("evilcorp.com", "evilcorp.net", target=["1.2.3.4/24"], blacklist=["1.2.3.4"])
-    bbottarget2 = BBOTTarget("evilcorp.com", "evilcorp.net", target=["1.2.3.0/24"], blacklist=["1.2.3.4"])
-    bbottarget3 = BBOTTarget("evilcorp.com", target=["1.2.3.4/24"], blacklist=["1.2.3.4"])
-    bbottarget5 = BBOTTarget("evilcorp.com", "evilcorp.net", target=["1.2.3.0/24"], blacklist=["1.2.3.4"])
+    bbottarget1 = BBOTTarget(seeds=["evilcorp.com", "evilcorp.net"], target=["1.2.3.4/24"], blacklist=["1.2.3.4"])
+    bbottarget2 = BBOTTarget(seeds=["evilcorp.com", "evilcorp.net"], target=["1.2.3.0/24"], blacklist=["1.2.3.4"])
+    bbottarget3 = BBOTTarget(seeds=["evilcorp.com"], target=["1.2.3.4/24"], blacklist=["1.2.3.4"])
+    bbottarget5 = BBOTTarget(seeds=["evilcorp.com", "evilcorp.net"], target=["1.2.3.0/24"], blacklist=["1.2.3.4"])
     bbottarget6 = BBOTTarget(
-        "evilcorp.com", "evilcorp.net", target=["1.2.3.0/24"], blacklist=["1.2.3.4"], strict_dns_scope=True
+        seeds=["evilcorp.com", "evilcorp.net"], target=["1.2.3.0/24"], blacklist=["1.2.3.4"], strict_dns_scope=True
     )
-    bbottarget8 = BBOTTarget("1.2.3.0/24", target=["evilcorp.com", "evilcorp.net"], blacklist=["1.2.3.4"])
-    bbottarget9 = BBOTTarget("evilcorp.com", "evilcorp.net", target=["1.2.3.0/24"], blacklist=["1.2.3.4"])
+    bbottarget8 = BBOTTarget(seeds=["1.2.3.0/24"], target=["evilcorp.com", "evilcorp.net"], blacklist=["1.2.3.4"])
+    bbottarget9 = BBOTTarget(seeds=["evilcorp.com", "evilcorp.net"], target=["1.2.3.0/24"], blacklist=["1.2.3.4"])
 
     # make sure it's a sha1 hash
     assert isinstance(bbottarget1.hash, bytes)
@@ -212,15 +213,15 @@ async def test_target_basic(bbot_scanner):
     assert bbottarget9 != bbottarget8
 
     # make sure duplicate events don't change hash
-    target1 = BBOTTarget("https://evilcorp.com")
-    target2 = BBOTTarget("https://evilcorp.com")
+    target1 = BBOTTarget(target=["https://evilcorp.com"])
+    target2 = BBOTTarget(target=["https://evilcorp.com"])
     assert target1 == target2
     target1.seeds.add("https://evilcorp.com:443")
     assert target1 == target2
 
     # make sure hosts are collapsed in target and blacklist
     bbottarget = BBOTTarget(
-        "http://evilcorp.com:8080",
+        seeds=["http://evilcorp.com:8080"],
         target=["evilcorp.net:443", "http://evilcorp.net:8080"],
         blacklist=["http://evilcorp.org:8080", "evilcorp.org:443"],
     )
@@ -258,9 +259,7 @@ async def test_target_basic(bbot_scanner):
 
     # verify hash values
     bbottarget = BBOTTarget(
-        "1.2.3.0/24",
-        "http://www.evilcorp.net",
-        "bob@fdsa.evilcorp.net",
+        seeds=["1.2.3.0/24", "http://www.evilcorp.net", "bob@fdsa.evilcorp.net"],
         target=["evilcorp.com", "bob@www.evilcorp.com", "evilcorp.net"],
         blacklist=["1.2.3.4", "4.3.2.1/24", "http://1.2.3.4", "bob@asdf.evilcorp.net"],
     )
@@ -290,9 +289,7 @@ async def test_target_basic(bbot_scanner):
     assert bbottarget.blacklist.hash == b'\xf7\xaf\xa1\xda4"C:\x13\xf42\xc3,\xc3\xa9\x9f\x15\x15n\\'
 
     scan = bbot_scanner(
-        "http://www.evilcorp.net",
-        "1.2.3.0/24",
-        "bob@fdsa.evilcorp.net",
+        seeds=["http://www.evilcorp.net", "1.2.3.0/24", "bob@fdsa.evilcorp.net"],
         target_list=["evilcorp.net", "evilcorp.com", "bob@www.evilcorp.com"],
         blacklist=["bob@asdf.evilcorp.net", "1.2.3.4", "4.3.2.1/24", "http://1.2.3.4"],
     )

@@ -221,25 +221,24 @@ class BBOTTarget:
     Provides high-level functions like in_scope(), which includes both target and blacklist checks.
     """
 
-    def __init__(self, *seeds, target=None, blacklist=None, strict_dns_scope=False):
+    def __init__(self, seeds=None, target=None, blacklist=None, strict_dns_scope=False):
         self.strict_dns_scope = strict_dns_scope
         self._orig_target = target
-        self._orig_seeds = seeds if seeds else None
+        self._orig_seeds = list(seeds) if seeds else None
 
-        if target is None:
-            target = []
-        self.target = ScanTarget(*target, strict_dns_scope=strict_dns_scope)
+        target_list = list(target) if target else []
+        self.target = ScanTarget(*target_list, strict_dns_scope=strict_dns_scope)
 
         # Seeds are only copied from target if target is defined but seeds are NOT defined
         # Use target.inputs (original inputs) to preserve all inputs, including subdomains
-        if not seeds and target:
-            seeds = list(self.target.inputs)
+        seeds_list = list(seeds) if seeds else []
+        if not seeds_list and target_list:
+            seeds_list = list(self.target.inputs)
 
-        self.seeds = ScanSeeds(*seeds, strict_dns_scope=strict_dns_scope)
+        self.seeds = ScanSeeds(*seeds_list, strict_dns_scope=strict_dns_scope)
 
-        if blacklist is None:
-            blacklist = []
-        self.blacklist = ScanBlacklist(*blacklist)
+        blacklist_list = list(blacklist) if blacklist else []
+        self.blacklist = ScanBlacklist(*blacklist_list)
 
     @property
     def json(self):
