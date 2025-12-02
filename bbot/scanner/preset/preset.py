@@ -269,8 +269,8 @@ class Preset(metaclass=BasePreset):
 
         # target / seeds / blacklist
         # these are temporary receptacles until they all get .baked() together
-        # Positional arguments ALWAYS become target (never seeds)
-        # Seeds must be explicitly provided via seeds parameter
+        # Positional arguments ALWAYS become target (never seeds).
+        # Seeds must be explicitly provided via the `seeds` parameter.
         if target_list is not None:
             # Explicit target_list takes precedence over positional args
             self._target_list = set(target_list)
@@ -287,6 +287,7 @@ class Preset(metaclass=BasePreset):
         else:
             # Seeds not explicitly provided - will be backfilled in BBOTTarget if target is set
             self._seeds = set()
+
         self._blacklist = set(blacklist if blacklist else [])
 
         self._target = None

@@ -71,8 +71,7 @@ def test_preset_yaml(clean_default_config):
     import yaml
 
     preset1 = Preset(
-        "evilcorp.com",
-        "www.evilcorp.ce",
+        seeds=["evilcorp.com", "www.evilcorp.ce"],
         target_list=["evilcorp.ce"],
         blacklist=["test.www.evilcorp.ce"],
         modules=["sslcert"],
