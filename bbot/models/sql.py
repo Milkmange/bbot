@@ -126,10 +126,10 @@ class Target(BBOTBaseModel, table=True):
     name: str = "Default Target"
     strict_dns_scope: bool = False
     seeds: List = Field(default=[], sa_type=JSON)
-    whitelist: Optional[List] = Field(default=None, sa_type=JSON)
+    target: List = Field(default=[], sa_type=JSON)
     blacklist: List = Field(default=[], sa_type=JSON)
     hash: str = Field(sa_column=Column("hash", String(length=255), unique=True, primary_key=True, index=True))
     scope_hash: str = Field(sa_column=Column("scope_hash", String(length=255), index=True))
-    seed_hash: str = Field(sa_column=Column("seed_hashhash", String(length=255), index=True))
-    whitelist_hash: str = Field(sa_column=Column("whitelist_hash", String(length=255), index=True))
+    seed_hash: str = Field(sa_column=Column("seed_hash", String(length=255), index=True))
+    target_hash: str = Field(sa_column=Column("target_hash", String(length=255), index=True))
     blacklist_hash: str = Field(sa_column=Column("blacklist_hash", String(length=255), index=True))
