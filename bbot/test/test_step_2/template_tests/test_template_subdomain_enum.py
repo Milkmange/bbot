@@ -88,7 +88,8 @@ class TestSubdomainEnumLowestParent(TestSubdomainEnumHighestParent):
 
 class TestSubdomainEnumWildcardBaseline(ModuleTestBase):
     # oh walmart.cn why are you like this
-    targets = ["www.walmart.cn"]
+    targets = ["walmart.cn"]
+    seeds = ["www.walmart.cn"]
     modules_overrides = []
     config_overrides = {"dns": {"minimal": False}, "scope": {"report_distance": 10}, "omit_event_types": []}
     dedup_strategy = "highest_parent"
