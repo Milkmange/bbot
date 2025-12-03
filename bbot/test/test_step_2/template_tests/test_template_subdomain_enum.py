@@ -54,7 +54,7 @@ class TestSubdomainEnum(ModuleTestBase):
 
 
 class TestSubdomainEnumHighestParent(TestSubdomainEnum):
-    targets = ["api.test.asdf.www.blacklanternsecurity.com", "evilcorp.com"]
+    seeds = ["api.test.asdf.www.blacklanternsecurity.com", "evilcorp.com"]
     target_list = ["www.blacklanternsecurity.com"]
     modules_overrides = ["speculate"]
     dedup_strategy = "highest_parent"
@@ -71,8 +71,11 @@ class TestSubdomainEnumHighestParent(TestSubdomainEnum):
         assert len(distance_1_dns_names) == 2
         assert 1 == len([e for e in distance_1_dns_names if e.data == "evilcorp.com"])
         assert 1 == len([e for e in distance_1_dns_names if e.data == "blacklanternsecurity.com"])
-        assert len(self.queries) == 1
-        assert self.queries[0] == "www.blacklanternsecurity.com"
+
+        # Passive subdomain enum templates operate on all seeds, even when
+        # they are outside the explicit target_list.
+        # we expect one query for the blacklantern scope and one for the unrelated evilcorp.com seed.
+        assert set(self.queries) == {"www.blacklanternsecurity.com", "evilcorp.com"}
 
 
 class TestSubdomainEnumLowestParent(TestSubdomainEnumHighestParent):
