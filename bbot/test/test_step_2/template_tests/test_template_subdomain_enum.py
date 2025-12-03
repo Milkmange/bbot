@@ -83,6 +83,7 @@ class TestSubdomainEnumLowestParent(TestSubdomainEnumHighestParent):
 
     def check(self, module_test, events):
         assert set(self.queries) == {
+            'evilcorp.com',
             "test.asdf.www.blacklanternsecurity.com",
             "asdf.www.blacklanternsecurity.com",
             "www.blacklanternsecurity.com",
