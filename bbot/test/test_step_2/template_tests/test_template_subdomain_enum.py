@@ -167,6 +167,7 @@ class TestSubdomainEnumWildcardBaseline(ModuleTestBase):
 class TestSubdomainEnumWildcardDefense(TestSubdomainEnumWildcardBaseline):
     # oh walmart.cn why are you like this
     targets = ["walmart.cn"]
+    seeds = ["walmart.cn"]
     modules_overrides = []
     config_overrides = {"dns": {"minimal": False}, "scope": {"report_distance": 10}}
     dedup_strategy = "highest_parent"
