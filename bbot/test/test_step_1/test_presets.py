@@ -1189,4 +1189,3 @@ def test_preset_serialization():
     assert preset_dict_round_tripped == preset_dict
     assert preset_dict["seeds"] == ["192.168.1.1"]
     assert "target" not in preset_dict
-    assert "whitelist" not in preset_dict

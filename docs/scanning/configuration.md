@@ -87,7 +87,7 @@ scope:
 ### DNS ###
 
 dns:
-  # Completely disable DNS resolution (careful if you have IP whitelists/blacklists, consider using minimal=true instead)
+  # Completely disable DNS resolution (careful if you are using IP-based targets/blacklists, consider using minimal=true instead)
   disable: false
   # Speed up scan by not creating any new DNS events, and only resolving A and AAAA records
   minimal: false
