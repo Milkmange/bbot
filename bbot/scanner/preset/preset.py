@@ -273,6 +273,7 @@ class Preset(metaclass=BasePreset):
         # (i.e. they are still None), we'll know it's okay to copy them from the targets.
         self._seeds = set(seeds) if seeds else None
 
+        # _target doesn't get set until .bake()
         self._target = None
 
         # we don't fill self.modules yet (that happens in .bake())

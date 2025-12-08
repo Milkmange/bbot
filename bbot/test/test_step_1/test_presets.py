@@ -1188,5 +1188,5 @@ def test_preset_serialization():
     preset_str = json.dumps(preset_dict)
     preset_dict_round_tripped = json.loads(preset_str)
     assert preset_dict_round_tripped == preset_dict
-    assert preset_dict["seeds"] == ["192.168.1.1"]
-    assert "target" not in preset_dict
+    assert preset_dict["target"] == ["192.168.1.1"]
+    assert "seeds" not in preset_dict

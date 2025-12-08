@@ -28,7 +28,7 @@ class TestJSON(ModuleTestBase):
         assert scan["id"] == module_test.scan.id
         assert scan["uuid"] == str(module_test.scan.root_event.uuid)
         assert scan["parent_uuid"] == str(module_test.scan.root_event.uuid)
-        assert scan["data_json"]["target"]["seeds"] == ["blacklanternsecurity.com"]
+        assert scan["data_json"]["target"]["seeds"] is None
         assert scan["data_json"]["target"]["target"] == ["blacklanternsecurity.com"]
         assert dns_json["data"] == dns_data
         assert dns_json["id"] == str(dns_event.id)
@@ -45,7 +45,7 @@ class TestJSON(ModuleTestBase):
         assert scan_reconstructed.data["id"] == module_test.scan.id
         assert scan_reconstructed.uuid == scan_event.uuid
         assert scan_reconstructed.parent_uuid == scan_event.uuid
-        assert scan_reconstructed.data["target"]["seeds"] == ["blacklanternsecurity.com"]
+        assert scan_reconstructed.data["target"]["seeds"] is None
         assert scan_reconstructed.data["target"]["target"] == ["blacklanternsecurity.com"]
         assert dns_reconstructed.data == dns_data
         assert dns_reconstructed.uuid == dns_event.uuid
