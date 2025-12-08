@@ -431,9 +431,9 @@ async def test_modules_basic_stats(helpers, events, bbot_scanner, httpx_mock, mo
         "FINDING": 1,
     }
 
-    assert set(scan.stats.module_stats) == {"speculate", "host", "TARGET", "python", "dummy", "dnsresolve"}
+    assert set(scan.stats.module_stats) == {"speculate", "host", "SEED", "python", "dummy", "dnsresolve"}
 
-    target_stats = scan.stats.module_stats["TARGET"]
+    target_stats = scan.stats.module_stats["SEED"]
     assert target_stats.produced == {"SCAN": 1, "DNS_NAME": 1}
     assert target_stats.produced_total == 2
     assert target_stats.consumed == {}

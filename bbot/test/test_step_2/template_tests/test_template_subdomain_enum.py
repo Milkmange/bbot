@@ -138,7 +138,7 @@ class TestSubdomainEnumWildcardBaseline(ModuleTestBase):
                 for e in events
                 if e.type == "DNS_NAME"
                 and e.data == "www.walmart.cn"
-                and str(e.module) == "TARGET"
+                and str(e.module) == "SEED"
                 and e.scope_distance == 0
             ]
         )
@@ -200,7 +200,11 @@ def custom_lookup(query, rdtype):
                 for e in events
                 if e.type == "DNS_NAME"
                 and e.data == "walmart.cn"
-                and str(e.module) == "TARGET"
+                and str(e.module) == "SEED"
+                and e.scope_distance == 0
+                if e.type == "DNS_NAME"
+                and e.data == "walmart.cn"
+                and str(e.module) == "SEED"
                 and e.scope_distance == 0
             ]
         )
