@@ -53,7 +53,7 @@ class BaseOutputModule(BaseModule):
         # or events that are over our report distance
         if event._internal:
             return False, "event is internal and output modules don't accept internal events"
-        
+
         # if event.always_emit:
         #     return True, "event is always emitted"
 
