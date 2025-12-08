@@ -55,7 +55,7 @@ class TestSubdomainEnum(ModuleTestBase):
 
 class TestSubdomainEnumHighestParent(TestSubdomainEnum):
     seeds = ["api.test.asdf.www.blacklanternsecurity.com", "evilcorp.com"]
-    target_list = ["www.blacklanternsecurity.com"]
+    targets = ["www.blacklanternsecurity.com"]
     modules_overrides = ["speculate"]
     dedup_strategy = "highest_parent"
     txt = None

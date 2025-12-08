@@ -71,8 +71,8 @@ def test_preset_yaml(clean_default_config):
     import yaml
 
     preset1 = Preset(
+        "evilcorp.ce",
         seeds=["evilcorp.com", "www.evilcorp.ce"],
-        target_list=["evilcorp.ce"],
         blacklist=["test.www.evilcorp.ce"],
         modules=["sslcert"],
         output_modules=["json"],
@@ -183,7 +183,7 @@ def test_preset_scope():
 
     # Positional args define target; seeds must be explicit
     preset1 = Preset(
-        target_list=["evilcorp.ce"],
+        "evilcorp.ce",
         seeds=["evilcorp.com", "www.evilcorp.ce"],
         blacklist=["test.www.evilcorp.ce"],
     )
@@ -210,7 +210,7 @@ def test_preset_scope():
 
     # test preset merging
     preset3 = Preset(
-        target_list=["evilcorp.de"],
+        "evilcorp.de",
         seeds=["evilcorp.org"],
         blacklist=["test.www.evilcorp.de"],
         config={"scope": {"strict": True}},
@@ -254,12 +254,12 @@ def test_preset_scope():
 
     # test preset merging + seeds/target interaction
 
-    # Domain present as both explicit seed and target_list
-    preset_domain_with_seed = Preset(seeds=["evilcorp.com"], target_list=["evilcorp.com"], name="domain_with_seed")
+    # Domain present as both explicit seed and targets
+    preset_domain_with_seed = Preset("evilcorp.com", seeds=["evilcorp.com"], name="domain_with_seed")
     preset_with_target_scope = Preset(
+        "1.2.3.4/24", "http://evilcorp.net",
         name="with_target_scope",
         seeds=["evilcorp.org"],
-        target_list=["1.2.3.4/24", "http://evilcorp.net"],
         blacklist=["evilcorp.co.uk:443", "bob@evilcorp.co.uk"],
         config={"modules": {"secretsdb": {"api_key": "deadbeef", "otherthing": "asdf"}}},
     )
@@ -334,7 +334,7 @@ def test_preset_scope():
     # When merging a preset that only defines targets (no explicit seeds),
     # its targets are not promoted to seeds in the merged preset, but targets are unioned.
     preset_targets_only = Preset("evilcorp.com")
-    preset_with_target_scope = Preset(seeds=["evilcorp.org"], target_list=["1.2.3.4/24"])
+    preset_with_target_scope = Preset("1.2.3.4/24", seeds=["evilcorp.org"])
     preset_with_target_scope.merge(preset_targets_only)
     preset_with_target_scope_baked = preset_with_target_scope.bake()
     # Seeds stay as the explicit seeds from the base preset

@@ -289,8 +289,8 @@ async def test_target_basic(bbot_scanner):
     assert bbottarget.blacklist.hash == b'\xf7\xaf\xa1\xda4"C:\x13\xf42\xc3,\xc3\xa9\x9f\x15\x15n\\'
 
     scan = bbot_scanner(
+        "evilcorp.net", "evilcorp.com", "bob@www.evilcorp.com",
         seeds=["http://www.evilcorp.net", "1.2.3.0/24", "bob@fdsa.evilcorp.net"],
-        target_list=["evilcorp.net", "evilcorp.com", "bob@www.evilcorp.com"],
         blacklist=["bob@asdf.evilcorp.net", "1.2.3.4", "4.3.2.1/24", "http://1.2.3.4"],
     )
     events = [e async for e in scan.async_start()]
