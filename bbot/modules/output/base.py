@@ -43,6 +43,9 @@ class BaseOutputModule(BaseModule):
             if event.type in self.get_watched_events():
                 reason = "its type is explicitly in watched_events"
                 self.debug(f"Allowing omitted event: {event} because {reason}")
+            elif event.always_emit:
+                reason = "it's always emitted"
+                self.debug(f"Allowing omitted event: {event} because {reason}")
             else:
                 return False, "its type is omitted in the config"
 
