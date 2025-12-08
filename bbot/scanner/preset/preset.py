@@ -116,7 +116,6 @@ class Preset(metaclass=BasePreset):
     def __init__(
         self,
         *target,
-        target_list=None,
         seeds=None,
         blacklist=None,
         modules=None,
@@ -270,8 +269,8 @@ class Preset(metaclass=BasePreset):
         self._blacklist = set(blacklist if blacklist else [])
         # seeds are special. Instead of initializing them as an empty set, we use "None"
         # to signify they haven't been explicitly set.
-        # after all the merging is done, if seeds are still None, we'll know it's okay to copy
-        # them from the target_list.
+        # after all the merging is done, if seeds are still untouched by the user
+        # (i.e. they are still None), we'll know it's okay to copy them from the targets.
         self._seeds = set(seeds) if seeds else None
 
         self._target = None
@@ -658,7 +657,7 @@ class Preset(metaclass=BasePreset):
         Examples:
             >>> preset = Preset.from_dict({"target": ["evilcorp.com"], "modules": ["portscan"]})
         """
-        # Handle seeds and target_list from dict
+        # Handle seeds and targets from dict
         # - "target" key represents target_list (what in_target() checks)
         # - "targets" is legacy and also treated as target_list
         # - "seeds" key represents explicit seeds (never positional args)
@@ -669,7 +668,7 @@ class Preset(metaclass=BasePreset):
         target_list = list(dict.fromkeys(target_vals)) or None
         seeds = preset_dict.get("seeds")
         new_preset = cls(
-            target_list=target_list,
+            *target_list,
             seeds=seeds,
             blacklist=preset_dict.get("blacklist"),
             modules=preset_dict.get("modules"),
@@ -799,15 +798,15 @@ class Preset(metaclass=BasePreset):
 
         # scope
         if include_target:
-            seeds = sorted(self.target.seeds.inputs)
-            target_list = []
-            if self.target.target is not None:
-                target_list = sorted(self.target.target.inputs)
+            target = sorted(self.target.target.inputs)
+            seeds = []
+            if self.target.seeds is not None:
+                seeds = sorted(self.target.seeds.inputs)
             blacklist = sorted(self.target.blacklist.inputs)
-            if seeds:
+            if target:
+                preset_dict["target"] = target
+            if seeds and seeds != target:
                 preset_dict["seeds"] = seeds
-            if target_list and target_list != seeds:
-                preset_dict["target"] = target_list
             if blacklist:
                 preset_dict["blacklist"] = blacklist
 
