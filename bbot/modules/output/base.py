@@ -37,7 +37,7 @@ class BaseOutputModule(BaseModule):
         # force-output certain events to the graph
         if self._is_graph_important(event):
             return True, "event is critical to the graph"
-        
+
         if event.always_emit:
             return True, "event is always emitted"
 
