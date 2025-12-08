@@ -202,10 +202,6 @@ def custom_lookup(query, rdtype):
                 and e.data == "walmart.cn"
                 and str(e.module) == "SEED"
                 and e.scope_distance == 0
-                if e.type == "DNS_NAME"
-                and e.data == "walmart.cn"
-                and str(e.module) == "SEED"
-                and e.scope_distance == 0
             ]
         )
         assert 1 == len(
