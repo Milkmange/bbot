@@ -257,7 +257,8 @@ def test_preset_scope():
     # Domain present as both explicit seed and targets
     preset_domain_with_seed = Preset("evilcorp.com", seeds=["evilcorp.com"], name="domain_with_seed")
     preset_with_target_scope = Preset(
-        "1.2.3.4/24", "http://evilcorp.net",
+        "1.2.3.4/24",
+        "http://evilcorp.net",
         name="with_target_scope",
         seeds=["evilcorp.org"],
         blacklist=["evilcorp.co.uk:443", "bob@evilcorp.co.uk"],
