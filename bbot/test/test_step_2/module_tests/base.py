@@ -15,7 +15,6 @@ class ModuleTestBase:
     targets = ["blacklanternsecurity.com"]
     scan_name = None
     blacklist = None
-    target_list = None
     seeds = None
     module_name = None
     config_overrides = {}

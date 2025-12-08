@@ -268,10 +268,10 @@ def test_preset_scope():
     preset_domain_with_seed_baked = preset_domain_with_seed.bake()
     preset_with_target_scope_baked = preset_with_target_scope.bake()
 
-    # When seeds and target_list are identical, only seeds are serialized.
+    # When seeds and targets are identical, only targets are serialized.
     domain_with_seed_dict = preset_domain_with_seed_baked.to_dict(include_target=True)
-    assert domain_with_seed_dict.get("seeds") == ["evilcorp.com"]
-    assert "target" not in domain_with_seed_dict
+    assert domain_with_seed_dict.get("target") == ["evilcorp.com"]
+    assert "seeds" not in domain_with_seed_dict
 
     # preset with explicit target scope
     scope_dict = preset_with_target_scope_baked.to_dict(include_target=True)

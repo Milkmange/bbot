@@ -37,14 +37,14 @@ class BaseOutputModule(BaseModule):
         # force-output certain events to the graph
         if self._is_graph_important(event):
             return True, "event is critical to the graph"
+        
+        if event.always_emit:
+            return True, "event is always emitted"
 
         # omit certain event types
         if event._omit:
             if event.type in self.get_watched_events():
                 reason = "its type is explicitly in watched_events"
-                self.debug(f"Allowing omitted event: {event} because {reason}")
-            elif event.always_emit:
-                reason = "it's always emitted"
                 self.debug(f"Allowing omitted event: {event} because {reason}")
             else:
                 return False, "its type is omitted in the config"
@@ -53,9 +53,6 @@ class BaseOutputModule(BaseModule):
         # or events that are over our report distance
         if event._internal:
             return False, "event is internal and output modules don't accept internal events"
-
-        # if event.always_emit:
-        #     return True, "event is always emitted"
 
         return True, reason
 
