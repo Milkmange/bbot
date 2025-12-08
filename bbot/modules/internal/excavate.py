@@ -1163,8 +1163,8 @@ class excavate(BaseInternalModule, BaseInterceptModule):
                 await self.emit_custom_parameters(event, "http_cookies", "COOKIE", "Custom Cookie")
                 await self.emit_custom_parameters(event, "http_headers", "HEADER", "Custom Header")
 
-                # if parameter extraction is enabled, and querystring removal is disabled, and the event is directly from the TARGET, create a WEB
-                if self.url_querystring_remove is False and str(event.parent.parent.module) == "TARGET":
+                # if parameter extraction is enabled, and querystring removal is disabled, and the event is directly from the SEED, create a WEB
+                if self.url_querystring_remove is False and str(event.parent.parent.module) == "SEED":
                     self.debug(f"Processing target URL [{urlunparse(event.parsed_url)}] for GET parameters")
                     for (
                         method,

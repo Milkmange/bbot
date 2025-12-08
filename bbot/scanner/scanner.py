@@ -1012,8 +1012,8 @@ class Scanner:
               "tags": [
                 "distance-0"
               ],
-              "module": "TARGET",
-              "module_sequence": "TARGET"
+              "module": "SEED",
+              "module_sequence": "SEED"
             }
             ```
         """
@@ -1040,7 +1040,7 @@ class Scanner:
         root_event.scope_distance = 0
         root_event.parent = root_event
         root_event._dummy = False
-        root_event.module = self._make_dummy_module(name="TARGET", _type="TARGET")
+        root_event.module = self._make_dummy_module(name="SEED", _type="SEED")
         return root_event
 
     @property
