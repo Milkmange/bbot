@@ -17,7 +17,7 @@ def test_preset_target_and_seeds_explicit_seeds_override():
     """
     If explicit seeds are provided, they should NOT be copied from target.
     """
-    preset = Preset(target_list=["evilcorp.com"], seeds=["seedonly.evilcorp.com"])
+    preset = Preset("evilcorp.com", seeds=["seedonly.evilcorp.com"])
     baked = preset.bake()
 
     target = baked.target
