@@ -368,7 +368,7 @@ async def test_cli_args(monkeypatch, caplog, capsys, clean_default_config):
     result = await cli._main()
     out, err = capsys.readouterr()
     assert result is True
-    assert "[ORG_STUB]          	evilcorp	TARGET" in out
+    assert "[ORG_STUB]          	evilcorp\tSEED" in out
 
     # activate modules by flag
     caplog.clear()
