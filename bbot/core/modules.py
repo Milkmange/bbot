@@ -328,7 +328,6 @@ class ModuleLoader:
         ansible_tasks = []
         config = {}
         options_desc = {}
-        accept_seeds = None  # None means use default (True for passive, False otherwise)
         python_code = open(module_file).read()
         # take a hash of the code so we can keep track of when it changes
         module_hash = sha1(python_code).hexdigest()
@@ -364,16 +363,6 @@ class ModuleLoader:
                         # module metadata
                         elif any(target.id == "meta" for target in class_attr.targets):
                             meta = ast.literal_eval(class_attr.value)
-
-                    # class attributes that are boolean values (like accept_seeds)
-                    if type(class_attr) == ast.Assign:
-                        # Check for accept_seeds = True/False
-                        if any(target.id == "accept_seeds" for target in class_attr.targets):
-                            # Handle both ast.Constant (Python 3.8+) and ast.NameConstant (older)
-                            if isinstance(class_attr.value, ast.Constant):
-                                accept_seeds = class_attr.value.value
-                            elif isinstance(class_attr.value, ast.NameConstant):
-                                accept_seeds = class_attr.value.value
 
                     # class attributes that are lists
                     if type(class_attr) == ast.Assign and type(class_attr.value) == ast.List:
@@ -441,7 +430,6 @@ class ModuleLoader:
             "config": config,
             "options_desc": options_desc,
             "hash": module_hash,
-            "accept_seeds": accept_seeds,
             "deps": {
                 "modules": sorted(deps_modules),
                 "pip": deps_pip,

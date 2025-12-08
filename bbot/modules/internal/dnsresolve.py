@@ -289,6 +289,12 @@ class DNSResolve(BaseInterceptModule):
     def get_dns_parent(self, event):
         """
         Get the first parent DNS_NAME / IP_ADDRESS of an event. If one isn't found, create it.
+
+        Returns a 4-tuple of:
+        - the parent event
+        - whether the parent is in target
+        - whether the parent is blacklisted
+        - whether the parent is a new event, i.e. it is newly created or is the current event
         """
         for parent in event.get_parents(include_self=True):
             if parent.host == event.host and parent.type in ("IP_ADDRESS", "DNS_NAME", "DNS_NAME_UNRESOLVED"):

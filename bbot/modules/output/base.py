@@ -40,10 +40,7 @@ class BaseOutputModule(BaseModule):
 
         # omit certain event types
         if event._omit:
-            if "seed" in event.tags:
-                reason = "it's a seed"
-                self.debug(f"Allowing omitted event: {event} because {reason}")
-            elif event.type in self.get_watched_events():
+            if event.type in self.get_watched_events():
                 reason = "its type is explicitly in watched_events"
                 self.debug(f"Allowing omitted event: {event} because {reason}")
             else:
@@ -53,6 +50,9 @@ class BaseOutputModule(BaseModule):
         # or events that are over our report distance
         if event._internal:
             return False, "event is internal and output modules don't accept internal events"
+        
+        # if event.always_emit:
+        #     return True, "event is always emitted"
 
         return True, reason
 

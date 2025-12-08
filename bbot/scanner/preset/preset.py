@@ -146,9 +146,6 @@ class Preset(metaclass=BasePreset):
             *target (str): Target(s) to scan. These ALWAYS become the target (what `in_target()` checks).
                 Types supported: hostnames, IPs, CIDRs, emails, open ports.
                 Note: Positional arguments always mean target, never seeds.
-            target_list (list, optional): Explicitly define what's in the target (what `in_target()` checks).
-                If specified, this takes precedence over positional *target arguments.
-                Note: This defines the target, NOT scope. Use `in_scope()` to check target AND blacklist.
             seeds (list, optional): Explicitly define seeds (initial events for passive modules).
                 If not specified, seeds will be backfilled from target when target is defined.
             blacklist (list, optional): Blacklisted target(s). Takes ultimate precedence. Defaults to empty.
@@ -269,26 +266,13 @@ class Preset(metaclass=BasePreset):
 
         # target / seeds / blacklist
         # these are temporary receptacles until they all get .baked() together
-        # Positional arguments ALWAYS become target (never seeds).
-        # Seeds must be explicitly provided via the `seeds` parameter.
-        if target_list is not None:
-            # Explicit target_list takes precedence over positional args
-            self._target_list = set(target_list)
-        elif target:
-            # Positional args become target
-            self._target_list = set(target)
-        else:
-            # No positional args and no explicit target_list
-            self._target_list = None
-
-        # Handle seeds - must be explicitly provided
-        if seeds is not None:
-            self._seeds = set(seeds) if seeds else set()
-        else:
-            # Seeds not explicitly provided - will be backfilled in BBOTTarget if target is set
-            self._seeds = set()
-
+        self._target_list = set(target or [])
         self._blacklist = set(blacklist if blacklist else [])
+        # seeds are special. Instead of initializing them as an empty set, we use "None"
+        # to signify they haven't been explicitly set.
+        # after all the merging is done, if seeds are still None, we'll know it's okay to copy
+        # them from the target_list.
+        self._seeds = set(seeds) if seeds else None
 
         self._target = None
 
@@ -382,12 +366,12 @@ class Preset(metaclass=BasePreset):
         self.flags.update(other.flags)
 
         # target / scope
-        self._seeds.update(other._seeds)
-        if other._target_list is not None:
-            if self._target_list is None:
-                self._target_list = set(other._target_list)
+        self._target_list.update(other._target_list)
+        if other._seeds is not None:
+            if self._seeds is None:
+                self._seeds = set(other._seeds)
             else:
-                self._target_list.update(other._target_list)
+                self._seeds.update(other._seeds)
         self._blacklist.update(other._blacklist)
 
         # module dirs
@@ -502,8 +486,8 @@ class Preset(metaclass=BasePreset):
         from bbot.scanner.target import BBOTTarget
 
         baked_preset._target = BBOTTarget(
-            seeds=list(self._seeds),
-            target=list(self._target_list) if self._target_list else None,
+            seeds=list(self._seeds) if self._seeds else None,
+            target=list(self._target_list),
             blacklist=self._blacklist,
             strict_dns_scope=self.strict_scope,
         )
