@@ -211,7 +211,13 @@ class TestExcavateInScopeJavascript(TestExcavate):
                 if e.type == "FINDING" and "JWT" in e.data["description"] and str(e.module) == "excavate"
             ]
         )
+<<<<<<< HEAD
         found_badsecrets_finding = bool([e for e in events if e.type == "FINDING" and str(e.module) == "badsecrets"])
+=======
+        found_badsecrets_vulnerability = bool(
+            [e for e in events if e.type == "FINDING" and str(e.module) == "badsecrets"]
+        )
+>>>>>>> multiprocess-fix
 
         assert found_js_url_event, "Failed to find URL event for script.js"
         assert found_badsecrets_finding, "Failed to find BADSECRETs finding from script.js"
