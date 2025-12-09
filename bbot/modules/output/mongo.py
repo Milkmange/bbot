@@ -1,4 +1,4 @@
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
 
 from bbot.models.pydantic import Event, Scan, Target
 from bbot.modules.output.base import BaseOutputModule
@@ -29,13 +29,13 @@ class Mongo(BaseOutputModule):
         "password": "The password to use to connect to the database",
         "collection_prefix": "Prefix the name of each collection with this string",
     }
-    deps_pip = ["motor~=3.6.0"]
+    deps_pip = ["pymongo~=4.15"]
 
     async def setup(self):
         self.uri = self.config.get("uri", "mongodb://localhost:27017")
         self.username = self.config.get("username", "")
         self.password = self.config.get("password", "")
-        self.db_client = AsyncIOMotorClient(self.uri, username=self.username, password=self.password)
+        self.db_client = AsyncMongoClient(self.uri, username=self.username, password=self.password)
 
         # Ping the server to confirm a successful connection
         try:

@@ -1188,8 +1188,6 @@ class IP_RANGE(DnsEvent):
 
 
 class DNS_NAME(DnsEvent):
-    _always_emit_tags = ["affiliate", "seed"]
-
     def sanitize_data(self, data):
         return validators.validate_host(data)
 
@@ -1210,6 +1208,9 @@ class DNS_NAME(DnsEvent):
 
 
 class OPEN_TCP_PORT(BaseEvent):
+    # we generally don't care about open ports on affiliates
+    _always_emit_tags = ["seed"]
+
     def sanitize_data(self, data):
         return validators.validate_open_port(data)
 

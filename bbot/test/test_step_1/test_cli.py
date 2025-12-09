@@ -28,7 +28,7 @@ async def test_cli_scope(monkeypatch, capsys):
         [
             l
             for l in dns_events
-            if l["module"] == "TARGET" and l["scope_distance"] == 0 and "in-scope" in l["tags"] and "seed" in l["tags"]
+            if l["module"] == "SEED" and l["scope_distance"] == 0 and "in-scope" in l["tags"] and "seed" in l["tags"]
         ]
     )
     ip_events = [l for l in lines if l["type"] == "IP_ADDRESS" and l["data"] == "1.1.1.1"]
@@ -71,7 +71,7 @@ async def test_cli_scope(monkeypatch, capsys):
     target_seed_events = [
         l
         for l in dns_events
-        if l["module"] == "TARGET" and l["scope_distance"] == 1 and "distance-1" in l["tags"] and "seed" in l["tags"]
+        if l["module"] == "SEED" and l["scope_distance"] == 1 and "distance-1" in l["tags"] and "seed" in l["tags"]
     ]
     assert len(target_seed_events) == 1
     assert all("target" not in l["tags"] for l in target_seed_events)
@@ -121,9 +121,9 @@ async def test_cli_scan(monkeypatch):
     with open(output_filename) as f:
         lines = f.read().splitlines()
         for line in lines:
-            if "[IP_ADDRESS]        \t127.0.0.1\tTARGET" in line:
+            if "[IP_ADDRESS]        \t127.0.0.1\tSEED" in line:
                 ip_success = True
-            if "[DNS_NAME]          \twww.example.com\tTARGET" in line:
+            if "[DNS_NAME]          \twww.example.com\tSEED" in line:
                 dns_success = True
     assert ip_success and dns_success, "IP_ADDRESS and/or DNS_NAME are not present in output.txt"
 
@@ -368,7 +368,7 @@ async def test_cli_args(monkeypatch, caplog, capsys, clean_default_config):
     result = await cli._main()
     out, err = capsys.readouterr()
     assert result is True
-    assert "[ORG_STUB]          	evilcorp	TARGET" in out
+    assert "[ORG_STUB]          	evilcorp\tSEED" in out
 
     # activate modules by flag
     caplog.clear()

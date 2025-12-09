@@ -148,8 +148,8 @@ class Scan(BBOTBaseModel):
 class Target(BBOTBaseModel):
     name: str = "Default Target"
     strict_dns_scope: bool = False
-    seeds: List = []
     target: List = []
+    seeds: Optional[List] = None
     blacklist: List = []
     hash: Annotated[str, "indexed", "unique"]
     scope_hash: Annotated[str, "indexed"]

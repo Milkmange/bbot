@@ -48,7 +48,7 @@ class ScanIngress(BaseInterceptModule):
             event_seeds = sorted(event_seeds, key=lambda e: (host_size_key(str(e.host)), e.data))
             # queue root scan event
             await self.queue_event(root_event, {})
-            target_module = self.scan._make_dummy_module(name="TARGET", _type="TARGET")
+            target_module = self.scan._make_dummy_module(name="SEED", _type="SEED")
             # queue each seed in turn
             for event_seed in event_seeds:
                 event = self.scan.make_event(

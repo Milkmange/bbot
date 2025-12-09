@@ -253,8 +253,8 @@ def custom_lookup(query, rdtype):
     # first, we check with wildcard detection disabled
 
     scan = bbot_scanner(
-        target_list=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
-        seeds=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
+        "evilcorp.com",
+        seeds=["bbot.fdsa.www.test.evilcorp.com"],
         config={
             "dns": {"minimal": False, "disable": False, "search_distance": 5, "wildcard_ignore": ["evilcorp.com"]},
             "speculate": True,
@@ -264,12 +264,11 @@ def custom_lookup(query, rdtype):
 
     events = [e async for e in scan.async_start()]
 
-    assert len(events) == 13
-    assert len([e for e in events if e.type == "DNS_NAME"]) == 6
+    assert len(events) == 12
+    assert len([e for e in events if e.type == "DNS_NAME"]) == 5
     assert len([e for e in events if e.type == "RAW_DNS_RECORD"]) == 4
     assert sorted([e.data for e in events if e.type == "DNS_NAME"]) == [
         "bbot.fdsa.www.test.evilcorp.com",
-        "evilcorp.com",
         "evilcorp.com",
         "fdsa.www.test.evilcorp.com",
         "test.evilcorp.com",
@@ -318,8 +317,8 @@ def custom_lookup(query, rdtype):
     # then we run it again with wildcard detection enabled
 
     scan = bbot_scanner(
-        target_list=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
-        seeds=["evilcorp.com", "bbot.fdsa.www.test.evilcorp.com"],
+        "evilcorp.com",
+        seeds=["bbot.fdsa.www.test.evilcorp.com"],
         config={
             "dns": {"minimal": False, "disable": False, "search_distance": 5, "wildcard_ignore": []},
             "speculate": True,
@@ -329,13 +328,12 @@ def custom_lookup(query, rdtype):
 
     events = [e async for e in scan.async_start()]
 
-    assert len(events) == 13
-    assert len([e for e in events if e.type == "DNS_NAME"]) == 6
+    assert len(events) == 12
+    assert len([e for e in events if e.type == "DNS_NAME"]) == 5
     assert len([e for e in events if e.type == "RAW_DNS_RECORD"]) == 4
     assert sorted([e.data for e in events if e.type == "DNS_NAME"]) == [
         "_wildcard.test.evilcorp.com",
         "bbot.fdsa.www.test.evilcorp.com",
-        "evilcorp.com",
         "evilcorp.com",
         "test.evilcorp.com",
         "www.test.evilcorp.com",

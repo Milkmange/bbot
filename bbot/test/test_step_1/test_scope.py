@@ -77,7 +77,7 @@ class TestScopeCidrWithSeeds(ModuleTestBase):
     # Seeds: DNS names that will be tested
     seeds = ["inscope.example.com", "outscope.example.com"]
     # Target: CIDR that defines the scope
-    target_list = ["192.168.1.0/24"]
+    targets = ["192.168.1.0/24"]
     modules_overrides = ["dnsresolve"]
 
     async def setup_before_prep(self, module_test):
@@ -97,7 +97,7 @@ class TestScopeCidrWithSeeds(ModuleTestBase):
         inscope_events = [e for e in events if e.type == "DNS_NAME" and e.data == "inscope.example.com"]
         outscope_events = [e for e in events if e.type == "DNS_NAME" and e.data == "outscope.example.com"]
 
-        assert len(inscope_events) > 0, "inscope.example.com should be detected"
+        assert len(inscope_events) == 1, "inscope.example.com should be detected"
         inscope_event = inscope_events[0]
         assert inscope_event.scope_distance == 0, (
             f"inscope.example.com should be in-scope (scope_distance=0), got {inscope_event.scope_distance}"

@@ -55,7 +55,7 @@ class TestSubdomainEnum(ModuleTestBase):
 
 class TestSubdomainEnumHighestParent(TestSubdomainEnum):
     seeds = ["api.test.asdf.www.blacklanternsecurity.com", "evilcorp.com"]
-    target_list = ["www.blacklanternsecurity.com"]
+    targets = ["www.blacklanternsecurity.com"]
     modules_overrides = ["speculate"]
     dedup_strategy = "highest_parent"
     txt = None
@@ -138,7 +138,7 @@ class TestSubdomainEnumWildcardBaseline(ModuleTestBase):
                 for e in events
                 if e.type == "DNS_NAME"
                 and e.data == "www.walmart.cn"
-                and str(e.module) == "TARGET"
+                and str(e.module) == "SEED"
                 and e.scope_distance == 0
             ]
         )
@@ -200,7 +200,7 @@ def custom_lookup(query, rdtype):
                 for e in events
                 if e.type == "DNS_NAME"
                 and e.data == "walmart.cn"
-                and str(e.module) == "TARGET"
+                and str(e.module) == "SEED"
                 and e.scope_distance == 0
             ]
         )

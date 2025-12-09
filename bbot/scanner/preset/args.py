@@ -105,11 +105,11 @@ class BBOTArgs:
     def preset_from_args(self):
         # the order here is important
         # first we make the preset
-        # -t/--targets becomes target_list (defines target, what in_target() checks)
+        # -t/--targets becomes target (defines target, what in_target() checks)
         # -s/--seeds becomes seeds (drives passive modules), defaults to targets if not specified
         seeds = self.parsed.seeds if self.parsed.seeds is not None else self.parsed.targets
         args_preset = self.preset.__class__(
-            target_list=self.parsed.targets if self.parsed.targets else None,
+            *(self.parsed.targets or []),
             seeds=seeds if seeds else None,
             blacklist=self.parsed.blacklist,
             name="args_preset",

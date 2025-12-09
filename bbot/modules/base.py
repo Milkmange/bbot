@@ -101,7 +101,6 @@ class BaseModule:
     per_domain_only = False
     scope_distance_modifier = 0
     target_only = False
-    _accept_seeds = None  # None means "use default based on flags"
     in_scope_only = False
     accept_url_special = False
     _module_threads = 1
@@ -744,17 +743,9 @@ class BaseModule:
         """
         Returns whether the module accepts seed events.
         Defaults to True for passive modules, False otherwise.
-        Can be explicitly overridden by setting _accept_seeds.
         """
-        if self._accept_seeds is not None:
-            return self._accept_seeds
         # Default to True for passive modules, False otherwise
         return "passive" in self.flags
-
-    @accept_seeds.setter
-    def accept_seeds(self, value):
-        """Allow explicit setting of accept_seeds to override the default."""
-        self._accept_seeds = value
 
     @property
     def max_scope_distance(self):
@@ -806,9 +797,8 @@ class BaseModule:
             return True, "it is a seed event and module accepts seeds"
         if not event_type_watched:
             return False, "its type is not in watched_events"
-        if self.target_only:
-            if "target" not in event.tags:
-                return False, "it did not meet target_only filter criteria"
+        if self.target_only and "target" not in event.tags:
+            return False, "it did not meet target_only filter criteria"
 
         # limit js URLs to modules that opt in to receive them
         if (not self.accept_url_special) and event.type.startswith("URL"):

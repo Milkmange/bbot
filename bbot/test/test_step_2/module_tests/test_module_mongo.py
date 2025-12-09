@@ -36,12 +36,12 @@ class TestMongo(ModuleTestBase):
             "mongo",
         )
 
-        from motor.motor_asyncio import AsyncIOMotorClient
+        from pymongo import AsyncMongoClient
 
         # Connect to the MongoDB collection with retry logic
         while True:
             try:
-                client = AsyncIOMotorClient("mongodb://localhost:27017", username="bbot", password="bbotislife")
+                client = AsyncMongoClient("mongodb://localhost:27017", username="bbot", password="bbotislife")
                 db = client[self.test_db_name]
                 events_collection = db.get_collection(self.test_collection_prefix + "events")
                 # Attempt a simple operation to confirm the connection
@@ -61,21 +61,22 @@ class TestMongo(ModuleTestBase):
     async def check(self, module_test, events):
         try:
             from bbot.models.pydantic import Event
-            from motor.motor_asyncio import AsyncIOMotorClient
+            from pymongo import AsyncMongoClient
 
             events_json = [e.json() for e in events]
             events_json.sort(key=lambda x: x["timestamp"])
 
             # Connect to the MongoDB collection
-            client = AsyncIOMotorClient("mongodb://localhost:27017", username="bbot", password="bbotislife")
+            client = AsyncMongoClient("mongodb://localhost:27017", username="bbot", password="bbotislife")
             db = client[self.test_db_name]
             events_collection = db.get_collection(self.test_collection_prefix + "events")
 
             ### INDEXES ###
 
             # make sure the collection has all the right indexes
-            cursor = events_collection.list_indexes()
-            indexes = await cursor.to_list(length=None)
+            indexes_cursor = await events_collection.list_indexes()
+            indexes = await indexes_cursor.to_list(length=None)
+            # indexes = await cursor.to_list(length=None)
             for field in Event.indexed_fields():
                 assert any(field in index["key"] for index in indexes), f"Index for {field} not found"
 

@@ -38,12 +38,12 @@ class BaseOutputModule(BaseModule):
         if self._is_graph_important(event):
             return True, "event is critical to the graph"
 
+        if event.always_emit:
+            return True, "event is always emitted"
+
         # omit certain event types
         if event._omit:
-            if "seed" in event.tags:
-                reason = "it's a seed"
-                self.debug(f"Allowing omitted event: {event} because {reason}")
-            elif event.type in self.get_watched_events():
+            if event.type in self.get_watched_events():
                 reason = "its type is explicitly in watched_events"
                 self.debug(f"Allowing omitted event: {event} because {reason}")
             else:

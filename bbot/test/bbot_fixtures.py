@@ -56,12 +56,8 @@ def clean_default_config(monkeypatch):
     with monkeypatch.context() as m:
         m.setattr("bbot.core.core.DEFAULT_CONFIG", clean_config)
         # Also clear CORE's custom_config to ensure Preset.copy() gets a clean core
-        original_custom_config = CORE._custom_config
-        CORE._custom_config = OmegaConf.create({})
-        try:
-            yield
-        finally:
-            CORE._custom_config = original_custom_config
+        m.setattr(CORE, "_custom_config", OmegaConf.create({}))
+        yield
 
 
 class SubstringRequestMatcher(pytest_httpserver.httpserver.RequestMatcher):

@@ -121,7 +121,8 @@ class ScanSeeds(BaseTarget):
     """
     Initial events used to seed a scan.
 
-    These are the targets specified by the user, e.g. via `-t` on the CLI.
+    These are the seeds specified by the user, e.g. via `-s` on the CLI.
+    If no seeds were specified, the targets (`-t`) are copied here.
     """
 
     def get(self, event, single=True, **kwargs):
@@ -237,19 +238,16 @@ class BBOTTarget:
 
     def __init__(self, seeds=None, target=None, blacklist=None, strict_dns_scope=False):
         self.strict_dns_scope = strict_dns_scope
-        self._orig_target = target
-        self._orig_seeds = list(seeds) if seeds else None
+        self._orig_seeds = seeds
 
         target_list = list(target) if target else []
         self.target = ScanTarget(*target_list, strict_dns_scope=strict_dns_scope)
 
         # Seeds are only copied from target if target is defined but seeds are NOT defined
         # Use target.inputs (original inputs) to preserve all inputs, including subdomains
-        seeds_list = list(seeds) if seeds else []
-        if not seeds_list and target_list:
-            seeds_list = list(self.target.inputs)
-
-        self.seeds = ScanSeeds(*seeds_list, strict_dns_scope=strict_dns_scope)
+        if seeds is None:
+            seeds = self.target.inputs
+        self.seeds = ScanSeeds(*list(seeds), strict_dns_scope=strict_dns_scope)
 
         blacklist_list = list(blacklist) if blacklist else []
         self.blacklist = ScanBlacklist(*blacklist_list)
@@ -257,8 +255,8 @@ class BBOTTarget:
     @property
     def json(self):
         return {
-            "seeds": sorted(self.seeds.inputs),
-            "target": (None if not self._orig_target else sorted(self.target.inputs)),
+            "seeds": (None if self._orig_seeds is None else sorted(self.seeds.inputs)),
+            "target": sorted(self.target.inputs),
             "blacklist": sorted(self.blacklist.inputs),
             "strict_dns_scope": self.strict_dns_scope,
             "hash": self.hash.hex(),
@@ -300,8 +298,9 @@ class BBOTTarget:
             True
         """
         blacklisted = self.blacklisted(host)
-        in_target = self.in_target(host)
-        return in_target and not blacklisted
+        if blacklisted:
+            return False
+        return self.in_target(host)
 
     def blacklisted(self, host):
         """

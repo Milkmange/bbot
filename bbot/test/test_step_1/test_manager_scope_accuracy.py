@@ -563,8 +563,8 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
 
     # 2 events from a single HTTP_RESPONSE
     events, all_events, all_events_nodups, graph_output_events, graph_output_batch_events = await do_scan(
+        "127.0.0.111/31", "127.0.0.222", "127.0.0.33",
         seeds=["127.0.0.111/31"],
-        target_list=["127.0.0.111/31", "127.0.0.222", "127.0.0.33"],
         modules=["httpx"],
         output_modules=["python"],
         _config={
@@ -587,9 +587,9 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
     assert 0 == len([e for e in events if e.type == "HTTP_RESPONSE" and e.data["input"] == "127.0.0.111:8888"])
     assert 0 == len([e for e in events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.111:8888/"])
     assert 0 == len([e for e in events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.222:8889/"])
-    assert any(e for e in events if e.type == "IP_ADDRESS" and e.data == "127.0.0.222" and e.internal is False and e.scope_distance == 0)
+    assert 1 == len([e for e in events if e.type == "IP_ADDRESS" and e.data == "127.0.0.222" and e.internal is False and e.scope_distance == 0])
     assert 0 == len([e for e in events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.33:8889/"])
-    assert any(e for e in events if e.type == "IP_ADDRESS" and e.data == "127.0.0.33" and e.internal is False and e.scope_distance == 0)
+    assert 1 == len([e for e in events if e.type == "IP_ADDRESS" and e.data == "127.0.0.33" and e.internal is False and e.scope_distance == 0])
     assert 0 == len([e for e in events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8888"])
     assert 1 == len([e for e in events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8889"])
     assert 0 == len([e for e in events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.33:8888"])
@@ -615,9 +615,9 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
     assert 1 == len([e for e in all_events if e.type == "HTTP_RESPONSE" and e.data["input"] == "127.0.0.111:8888" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.111:8888/" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.222:8889/" and e.internal is False and e.scope_distance == 0])
-    assert any(e for e in all_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.222" and e.internal is False and e.scope_distance == 0)
+    assert 1 == len([e for e in all_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.222" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.33:8889/" and e.internal is False and e.scope_distance == 0])
-    assert any(e for e in all_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.33" and e.internal is False and e.scope_distance == 0)
+    assert 1 == len([e for e in all_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.33" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8888" and e.internal is True and e.scope_distance == 0])
     assert 1 == len([e for e in all_events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8889" and e.internal is True and e.scope_distance == 0])
     assert 1 == len([e for e in all_events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8889" and e.internal is False and e.scope_distance == 0])
@@ -645,9 +645,9 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
     assert 1 == len([e for e in all_events_nodups if e.type == "HTTP_RESPONSE" and e.data["input"] == "127.0.0.111:8888" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events_nodups if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.111:8888/" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events_nodups if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.222:8889/" and e.internal is False and e.scope_distance == 0])
-    assert any(e for e in all_events_nodups if e.type == "IP_ADDRESS" and e.data == "127.0.0.222" and e.internal is False and e.scope_distance == 0)
+    assert 1 == len([e for e in all_events_nodups if e.type == "IP_ADDRESS" and e.data == "127.0.0.222" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events_nodups if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.33:8889/" and e.internal is False and e.scope_distance == 0])
-    assert any(e for e in all_events_nodups if e.type == "IP_ADDRESS" and e.data == "127.0.0.33" and e.internal is False and e.scope_distance == 0)
+    assert 1 == len([e for e in all_events_nodups if e.type == "IP_ADDRESS" and e.data == "127.0.0.33" and e.internal is False and e.scope_distance == 0])
     assert 1 == len([e for e in all_events_nodups if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8888" and e.internal is True and e.scope_distance == 0])
     assert 1 == len([e for e in all_events_nodups if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8889" and e.internal is True and e.scope_distance == 0])
     assert 1 == len([e for e in all_events_nodups if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.33:8888" and e.internal is True and e.scope_distance == 0])
@@ -674,9 +674,9 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
         assert 0 == len([e for e in _graph_output_events if e.type == "HTTP_RESPONSE" and e.data["input"] == "127.0.0.111:8888"])
         assert 0 == len([e for e in _graph_output_events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.111:8888/"])
         assert 0 == len([e for e in _graph_output_events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.222:8889/"])
-        assert any(e for e in _graph_output_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.222")
+        assert 1 == len([e for e in _graph_output_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.222"])
         assert 0 == len([e for e in _graph_output_events if e.type == "URL_UNVERIFIED" and e.data == "http://127.0.0.33:8889/"])
-        assert any(e for e in _graph_output_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.33")
+        assert 1 == len([e for e in _graph_output_events if e.type == "IP_ADDRESS" and e.data == "127.0.0.33"])
         assert 0 == len([e for e in _graph_output_events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8888"])
         assert 1 == len([e for e in _graph_output_events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.222:8889"])
         assert 0 == len([e for e in _graph_output_events if e.type == "OPEN_TCP_PORT" and e.data == "127.0.0.33:8888"])
@@ -694,7 +694,7 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
 
     # sslcert with in-scope chain
     events, all_events, all_events_nodups, graph_output_events, graph_output_batch_events = await do_scan(
-        target_list = ["127.0.0.0/31"],
+        "127.0.0.0/31",
         modules=["sslcert"],
         _config={"scope": {"report_distance": 0}, "speculate": True, "modules": {"speculate": {"ports": "9999"}}},
         _dns_mock={"www.bbottest.notreal": {"A": ["127.0.1.0"]}, "test.notreal": {"A": ["127.0.0.1"]}},
@@ -750,9 +750,9 @@ async def test_manager_scope_accuracy(bbot_scanner, bbot_httpserver, bbot_other_
 
     # sslcert with out-of-scope chain
     events, all_events, all_events_nodups, graph_output_events, graph_output_batch_events = await do_scan(
+        "127.0.1.0",
         seeds=["127.0.0.0/31"],
         modules=["sslcert"],
-        target_list=["127.0.1.0"],
         _config={"scope": {"search_distance": 1, "report_distance": 0}, "speculate": True, "modules": {"speculate": {"ports": "9999"}}},
         _dns_mock={"www.bbottest.notreal": {"A": ["127.0.0.1"]}, "test.notreal": {"A": ["127.0.1.0"]}},
     )
@@ -806,7 +806,8 @@ async def test_manager_blacklist(bbot_scanner, bbot_httpserver, caplog):
 
     # dns search distance = 1, report distance = 0
     scan = bbot_scanner(
-        target_list=["http://127.0.0.1:8888", "127.0.0.0/29", "test.notreal"],
+        "127.0.0.0/29", "test.notreal",
+        seeds=["http://127.0.0.1:8888"],
         modules=["httpx"],
         config={"excavate": True, "dns": {"minimal": False, "search_distance": 1}, "scope": {"report_distance": 0}},
         blacklist=["127.0.0.64/29"],

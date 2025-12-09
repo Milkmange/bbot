@@ -34,7 +34,7 @@ async def test_scan(
     assert not scan0.in_scope("test.www.evilcorp.com")
     assert not scan0.in_scope("www.evilcorp.co.uk")
     j = scan0.json
-    assert set(j["target"]["seeds"]) == {"1.1.1.0", "1.1.1.0/31", "evilcorp.com", "test.evilcorp.com"}
+    assert j["target"]["seeds"] is None, "seeds should not be in target json"
     # Positional arguments become the target
     assert set(j["target"]["target"]) == {"1.1.1.0", "1.1.1.0/31", "evilcorp.com", "test.evilcorp.com"}
     # Seeds are backfilled from target when not explicitly set
@@ -42,7 +42,7 @@ async def test_scan(
     assert set(j["target"]["blacklist"]) == {"1.1.1.0/28", "www.evilcorp.com"}
     assert "ipneighbor" in j["preset"]["modules"]
 
-    scan1 = bbot_scanner("1.1.1.1", target_list=["1.0.0.1"])
+    scan1 = bbot_scanner("1.0.0.1", seeds=["1.1.1.1"])
     assert not scan1.blacklisted("1.1.1.1")
     assert not scan1.blacklisted("1.0.0.1")
     assert not scan1.in_target("1.1.1.1")
@@ -94,7 +94,7 @@ def test_seeds_target_separation(bbot_scanner):
     """
     # Simulate: bbot -t 192.168.1.0/24 -s seed1.example.com seed2.example.com
     scan = bbot_scanner(
-        target_list=["192.168.1.0/24"],
+        "192.168.1.0/24",
         seeds=["seed1.example.com", "seed2.example.com"],
     )
 
