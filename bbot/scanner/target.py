@@ -254,8 +254,7 @@ class BBOTTarget:
 
     @property
     def json(self):
-        return {
-            "seeds": (None if self._orig_seeds is None else sorted(self.seeds.inputs)),
+        j = {
             "target": sorted(self.target.inputs),
             "blacklist": sorted(self.blacklist.inputs),
             "strict_dns_scope": self.strict_dns_scope,
@@ -265,6 +264,9 @@ class BBOTTarget:
             "blacklist_hash": self.blacklist.hash.hex(),
             "scope_hash": self.scope_hash.hex(),
         }
+        if self._orig_seeds is not None:
+            j["seeds"] = sorted(self.seeds.inputs)
+        return j
 
     @property
     def hash(self):

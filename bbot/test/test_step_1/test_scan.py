@@ -34,7 +34,7 @@ async def test_scan(
     assert not scan0.in_scope("test.www.evilcorp.com")
     assert not scan0.in_scope("www.evilcorp.co.uk")
     j = scan0.json
-    assert j["target"]["seeds"] is None, "seeds should not be in target json"
+    assert not "seeds" in j["target"], "seeds should not be in target json"
     # Positional arguments become the target
     assert set(j["target"]["target"]) == {"1.1.1.0", "1.1.1.0/31", "evilcorp.com", "test.evilcorp.com"}
     # Seeds are backfilled from target when not explicitly set
