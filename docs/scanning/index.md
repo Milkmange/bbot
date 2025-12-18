@@ -177,24 +177,28 @@ bbot -t evilcorp.com -f subdomain-enum -c scope.report_distance=1
 
 If you want to scan **_only_** that specific target hostname and none of its children, you can specify `--strict-scope`.
 
-Note that `--strict-scope` only applies to targets and whitelists, but not blacklists. This means that if you put `internal.evilcorp.com` in your blacklist, you can be sure none of its subdomains will be scanned, even when using `--strict-scope`.
+Note that `--strict-scope` only applies to targets, but not blacklists. This means that if you put `internal.evilcorp.com` in your blacklist, you can be sure none of its subdomains will be scanned, even when using `--strict-scope`.
 
-### Whitelists and Blacklists
+### Targets, Seeds, and Blacklists
 
-BBOT allows precise control over scope with whitelists and blacklists. These both use the same syntax as `--target`, meaning they accept the same event types, and you can specify an unlimited number of them, via a file, the CLI, or both.
+BBOT uses three related concepts to control scope and how a scan is driven:
 
-#### Whitelists
+- **Targets (`-t` / `--targets`)**: Define what is in-scope. These also act as scan seeds if seeds aren't explicitly defined.
+- **Seeds (`-s` / `--seeds`)**: Seeds define the starting point for the scan. They drive **passive** modules and can be outside of the explicit target list (out of scope) for those passive modules. If you don’t specify `--seeds`, BBOT will automatically use your targets as seeds.
+- **Blacklists (`-b` / `--blacklist`)**: Define what is **never** touched. Anything matching the blacklist is excluded from the scan, even if it would otherwise be in-scope.
 
-`--whitelist` enables you to override what's in scope. For example, if you want to run nuclei against `evilcorp.com`, but stay only inside their corporate IP range of `1.2.3.0/24`, you can accomplish this like so:
+This separation lets you, for example, keep a tight target list for what’s considered in-scope, while still allowing passive modules to discover new subdomains that may ultimately be in-scope. The blacklist helps to mask-off anything that you know should not be scanned.
+
+For example, lets say you have a target with subdomains that resolve both within, and outside of an IP range that defines your scope. You can set the IP range as the **target**, and then safely let BBOT explore the domain defined in **seeds**. Any discovered assets that are in your scope will automatically be assessed by active modules.
 
 ```bash
-# Seed scan with evilcorp.com, but restrict scope to 1.2.3.0/24
-bbot -t evilcorp.com --whitelist 1.2.3.0/24 -f subdomain-enum -m portscan nuclei --allow-deadly
+bbot -t 192.168.1.0/24 -s evilcorp.com -f subdomain-enum -m nuclei --allow-deadly
 ```
+In this example, any discovered `evilcorp.com` subdomains that resolve within `192.168.1.0/24` will be scanned by `Nuclei`. Any others will be discovered, but not touched by active modules. 
 
 #### Blacklists
 
-`--blacklist` takes ultimate precedence. Anything in the blacklist is completely excluded from the scan, even if it's in the whitelist.
+`--blacklist` takes ultimate precedence. Anything in the blacklist is completely excluded from the scan, even if it would otherwise be in-scope based on your targets or seeds.
 
 ```bash
 # Scan evilcorp.com, but exclude internal.evilcorp.com and its children
@@ -222,7 +226,7 @@ If you only want to blacklist the URL, you could narrow the regex like so:
 bbot -t evilcorp.com --blacklist 'RE:signout\.aspx$'
 ```
 
-Similar to targets and whitelists, blacklists can be specified in your preset. The `spider` preset makes use of this to prevent the spider from following logout links:
+Similar to targets, blacklists can be specified in your preset. The `spider` preset makes use of this to prevent the spider from following logout links:
 
 ```yaml title="spider.yml"
 description: Recursive web spider
@@ -277,4 +281,4 @@ dns:
   wildcard_tests: 20
 ```
 
-If that doesn't work you can consider [blacklisting](#whitelists-and-blacklists) the offending domain.
+If that doesn't work you can consider [blacklisting](#targets-seeds-and-blacklists) the offending domain.

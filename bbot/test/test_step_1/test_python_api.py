@@ -54,7 +54,8 @@ async def test_python_api():
     # custom target types
     custom_target_scan = Scanner("ORG:evilcorp")
     events = [e async for e in custom_target_scan.async_start()]
-    assert 1 == len([e for e in events if e.type == "ORG_STUB" and e.data == "evilcorp" and "target" in e.tags])
+
+    assert 1 == len([e for e in events if e.type == "ORG_STUB" and e.data == "evilcorp" and "seed" in e.tags])
 
     # presets
     scan6 = Scanner("evilcorp.com", presets=["subdomain-enum"])

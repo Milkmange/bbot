@@ -56,12 +56,12 @@ options:
 
 Target:
   -t, --targets TARGET [TARGET ...]
-                        Targets to seed the scan
-  -w, --whitelist WHITELIST [WHITELIST ...]
-                        What's considered in-scope (by default it's the same as --targets)
+                        Target scope (defines what is in-scope)
+  -s, --seeds SEEDS [SEEDS ...]
+                        Define seeds to drive passive modules without being in scope (if not specified, defaults to same as targets)
   -b, --blacklist BLACKLIST [BLACKLIST ...]
                         Don't touch these things
-  --strict-scope        Don't consider subdomains of target/whitelist to be in-scope
+  --strict-scope        Don't consider subdomains of targets to be in-scope
 
 Presets:
   -p, --preset [PRESET ...]

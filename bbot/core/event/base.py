@@ -108,7 +108,8 @@ class BaseEvent:
     # Always emit this event type even if it's not in scope
     _always_emit = False
     # Always emit events with these tags even if they're not in scope
-    _always_emit_tags = ["affiliate", "target"]
+
+    _always_emit_tags = ["affiliate", "seed"]
     # Bypass scope checking and dns resolution, distribute immediately to modules
     # This is useful for "end-of-line" events like FINDING and VULNERABILITY
     _quick_emit = False
@@ -596,6 +597,9 @@ class BaseEvent:
                     new_scope_distance += 1
             self.scope_distance = new_scope_distance
             # inherit certain tags
+            # inherit seed tag from DNS_NAME_UNRESOLVED -> DNS_NAME only
+            if "seed" in parent.tags and parent.type == "DNS_NAME_UNRESOLVED" and self.type == "DNS_NAME":
+                self.add_tag("seed")
             if hosts_are_same:
                 # inherit web spider distance from parent
                 self.web_spider_distance = getattr(parent, "web_spider_distance", 0)
@@ -1214,6 +1218,9 @@ class DNS_NAME(DnsEvent):
 
 
 class OPEN_TCP_PORT(BaseEvent):
+    # we generally don't care about open ports on affiliates
+    _always_emit_tags = ["seed"]
+
     def sanitize_data(self, data):
         return validators.validate_open_port(data)
 
@@ -1719,7 +1726,7 @@ class FILESYSTEM(DictPathEvent):
 
 class RAW_DNS_RECORD(DictHostEvent, DnsEvent):
     # don't emit raw DNS records for affiliates
-    _always_emit_tags = ["target"]
+    _always_emit_tags = ["seed"]
 
 
 class MOBILE_APP(DictEvent):
