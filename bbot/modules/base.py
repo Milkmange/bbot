@@ -73,6 +73,8 @@ class BaseModule:
 
         _stats_exclude (bool): Whether to exclude this module from scan statistics. Default is False.
 
+        _disable_auto_module_deps (bool): Whether to disable automatic module dependencies. This is useful e.g. if the module consumes URLs, but you don't want to automatically enable the httpx module. Default is False.
+
         _qsize (int): Outgoing queue size (0 for infinite). Default is 0.
 
         _priority (int): Priority level of the module. Lower values are higher priority. Default is 3.
@@ -116,6 +118,7 @@ class BaseModule:
 
     _preserve_graph = False
     _stats_exclude = False
+    _disable_auto_module_deps = False
     _qsize = 1000
     _priority = 3
     _name = "base"
@@ -805,6 +808,9 @@ class BaseModule:
 
     @property
     def max_scope_distance(self):
+        """
+        Maximum scope distance for events that are accepted by the module.
+        """
         if self.in_scope_only or self.target_only:
             return 0
         if self.scope_distance_modifier is None:
@@ -1355,7 +1361,10 @@ class BaseModule:
                 if isinstance(body_json, dict):
                     retry_after = body_json.get("retry_after", None)
         if retry_after is not None:
-            return float(retry_after)
+            # we don't allow retry-after smaller than 1 second
+            # this is to prevent cases where APIs erroneously return a retry-after value of 0
+            # e.g. https://github.com/blacklanternsecurity/bbot/issues/2826
+            return max(1.0, float(retry_after))
 
     def _prepare_api_iter_req(self, url, page, page_size, offset, **requests_kwargs):
         """
