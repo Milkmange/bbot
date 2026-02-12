@@ -6,14 +6,14 @@ Documented in this section are commonly-used classes and functions within BBOT, 
 
 ## Adding BBOT to Your Python Project
 
-If you are using Poetry, you can add BBOT to your python environment like this:
+If you are using uv, you can add BBOT to your python environment like this:
 
 ```bash
 # stable
-poetry add bbot
+uv add bbot
 
 # bleeding-edge (dev branch)
-poetry add bbot --allow-prereleases
+uv add bbot --prerelease=allow
 ```
 
 ## Running a BBOT Scan from Python

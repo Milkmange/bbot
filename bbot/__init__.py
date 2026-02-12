@@ -1,2 +1,5 @@
-# version placeholder (replaced by poetry-dynamic-versioning)
-__version__ = "v0.0.0"
+# version is dynamically set by hatch-vcs from git tags
+try:
+    from bbot._version import __version__
+except ImportError:
+    __version__ = "0.0.0"
