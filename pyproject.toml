@@ -90,14 +90,11 @@ docs = [
 ]
 
 [build-system]
-requires = ["hatchling", "hatch-vcs"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-source = "vcs"
-
-[tool.hatch.build.hooks.vcs]
-version-file = "bbot/_version.py"
+path = "bbot/_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["bbot"]
