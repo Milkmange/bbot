@@ -104,6 +104,8 @@ class DNSResolve(BaseInterceptModule):
             if "seed" not in main_host_event.tags:
                 main_host_event.add_tag("unresolved")
                 main_host_event.type = "DNS_NAME_UNRESOLVED"
+                # avoid emitting DNS_NAME_UNRESOLVED affiliates
+                main_host_event.always_emit_tags = []
 
         # main_host_event.add_tag(f"resolve-distance-{main_host_event.dns_resolve_distance}")
 
