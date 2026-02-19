@@ -51,7 +51,7 @@ def run_benchmarks(output_file: Path, repo_path: Path = None) -> bool:
 
     try:
         cmd = [
-            "poetry",
+            "uv",
             "run",
             "python",
             "-m",
