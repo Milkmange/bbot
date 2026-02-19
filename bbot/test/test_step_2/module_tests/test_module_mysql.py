@@ -27,11 +27,24 @@ class TestMySQL(ModuleTestBase):
         )
         stdout, stderr = await process.communicate()
 
+        if process.returncode != 0:
+            self.log.error(f"Failed to start MySQL server: {stderr.decode()}")
+
         # wait for the container to start
         await self.wait_for_port_open(3306)
 
-        if process.returncode != 0:
-            self.log.error(f"Failed to start MySQL server: {stderr.decode()}")
+        # wait for MySQL to actually be ready, not just accepting connections
+        import aiomysql
+
+        for _ in range(30):
+            try:
+                conn = await aiomysql.connect(user="root", password="bbotislife", db="bbot", host="localhost")
+                conn.close()
+                break
+            except Exception:
+                await asyncio.sleep(1)
+        else:
+            raise RuntimeError("MySQL did not become ready in time")
 
     async def check(self, module_test, events):
         import aiomysql
