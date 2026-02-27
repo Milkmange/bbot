@@ -7,12 +7,12 @@ class shodan_enterprise(BaseModule):
     produced_events = ["OPEN_TCP_PORT", "TECHNOLOGY", "OPEN_UDP_PORT", "ASN", "VULNERABILITY"]
     flags = ["passive"]
     meta = {
-        "created_date": "2023-08-04",
+        "created_date": "2026-01-27",
         "author": "@Control-Punk-Delete",
         "description": "Shodan Enterprise API integration module.",
     }
     deps_pip = ["shodan"]
-    options = {"api_key": ""}
+    options = {"api_key": None}
     options_desc = {"api_key": "Shodan API Key"}
     per_host_only = True
     scope_distance_modifier = 1
