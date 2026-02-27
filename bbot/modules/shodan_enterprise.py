@@ -72,13 +72,13 @@ class shodan_enterprise(BaseModule):
                             )
 
                     # TECHNOLOGY Additional Formats
-
                     if "product" in data:
                         tech = {
                             "technology": data.get("product"),
                             "host": data.get("ip_str"),
                             "port": data.get("port"),
                         }
+
                         await self.emit_event(
                             tech,
                             "TECHNOLOGY",
@@ -159,10 +159,7 @@ class shodan_enterprise(BaseModule):
                             )
 
             else:
-                self.info(f"No Shodan data about {event.data}")
+                self.warning(f"No Shodan data about {event.data}")
 
         except shodan.APIError as e:
-            if self.history:
-                self.info(f"No Shodan history data about {event.data}")
-            else:
-                self.error(f"Shodan API error: {e}")
+            self.error(f"Shodan API error: {e}")
