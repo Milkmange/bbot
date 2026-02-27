@@ -28,7 +28,7 @@ class shodan_enterprise(BaseModule):
         try:
             api = shodan.Shodan(self.api_key)
             host = api.host(ips=event.data, history=False, minify=False)
-            self.info(f"{host}")
+
             # ASN Extraction
             asn = {
                 "asn": host["asn"][2:],

@@ -342,3 +342,1312 @@
 2026-02-11 12:12:13,790 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/report
 2026-02-11 12:12:13,791 [DEBUG] bbot.module_loader modules.py:152 Preloading asn from cache
 2026-02-11 12:12:13,792 [DEBUG] bbot.module_loader modules.py:152 Preloading affiliates from cache
+2026-02-27 14:39:54,639 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz
+2026-02-27 14:39:54,645 [DEBUG] bbot.module_loader modules.py:154 Preloading lightfuzz from disk
+2026-02-27 14:39:54,649 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/internal
+2026-02-27 14:39:54,649 [DEBUG] bbot.module_loader modules.py:154 Preloading aggregate from disk
+2026-02-27 14:39:54,650 [DEBUG] bbot.module_loader modules.py:154 Preloading cloudcheck from disk
+2026-02-27 14:39:54,652 [DEBUG] bbot.module_loader modules.py:154 Preloading excavate from disk
+2026-02-27 14:39:54,661 [DEBUG] bbot.module_loader modules.py:154 Preloading speculate from disk
+2026-02-27 14:39:54,663 [DEBUG] bbot.module_loader modules.py:154 Preloading unarchive from disk
+2026-02-27 14:39:54,665 [DEBUG] bbot.module_loader modules.py:154 Preloading dnsresolve from disk
+2026-02-27 14:39:54,667 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/output
+2026-02-27 14:39:54,668 [DEBUG] bbot.module_loader modules.py:154 Preloading web_parameters from disk
+2026-02-27 14:39:54,669 [DEBUG] bbot.module_loader modules.py:154 Preloading discord from disk
+2026-02-27 14:39:54,671 [DEBUG] bbot.module_loader modules.py:154 Preloading emails from disk
+2026-02-27 14:39:54,672 [DEBUG] bbot.module_loader modules.py:154 Preloading teams from disk
+2026-02-27 14:39:54,673 [DEBUG] bbot.module_loader modules.py:154 Preloading txt from disk
+2026-02-27 14:39:54,674 [DEBUG] bbot.module_loader modules.py:154 Preloading neo4j from disk
+2026-02-27 14:39:54,676 [DEBUG] bbot.module_loader modules.py:154 Preloading asset_inventory from disk
+2026-02-27 14:39:54,680 [DEBUG] bbot.module_loader modules.py:154 Preloading sqlite from disk
+2026-02-27 14:39:54,681 [DEBUG] bbot.module_loader modules.py:154 Preloading web_report from disk
+2026-02-27 14:39:54,682 [DEBUG] bbot.module_loader modules.py:154 Preloading http from disk
+2026-02-27 14:39:54,683 [DEBUG] bbot.module_loader modules.py:154 Preloading csv from disk
+2026-02-27 14:39:54,684 [DEBUG] bbot.module_loader modules.py:154 Preloading postgres from disk
+2026-02-27 14:39:54,685 [DEBUG] bbot.module_loader modules.py:154 Preloading python from disk
+2026-02-27 14:39:54,686 [DEBUG] bbot.module_loader modules.py:154 Preloading subdomains from disk
+2026-02-27 14:39:54,687 [DEBUG] bbot.module_loader modules.py:154 Preloading stdout from disk
+2026-02-27 14:39:54,688 [DEBUG] bbot.module_loader modules.py:154 Preloading nmap_xml from disk
+2026-02-27 14:39:54,690 [DEBUG] bbot.module_loader modules.py:154 Preloading json from disk
+2026-02-27 14:39:54,691 [DEBUG] bbot.module_loader modules.py:154 Preloading slack from disk
+2026-02-27 14:39:54,692 [DEBUG] bbot.module_loader modules.py:154 Preloading splunk from disk
+2026-02-27 14:39:54,693 [DEBUG] bbot.module_loader modules.py:154 Preloading mysql from disk
+2026-02-27 14:39:54,694 [DEBUG] bbot.module_loader modules.py:154 Preloading websocket from disk
+2026-02-27 14:39:54,695 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/deadly
+2026-02-27 14:39:54,696 [DEBUG] bbot.module_loader modules.py:154 Preloading legba from disk
+2026-02-27 14:39:54,698 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules
+2026-02-27 14:39:54,698 [DEBUG] bbot.module_loader modules.py:154 Preloading esi from disk
+2026-02-27 14:39:54,699 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/esi.py as it is not a valid BBOT module
+2026-02-27 14:39:54,699 [DEBUG] bbot.module_loader modules.py:154 Preloading cmdi from disk
+2026-02-27 14:39:54,700 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/cmdi.py as it is not a valid BBOT module
+2026-02-27 14:39:54,701 [DEBUG] bbot.module_loader modules.py:154 Preloading xss from disk
+2026-02-27 14:39:54,702 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/xss.py as it is not a valid BBOT module
+2026-02-27 14:39:54,702 [DEBUG] bbot.module_loader modules.py:154 Preloading crypto from disk
+2026-02-27 14:39:54,705 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/crypto.py as it is not a valid BBOT module
+2026-02-27 14:39:54,705 [DEBUG] bbot.module_loader modules.py:154 Preloading serial from disk
+2026-02-27 14:39:54,707 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/serial.py as it is not a valid BBOT module
+2026-02-27 14:39:54,707 [DEBUG] bbot.module_loader modules.py:154 Preloading sqli from disk
+2026-02-27 14:39:54,708 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/sqli.py as it is not a valid BBOT module
+2026-02-27 14:39:54,709 [DEBUG] bbot.module_loader modules.py:154 Preloading path from disk
+2026-02-27 14:39:54,710 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/path.py as it is not a valid BBOT module
+2026-02-27 14:39:54,710 [DEBUG] bbot.module_loader modules.py:154 Preloading ssti from disk
+2026-02-27 14:39:54,711 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/ssti.py as it is not a valid BBOT module
+2026-02-27 14:39:54,711 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules
+2026-02-27 14:39:54,711 [DEBUG] bbot.module_loader modules.py:154 Preloading urlscan from disk
+2026-02-27 14:39:54,713 [DEBUG] bbot.module_loader modules.py:154 Preloading jadx from disk
+2026-02-27 14:39:54,714 [DEBUG] bbot.module_loader modules.py:154 Preloading trufflehog from disk
+2026-02-27 14:39:54,717 [DEBUG] bbot.module_loader modules.py:154 Preloading host_header from disk
+2026-02-27 14:39:54,719 [DEBUG] bbot.module_loader modules.py:154 Preloading securitytxt from disk
+2026-02-27 14:39:54,720 [DEBUG] bbot.module_loader modules.py:154 Preloading dnsdumpster from disk
+2026-02-27 14:39:54,721 [DEBUG] bbot.module_loader modules.py:154 Preloading bevigil from disk
+2026-02-27 14:39:54,723 [DEBUG] bbot.module_loader modules.py:154 Preloading bucket_google from disk
+2026-02-27 14:39:54,724 [DEBUG] bbot.module_loader modules.py:154 Preloading git from disk
+2026-02-27 14:39:54,725 [DEBUG] bbot.module_loader modules.py:154 Preloading azure_realm from disk
+2026-02-27 14:39:54,726 [DEBUG] bbot.module_loader modules.py:154 Preloading extractous from disk
+2026-02-27 14:39:54,729 [DEBUG] bbot.module_loader modules.py:154 Preloading credshed from disk
+2026-02-27 14:39:54,731 [DEBUG] bbot.module_loader modules.py:154 Preloading fullhunt from disk
+2026-02-27 14:39:54,731 [DEBUG] bbot.module_loader modules.py:154 Preloading social from disk
+2026-02-27 14:39:54,732 [DEBUG] bbot.module_loader modules.py:154 Preloading pgp from disk
+2026-02-27 14:39:54,733 [DEBUG] bbot.module_loader modules.py:154 Preloading azure_tenant from disk
+2026-02-27 14:39:54,735 [DEBUG] bbot.module_loader modules.py:154 Preloading virustotal from disk
+2026-02-27 14:39:54,736 [DEBUG] bbot.module_loader modules.py:154 Preloading vhost from disk
+2026-02-27 14:39:54,737 [DEBUG] bbot.module_loader modules.py:154 Preloading shodan_enterprise from disk
+2026-02-27 14:39:54,739 [DEBUG] bbot.module_loader modules.py:154 Preloading dnsbrute from disk
+2026-02-27 14:39:54,740 [DEBUG] bbot.module_loader modules.py:154 Preloading shodan_dns from disk
+2026-02-27 14:39:54,741 [DEBUG] bbot.module_loader modules.py:154 Preloading ip2location from disk
+2026-02-27 14:39:54,742 [DEBUG] bbot.module_loader modules.py:154 Preloading rapiddns from disk
+2026-02-27 14:39:54,743 [DEBUG] bbot.module_loader modules.py:154 Preloading wpscan from disk
+2026-02-27 14:39:54,746 [DEBUG] bbot.module_loader modules.py:154 Preloading dnscommonsrv from disk
+2026-02-27 14:39:54,746 [DEBUG] bbot.module_loader modules.py:154 Preloading passivetotal from disk
+2026-02-27 14:39:54,747 [DEBUG] bbot.module_loader modules.py:154 Preloading ntlm from disk
+2026-02-27 14:39:54,749 [DEBUG] bbot.module_loader modules.py:154 Preloading trickest from disk
+2026-02-27 14:39:54,750 [DEBUG] bbot.module_loader modules.py:154 Preloading google_playstore from disk
+2026-02-27 14:39:54,751 [DEBUG] bbot.module_loader modules.py:154 Preloading github_usersearch from disk
+2026-02-27 14:39:54,752 [DEBUG] bbot.module_loader modules.py:154 Preloading subdomainradar from disk
+2026-02-27 14:39:54,754 [DEBUG] bbot.module_loader modules.py:154 Preloading dockerhub from disk
+2026-02-27 14:39:54,755 [DEBUG] bbot.module_loader modules.py:154 Preloading medusa from disk
+2026-02-27 14:39:54,757 [DEBUG] bbot.module_loader modules.py:154 Preloading digitorus from disk
+2026-02-27 14:39:54,758 [DEBUG] bbot.module_loader modules.py:154 Preloading wafw00f from disk
+2026-02-27 14:39:54,759 [DEBUG] bbot.module_loader modules.py:154 Preloading generic_ssrf from disk
+2026-02-27 14:39:54,761 [DEBUG] bbot.module_loader modules.py:154 Preloading filedownload from disk
+2026-02-27 14:39:54,765 [DEBUG] bbot.module_loader modules.py:154 Preloading chaos from disk
+2026-02-27 14:39:54,766 [DEBUG] bbot.module_loader modules.py:154 Preloading httpx from disk
+2026-02-27 14:39:54,769 [DEBUG] bbot.module_loader modules.py:154 Preloading baddns_zone from disk
+2026-02-27 14:39:54,770 [DEBUG] bbot.module_loader modules.py:154 Preloading graphql_introspection from disk
+2026-02-27 14:39:54,771 [DEBUG] bbot.module_loader modules.py:154 Preloading paramminer_headers from disk
+2026-02-27 14:39:54,773 [DEBUG] bbot.module_loader modules.py:154 Preloading securitytrails from disk
+2026-02-27 14:39:54,774 [DEBUG] bbot.module_loader modules.py:154 Preloading bucket_microsoft from disk
+2026-02-27 14:39:54,775 [DEBUG] bbot.module_loader modules.py:154 Preloading viewdns from disk
+2026-02-27 14:39:54,776 [DEBUG] bbot.module_loader modules.py:154 Preloading url_manipulation from disk
+2026-02-27 14:39:54,778 [DEBUG] bbot.module_loader modules.py:154 Preloading ffuf_shortnames from disk
+2026-02-27 14:39:54,781 [DEBUG] bbot.module_loader modules.py:154 Preloading censys_ip from disk
+2026-02-27 14:39:54,783 [DEBUG] bbot.module_loader modules.py:154 Preloading builtwith from disk
+2026-02-27 14:39:54,785 [DEBUG] bbot.module_loader modules.py:154 Preloading certspotter from disk
+2026-02-27 14:39:54,785 [DEBUG] bbot.module_loader modules.py:154 Preloading sslcert from disk
+2026-02-27 14:39:54,788 [DEBUG] bbot.module_loader modules.py:154 Preloading gitdumper from disk
+2026-02-27 14:39:54,790 [DEBUG] bbot.module_loader modules.py:154 Preloading shodan_idb from disk
+2026-02-27 14:39:54,792 [DEBUG] bbot.module_loader modules.py:154 Preloading hackertarget from disk
+2026-02-27 14:39:54,793 [DEBUG] bbot.module_loader modules.py:154 Preloading c99 from disk
+2026-02-27 14:39:54,793 [DEBUG] bbot.module_loader modules.py:154 Preloading newsletters from disk
+2026-02-27 14:39:54,794 [DEBUG] bbot.module_loader modules.py:154 Preloading apkpure from disk
+2026-02-27 14:39:54,795 [DEBUG] bbot.module_loader modules.py:154 Preloading crt from disk
+2026-02-27 14:39:54,796 [DEBUG] bbot.module_loader modules.py:154 Preloading postman_download from disk
+2026-02-27 14:39:54,797 [DEBUG] bbot.module_loader modules.py:154 Preloading hunt from disk
+2026-02-27 14:39:54,798 [DEBUG] bbot.module_loader modules.py:154 Preloading ffuf from disk
+2026-02-27 14:39:54,801 [DEBUG] bbot.module_loader modules.py:154 Preloading dnsbrute_mutations from disk
+2026-02-27 14:39:54,803 [DEBUG] bbot.module_loader modules.py:154 Preloading bucket_firebase from disk
+2026-02-27 14:39:54,804 [DEBUG] bbot.module_loader modules.py:154 Preloading nuclei from disk
+2026-02-27 14:39:54,808 [DEBUG] bbot.module_loader modules.py:154 Preloading censys_dns from disk
+2026-02-27 14:39:54,809 [DEBUG] bbot.module_loader modules.py:154 Preloading retirejs from disk
+2026-02-27 14:39:54,811 [DEBUG] bbot.module_loader modules.py:154 Preloading git_clone from disk
+2026-02-27 14:39:54,812 [DEBUG] bbot.module_loader modules.py:154 Preloading bucket_amazon from disk
+2026-02-27 14:39:54,813 [DEBUG] bbot.module_loader modules.py:154 Preloading bucket_digitalocean from disk
+2026-02-27 14:39:54,814 [DEBUG] bbot.module_loader modules.py:154 Preloading skymem from disk
+2026-02-27 14:39:54,814 [DEBUG] bbot.module_loader modules.py:154 Preloading hunterio from disk
+2026-02-27 14:39:54,815 [DEBUG] bbot.module_loader modules.py:154 Preloading paramminer_cookies from disk
+2026-02-27 14:39:54,816 [DEBUG] bbot.module_loader modules.py:154 Preloading postman from disk
+2026-02-27 14:39:54,818 [DEBUG] bbot.module_loader modules.py:154 Preloading code_repository from disk
+2026-02-27 14:39:54,819 [DEBUG] bbot.module_loader modules.py:154 Preloading gitlab_com from disk
+2026-02-27 14:39:54,820 [DEBUG] bbot.module_loader modules.py:154 Preloading dnstlsrpt from disk
+2026-02-27 14:39:54,821 [DEBUG] bbot.module_loader modules.py:154 Preloading baddns from disk
+2026-02-27 14:39:54,823 [DEBUG] bbot.module_loader modules.py:154 Preloading subdomaincenter from disk
+2026-02-27 14:39:54,824 [DEBUG] bbot.module_loader modules.py:154 Preloading wayback from disk
+2026-02-27 14:39:54,825 [DEBUG] bbot.module_loader modules.py:154 Preloading ipstack from disk
+2026-02-27 14:39:54,826 [DEBUG] bbot.module_loader modules.py:154 Preloading emailformat from disk
+2026-02-27 14:39:54,827 [DEBUG] bbot.module_loader modules.py:154 Preloading fingerprintx from disk
+2026-02-27 14:39:54,828 [DEBUG] bbot.module_loader modules.py:154 Preloading dnscaa from disk
+2026-02-27 14:39:54,829 [DEBUG] bbot.module_loader modules.py:154 Preloading bypass403 from disk
+2026-02-27 14:39:54,831 [DEBUG] bbot.module_loader modules.py:154 Preloading leakix from disk
+2026-02-27 14:39:54,832 [DEBUG] bbot.module_loader modules.py:154 Preloading paramminer_getparams from disk
+2026-02-27 14:39:54,833 [DEBUG] bbot.module_loader modules.py:154 Preloading reflected_parameters from disk
+2026-02-27 14:39:54,834 [DEBUG] bbot.module_loader modules.py:154 Preloading crt_db from disk
+2026-02-27 14:39:54,835 [DEBUG] bbot.module_loader modules.py:154 Preloading bucket_file_enum from disk
+2026-02-27 14:39:54,836 [DEBUG] bbot.module_loader modules.py:154 Preloading portscan from disk
+2026-02-27 14:39:54,839 [DEBUG] bbot.module_loader modules.py:154 Preloading baddns_direct from disk
+2026-02-27 14:39:54,840 [DEBUG] bbot.module_loader modules.py:154 Preloading ajaxpro from disk
+2026-02-27 14:39:54,841 [DEBUG] bbot.module_loader modules.py:154 Preloading telerik from disk
+2026-02-27 14:39:54,844 [DEBUG] bbot.module_loader modules.py:154 Preloading dnsbimi from disk
+2026-02-27 14:39:54,845 [DEBUG] bbot.module_loader modules.py:154 Preloading aspnet_bin_exposure from disk
+2026-02-27 14:39:54,846 [DEBUG] bbot.module_loader modules.py:154 Preloading otx from disk
+2026-02-27 14:39:54,847 [DEBUG] bbot.module_loader modules.py:154 Preloading github_codesearch from disk
+2026-02-27 14:39:54,848 [DEBUG] bbot.module_loader modules.py:154 Preloading dehashed from disk
+2026-02-27 14:39:54,850 [DEBUG] bbot.module_loader modules.py:154 Preloading gowitness from disk
+2026-02-27 14:39:54,853 [DEBUG] bbot.module_loader modules.py:154 Preloading docker_pull from disk
+2026-02-27 14:39:54,855 [DEBUG] bbot.module_loader modules.py:154 Preloading ipneighbor from disk
+2026-02-27 14:39:54,856 [DEBUG] bbot.module_loader modules.py:154 Preloading bufferoverrun from disk
+2026-02-27 14:39:54,857 [DEBUG] bbot.module_loader modules.py:154 Preloading gitlab_onprem from disk
+2026-02-27 14:39:54,859 [DEBUG] bbot.module_loader modules.py:154 Preloading iis_shortnames from disk
+2026-02-27 14:39:54,862 [DEBUG] bbot.module_loader modules.py:154 Preloading badsecrets from disk
+2026-02-27 14:39:54,864 [DEBUG] bbot.module_loader modules.py:154 Preloading myssl from disk
+2026-02-27 14:39:54,864 [DEBUG] bbot.module_loader modules.py:154 Preloading github_workflows from disk
+2026-02-27 14:39:54,867 [DEBUG] bbot.module_loader modules.py:154 Preloading dotnetnuke from disk
+2026-02-27 14:39:54,869 [DEBUG] bbot.module_loader modules.py:154 Preloading smuggler from disk
+2026-02-27 14:39:54,869 [DEBUG] bbot.module_loader modules.py:154 Preloading robots from disk
+2026-02-27 14:39:54,870 [DEBUG] bbot.module_loader modules.py:154 Preloading anubisdb from disk
+2026-02-27 14:39:54,871 [DEBUG] bbot.module_loader modules.py:154 Preloading oauth from disk
+2026-02-27 14:39:54,873 [DEBUG] bbot.module_loader modules.py:154 Preloading github_org from disk
+2026-02-27 14:39:54,875 [DEBUG] bbot.module_loader modules.py:154 Preloading portfilter from disk
+2026-02-27 14:39:54,876 [DEBUG] bbot.module_loader modules.py:154 Preloading sitedossier from disk
+2026-02-27 14:39:54,877 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/report
+2026-02-27 14:39:54,877 [DEBUG] bbot.module_loader modules.py:154 Preloading asn from disk
+2026-02-27 14:39:54,880 [DEBUG] bbot.module_loader modules.py:154 Preloading affiliates from disk
+2026-02-27 14:39:54,881 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/templates
+2026-02-27 14:39:56,703 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:39:56,703 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:39:56,704 [INFO] bbot base.py:99 Starting shodan_idb module test
+2026-02-27 14:39:56,799 [DEBUG] bbot.presets preset.py:1003 Preset : Getting baked
+2026-02-27 14:39:57,183 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "shodan_idb" of type "scan"
+2026-02-27 14:39:57,183 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "python" of type "output"
+2026-02-27 14:39:57,183 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "unarchive" of type "internal"
+2026-02-27 14:39:57,183 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "dnsresolve" of type "internal"
+2026-02-27 14:39:57,318 [WARNING] bbot.scanner scanner.py:1211 You have enabled custom HTTP headers. These will be attached to all in-scope requests and all requests made by httpx.
+2026-02-27 14:39:57,319 [DEBUG] bbot base.py:103 Mocking DNS
+2026-02-27 14:39:57,430 [DEBUG] bbot base.py:105 Executing setup_before_prep()
+2026-02-27 14:39:57,430 [DEBUG] bbot base.py:107 Executing scan._prep()
+2026-02-27 14:39:57,456 [HUGEINFO] bbot.scanner logger.py:151 Scan seeded with 1 targets (1 in whitelist)
+2026-02-27 14:39:57,460 [INFO] bbot.core.helpers.depsinstaller installer.py:470 Installing Ansible Community General Collection
+2026-02-27 14:39:57,460 [HUGEVERBOSE] bbot.core.helpers.command logger.py:151 run: /Users/andriikerekhovetskyi/Library/Caches/pypoetry/virtualenvs/bbot-tTmN0996-py3.13/bin/ansible-galaxy collection install community.general
+2026-02-27 14:39:58,870 [INFO] bbot.core.helpers.depsinstaller installer.py:475 Successfully installed Ansible Community General Collection
+2026-02-27 14:39:58,871 [INFO] bbot.core.helpers.depsinstaller installer.py:492 Installing core BBOT dependencies: openssl_dev_headers
+2026-02-27 14:40:04,137 [SUCCESS] bbot.core.helpers.depsinstaller logger.py:151 Authentication successful
+2026-02-27 14:40:04,138 [DEBUG] bbot.core.helpers.depsinstaller installer.py:363 ansible_run(module=None, args=None, ansible_args=None)
+2026-02-27 14:40:04,138 [DEBUG] bbot.core.helpers.depsinstaller installer.py:375 {
+  "hosts": "all",
+  "tasks": [
+    {
+      "name": "Install OpenSSL library and development headers (Debian/Ubuntu)",
+      "package": {
+        "name": [
+          "libssl-dev",
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Debian'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (RedHat/CentOS/Fedora)",
+      "package": {
+        "name": [
+          "openssl",
+          "openssl-devel"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'RedHat' or ansible_facts['os_family'] == 'Suse' ",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (Arch)",
+      "package": {
+        "name": [
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Archlinux'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (Alpine)",
+      "package": {
+        "name": [
+          "openssl",
+          "openssl-dev"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Alpine'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (FreeBSD)",
+      "package": {
+        "name": [
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'FreeBSD'",
+      "ignore_errors": true
+    }
+  ]
+}
+2026-02-27 14:40:08,547 [DEBUG] bbot.core.helpers.depsinstaller installer.py:397 Ansible status: successful
+2026-02-27 14:40:08,548 [DEBUG] bbot.core.helpers.depsinstaller installer.py:398 Ansible return code: 0
+2026-02-27 14:40:08,552 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing dnsresolve - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:40:08,552 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "dnsresolve"
+2026-02-27 14:40:08,552 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing unarchive - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:40:08,553 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "unarchive"
+2026-02-27 14:40:08,553 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing shodan_idb - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:40:08,553 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "shodan_idb"
+2026-02-27 14:40:08,553 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing python - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:40:08,554 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "python"
+2026-02-27 14:40:08,554 [VERBOSE] bbot.scanner logger.py:151 Loading 1 scan modules: shodan_idb
+2026-02-27 14:40:08,621 [VERBOSE] bbot.scanner logger.py:151 Loaded module "shodan_idb"
+2026-02-27 14:40:08,621 [INFO] bbot.scanner scanner.py:1191 Loaded 1/1 scan modules (shodan_idb)
+2026-02-27 14:40:08,621 [VERBOSE] bbot.scanner logger.py:151 Loading 2 internal modules: dnsresolve,unarchive
+2026-02-27 14:40:08,623 [VERBOSE] bbot.scanner logger.py:151 Loaded module "dnsresolve"
+2026-02-27 14:40:08,624 [VERBOSE] bbot.scanner logger.py:151 Loaded module "unarchive"
+2026-02-27 14:40:08,624 [INFO] bbot.scanner scanner.py:1191 Loaded 2/2 internal modules (dnsresolve,unarchive)
+2026-02-27 14:40:08,624 [VERBOSE] bbot.scanner logger.py:151 Loading 1 output modules: python
+2026-02-27 14:40:08,625 [VERBOSE] bbot.scanner logger.py:151 Loaded module "python"
+2026-02-27 14:40:08,625 [INFO] bbot.scanner scanner.py:1191 Loaded 1/1 output modules, (python)
+2026-02-27 14:40:08,625 [VERBOSE] bbot.scanner logger.py:151 Setting up modules
+2026-02-27 14:40:08,626 [DEBUG] bbot.modules._scan_ingress base.py:1563 Setting up module _scan_ingress
+2026-02-27 14:40:08,626 [DEBUG] bbot.modules._scan_ingress base.py:1563 Running _scan_ingress.setup_deps()
+2026-02-27 14:40:08,626 [DEBUG] bbot.modules._scan_ingress base.py:1563 Running _scan_ingress.setup()
+2026-02-27 14:40:08,626 [DEBUG] bbot.modules._scan_ingress base.py:1563 Finished setting up module _scan_ingress
+2026-02-27 14:40:08,627 [DEBUG] bbot.modules.dnsresolve base.py:1563 Setting up module dnsresolve
+2026-02-27 14:40:08,627 [DEBUG] bbot.modules.dnsresolve base.py:1563 Running dnsresolve.setup_deps()
+2026-02-27 14:40:08,627 [DEBUG] bbot.modules.dnsresolve base.py:1563 Running dnsresolve.setup()
+2026-02-27 14:40:08,627 [DEBUG] bbot.modules.dnsresolve base.py:1563 Finished setting up module dnsresolve
+2026-02-27 14:40:08,627 [DEBUG] bbot.modules.shodan_idb base.py:1563 Setting up module shodan_idb
+2026-02-27 14:40:08,628 [DEBUG] bbot.modules.shodan_idb base.py:1563 Running shodan_idb.setup_deps()
+2026-02-27 14:40:08,628 [DEBUG] bbot.modules.shodan_idb base.py:1563 Running shodan_idb.setup()
+2026-02-27 14:40:08,628 [DEBUG] bbot.modules.shodan_idb base.py:1563 Finished setting up module shodan_idb
+2026-02-27 14:40:08,628 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Setting up module unarchive
+2026-02-27 14:40:08,628 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Running unarchive.setup_deps()
+2026-02-27 14:40:08,628 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Running unarchive.setup()
+2026-02-27 14:40:08,629 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Finished setting up module unarchive
+2026-02-27 14:40:08,629 [DEBUG] bbot.modules.output.python base.py:1563 Setting up module python
+2026-02-27 14:40:08,629 [DEBUG] bbot.modules.output.python base.py:1563 Running python.setup_deps()
+2026-02-27 14:40:08,629 [DEBUG] bbot.modules.output.python base.py:1563 Running python.setup()
+2026-02-27 14:40:08,629 [DEBUG] bbot.modules.output.python base.py:1563 Finished setting up module python
+2026-02-27 14:40:08,629 [DEBUG] bbot.modules._scan_egress base.py:1563 Setting up module _scan_egress
+2026-02-27 14:40:08,630 [DEBUG] bbot.modules._scan_egress base.py:1563 Running _scan_egress.setup_deps()
+2026-02-27 14:40:08,630 [DEBUG] bbot.modules._scan_egress base.py:1563 Running _scan_egress.setup()
+2026-02-27 14:40:08,630 [DEBUG] bbot.modules._scan_egress base.py:1563 Finished setting up module _scan_egress
+2026-02-27 14:40:08,630 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for shodan_idb (success)
+2026-02-27 14:40:08,630 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for dnsresolve (success)
+2026-02-27 14:40:08,631 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for _scan_egress (success)
+2026-02-27 14:40:08,631 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for python (success)
+2026-02-27 14:40:08,631 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for _scan_ingress (success)
+2026-02-27 14:40:08,631 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for unarchive (success)
+2026-02-27 14:40:08,631 [DEBUG] bbot.scanner scanner.py:1176 Setting intercept module dnsresolve._incoming_event_queue to previous intercept module _scan_ingress.outgoing_event_queue
+2026-02-27 14:40:08,631 [DEBUG] bbot.scanner scanner.py:1176 Setting intercept module _scan_egress._incoming_event_queue to previous intercept module dnsresolve.outgoing_event_queue
+2026-02-27 14:40:08,632 [SUCCESS] bbot.scanner logger.py:151 Setup succeeded for 6/6 modules.
+2026-02-27 14:40:08,632 [DEBUG] bbot base.py:109 Executing setup_after_prep()
+2026-02-27 14:40:08,632 [DEBUG] bbot base.py:111 Starting scan
+2026-02-27 14:40:08,711 [HUGESUCCESS] bbot.scanner logger.py:151 Starting scan testshodan_idb_test_gc6u1g45uo
+2026-02-27 14:40:08,711 [VERBOSE] bbot.scanner logger.py:151 Starting module worker loops
+2026-02-27 14:40:08,776 [VERBOSE] bbot.scanner logger.py:151 6 modules started
+2026-02-27 14:40:08,776 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to STARTING
+2026-02-27 14:40:08,777 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to RUNNING
+2026-02-27 14:40:08,778 [VERBOSE] bbot.modules._scan_ingress logger.py:151 Target: IP_ADDRESS("1.2.3.4", module=TARGET, tags={'distance-1', 'target', 'ipv4'})
+2026-02-27 14:40:08,878 [DEBUG] bbot.modules._scan_ingress base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'distance-1', 'target', 'ipv4'}) passed post-check
+2026-02-27 14:40:08,878 [DEBUG] bbot.modules._scan_ingress base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'distance-1', 'target', 'ipv4'})
+2026-02-27 14:40:08,880 [DEBUG] bbot.modules._scan_ingress base.py:1563 Making IP_ADDRESS("1.2.3.4", module=TARGET, tags={'distance-1', 'target', 'ipv4'}) in-scope because its main host matches the scan target
+2026-02-27 14:40:08,880 [DEBUG] bbot.modules._scan_ingress base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'})
+2026-02-27 14:40:08,881 [DEBUG] bbot.modules._scan_ingress base.py:1563 SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 14:40:08,882 [DEBUG] bbot.modules._scan_ingress base.py:1563 Intercepting SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:40:08,882 [DEBUG] bbot.modules.dnsresolve base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) passed post-check
+2026-02-27 14:40:08,883 [DEBUG] bbot.modules.dnsresolve base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'})
+2026-02-27 14:40:08,884 [DEBUG] bbot.modules._scan_ingress base.py:1563 Forwarding SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:40:08,885 [DEBUG] bbot.modules.dnsresolve base.py:1563 Not intercepting SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) because postcheck failed (it did not meet custom filter criteria: event does not have host attribute)
+2026-02-27 14:40:08,885 [DEBUG] bbot.modules.dnsresolve base.py:1563 Forwarding SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:40:08,886 [DEBUG] bbot.modules._scan_egress base.py:1563 SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 14:40:08,886 [DEBUG] bbot.modules._scan_egress base.py:1563 Intercepting SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:40:08,888 [DEBUG] bbot.modules._scan_egress base.py:1563 Forwarding SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:40:08,888 [DEBUG] bbot.modules.output.python base.py:1563 Queueing SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) because precheck succeeded
+2026-02-27 14:40:08,890 [DEBUG] bbot.modules.dnsresolve base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'})
+2026-02-27 14:40:08,890 [DEBUG] bbot.modules._scan_egress base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) passed post-check
+2026-02-27 14:40:08,890 [DEBUG] bbot.modules._scan_egress base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'})
+2026-02-27 14:40:08,891 [DEBUG] bbot.modules._scan_egress base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'})
+2026-02-27 14:40:08,891 [DEBUG] bbot.modules.shodan_idb base.py:1563 Queueing IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) because precheck succeeded
+2026-02-27 14:40:08,892 [DEBUG] bbot.modules.output.python base.py:1563 Queueing IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) because precheck succeeded
+2026-02-27 14:40:08,892 [DEBUG] bbot.modules.shodan_idb base.py:1563 Got IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) from TARGET
+2026-02-27 14:40:08,892 [DEBUG] bbot.modules.shodan_idb base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) passed post-check
+2026-02-27 14:40:08,892 [DEBUG] bbot.modules.shodan_idb base.py:1563 Handling IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'})
+2026-02-27 14:40:08,908 [VERBOSE] bbot.core.helpers.web.client logger.py:151 Creating httpx.AsyncClient((), {'transport': <httpx.AsyncHTTPTransport object at 0x10e41d400>, 'verify': <ssl.SSLContext object at 0x10e46cb90>, 'timeout': 10, 'headers': {'User-Agent': 'BBOT Test User-Agent'}, 'cookies': {}, 'proxy': None})
+2026-02-27 14:40:08,913 [DEBUG] bbot.modules.shodan_idb base.py:1563 Finished handling IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'})
+2026-02-27 14:40:08,979 [DEBUG] bbot.modules.output.python base.py:1563 Got SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) from TARGET
+2026-02-27 14:40:08,980 [DEBUG] bbot.modules.output.python base.py:1563 SCAN("{'id': 'SCAN:a5ab24855813285fe015426fcb718c8c4d6bd6c8', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 14:40:08,980 [DEBUG] bbot.modules.output.python base.py:1563 Got IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) from TARGET
+2026-02-27 14:40:08,980 [DEBUG] bbot.modules.output.python base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'in-scope', 'target', 'ipv4'}) passed post-check
+2026-02-27 14:40:08,981 [INFO] bbot.scanner scanner.py:790 Finishing scan
+2026-02-27 14:40:08,982 [DEBUG] bbot.modules.shodan_idb base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'shodan-idb'}) because its type is FINISHED
+2026-02-27 14:40:08,982 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'unarchive'}) because its type is FINISHED
+2026-02-27 14:40:08,983 [DEBUG] bbot.modules.output.python base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'python'}) because its type is FINISHED
+2026-02-27 14:40:08,983 [VERBOSE] bbot.scanner logger.py:151 Completed finish()
+2026-02-27 14:40:08,983 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to FINISHING
+2026-02-27 14:40:08,984 [DEBUG] bbot.modules.shodan_idb base.py:1563 Got FINISHED("FINISHED", module=None, tags={'shodan-idb'}) from None
+2026-02-27 14:40:08,984 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Got FINISHED("FINISHED", module=None, tags={'unarchive'}) from None
+2026-02-27 14:40:09,084 [DEBUG] bbot.modules.output.python base.py:1563 Got FINISHED("FINISHED", module=None, tags={'python'}) from None
+2026-02-27 14:40:09,084 [VERBOSE] bbot.scanner logger.py:151 Completed final finish()
+2026-02-27 14:40:09,093 [DEBUG] bbot.scanner scanner.py:1176 Cancelling all scan tasks
+2026-02-27 14:40:09,094 [DEBUG] bbot.scanner scanner.py:1176 Finished cancelling all scan tasks
+2026-02-27 14:40:09,094 [DEBUG] bbot.scanner scanner.py:1176 Awaiting 42 tasks
+2026-02-27 14:40:09,101 [DEBUG] bbot.scanner scanner.py:1176 Awaited 42 tasks
+2026-02-27 14:40:09,101 [VERBOSE] bbot.core.dnshelper logger.py:151 EngineClient DNSHelper: shutting down...
+2026-02-27 14:40:09,102 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to CLEANING_UP
+2026-02-27 14:40:09,103 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine got shutdown signal
+2026-02-27 14:40:09,103 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: shutting down...
+2026-02-27 14:40:09,103 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: finished shutting down
+2026-02-27 14:40:09,105 [VERBOSE] bbot.core.webhelper logger.py:151 EngineClient WebHelper: shutting down...
+2026-02-27 14:40:09,105 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine got shutdown signal
+2026-02-27 14:40:09,106 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine: shutting down...
+2026-02-27 14:40:09,106 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine: finished shutting down
+2026-02-27 14:40:09,174 [HUGESUCCESS] bbot.scanner logger.py:151 Scan testshodan_idb_test_gc6u1g45uo completed in 0 seconds with status FINISHED
+2026-02-27 14:40:09,174 [DEBUG] bbot base.py:113 Finished shodan_idb module test
+2026-02-27 14:40:09,174 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:43:27,687 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules
+2026-02-27 14:43:27,694 [DEBUG] bbot.module_loader modules.py:154 Preloading esi from disk
+2026-02-27 14:43:27,695 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/esi.py as it is not a valid BBOT module
+2026-02-27 14:43:27,695 [DEBUG] bbot.module_loader modules.py:154 Preloading cmdi from disk
+2026-02-27 14:43:27,696 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/cmdi.py as it is not a valid BBOT module
+2026-02-27 14:43:27,696 [DEBUG] bbot.module_loader modules.py:154 Preloading xss from disk
+2026-02-27 14:43:27,698 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/xss.py as it is not a valid BBOT module
+2026-02-27 14:43:27,698 [DEBUG] bbot.module_loader modules.py:154 Preloading crypto from disk
+2026-02-27 14:43:27,701 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/crypto.py as it is not a valid BBOT module
+2026-02-27 14:43:27,701 [DEBUG] bbot.module_loader modules.py:154 Preloading serial from disk
+2026-02-27 14:43:27,702 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/serial.py as it is not a valid BBOT module
+2026-02-27 14:43:27,702 [DEBUG] bbot.module_loader modules.py:154 Preloading sqli from disk
+2026-02-27 14:43:27,703 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/sqli.py as it is not a valid BBOT module
+2026-02-27 14:43:27,704 [DEBUG] bbot.module_loader modules.py:154 Preloading path from disk
+2026-02-27 14:43:27,704 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/path.py as it is not a valid BBOT module
+2026-02-27 14:43:27,705 [DEBUG] bbot.module_loader modules.py:154 Preloading ssti from disk
+2026-02-27 14:43:27,705 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/ssti.py as it is not a valid BBOT module
+2026-02-27 14:43:27,705 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/deadly
+2026-02-27 14:43:27,706 [DEBUG] bbot.module_loader modules.py:152 Preloading legba from cache
+2026-02-27 14:43:27,707 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz
+2026-02-27 14:43:27,707 [DEBUG] bbot.module_loader modules.py:152 Preloading lightfuzz from cache
+2026-02-27 14:43:27,708 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules
+2026-02-27 14:43:27,708 [DEBUG] bbot.module_loader modules.py:152 Preloading urlscan from cache
+2026-02-27 14:43:27,709 [DEBUG] bbot.module_loader modules.py:152 Preloading jadx from cache
+2026-02-27 14:43:27,709 [DEBUG] bbot.module_loader modules.py:152 Preloading trufflehog from cache
+2026-02-27 14:43:27,710 [DEBUG] bbot.module_loader modules.py:152 Preloading host_header from cache
+2026-02-27 14:43:27,710 [DEBUG] bbot.module_loader modules.py:152 Preloading securitytxt from cache
+2026-02-27 14:43:27,710 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsdumpster from cache
+2026-02-27 14:43:27,711 [DEBUG] bbot.module_loader modules.py:152 Preloading bevigil from cache
+2026-02-27 14:43:27,711 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_google from cache
+2026-02-27 14:43:27,712 [DEBUG] bbot.module_loader modules.py:152 Preloading git from cache
+2026-02-27 14:43:27,712 [DEBUG] bbot.module_loader modules.py:152 Preloading azure_realm from cache
+2026-02-27 14:43:27,712 [DEBUG] bbot.module_loader modules.py:152 Preloading extractous from cache
+2026-02-27 14:43:27,714 [DEBUG] bbot.module_loader modules.py:152 Preloading credshed from cache
+2026-02-27 14:43:27,715 [DEBUG] bbot.module_loader modules.py:152 Preloading fullhunt from cache
+2026-02-27 14:43:27,715 [DEBUG] bbot.module_loader modules.py:152 Preloading social from cache
+2026-02-27 14:43:27,716 [DEBUG] bbot.module_loader modules.py:152 Preloading pgp from cache
+2026-02-27 14:43:27,716 [DEBUG] bbot.module_loader modules.py:152 Preloading azure_tenant from cache
+2026-02-27 14:43:27,717 [DEBUG] bbot.module_loader modules.py:152 Preloading virustotal from cache
+2026-02-27 14:43:27,717 [DEBUG] bbot.module_loader modules.py:152 Preloading vhost from cache
+2026-02-27 14:43:27,717 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_enterprise from cache
+2026-02-27 14:43:27,718 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbrute from cache
+2026-02-27 14:43:27,718 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_dns from cache
+2026-02-27 14:43:27,719 [DEBUG] bbot.module_loader modules.py:152 Preloading ip2location from cache
+2026-02-27 14:43:27,719 [DEBUG] bbot.module_loader modules.py:152 Preloading rapiddns from cache
+2026-02-27 14:43:27,719 [DEBUG] bbot.module_loader modules.py:152 Preloading wpscan from cache
+2026-02-27 14:43:27,720 [DEBUG] bbot.module_loader modules.py:152 Preloading dnscommonsrv from cache
+2026-02-27 14:43:27,720 [DEBUG] bbot.module_loader modules.py:152 Preloading passivetotal from cache
+2026-02-27 14:43:27,721 [DEBUG] bbot.module_loader modules.py:152 Preloading ntlm from cache
+2026-02-27 14:43:27,721 [DEBUG] bbot.module_loader modules.py:152 Preloading trickest from cache
+2026-02-27 14:43:27,721 [DEBUG] bbot.module_loader modules.py:152 Preloading google_playstore from cache
+2026-02-27 14:43:27,722 [DEBUG] bbot.module_loader modules.py:152 Preloading github_usersearch from cache
+2026-02-27 14:43:27,722 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomainradar from cache
+2026-02-27 14:43:27,722 [DEBUG] bbot.module_loader modules.py:152 Preloading dockerhub from cache
+2026-02-27 14:43:27,723 [DEBUG] bbot.module_loader modules.py:152 Preloading medusa from cache
+2026-02-27 14:43:27,723 [DEBUG] bbot.module_loader modules.py:152 Preloading digitorus from cache
+2026-02-27 14:43:27,724 [DEBUG] bbot.module_loader modules.py:152 Preloading wafw00f from cache
+2026-02-27 14:43:27,724 [DEBUG] bbot.module_loader modules.py:152 Preloading generic_ssrf from cache
+2026-02-27 14:43:27,725 [DEBUG] bbot.module_loader modules.py:152 Preloading filedownload from cache
+2026-02-27 14:43:27,727 [DEBUG] bbot.module_loader modules.py:152 Preloading chaos from cache
+2026-02-27 14:43:27,728 [DEBUG] bbot.module_loader modules.py:152 Preloading httpx from cache
+2026-02-27 14:43:27,728 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns_zone from cache
+2026-02-27 14:43:27,729 [DEBUG] bbot.module_loader modules.py:152 Preloading graphql_introspection from cache
+2026-02-27 14:43:27,729 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_headers from cache
+2026-02-27 14:43:27,730 [DEBUG] bbot.module_loader modules.py:152 Preloading securitytrails from cache
+2026-02-27 14:43:27,730 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_microsoft from cache
+2026-02-27 14:43:27,731 [DEBUG] bbot.module_loader modules.py:152 Preloading viewdns from cache
+2026-02-27 14:43:27,731 [DEBUG] bbot.module_loader modules.py:152 Preloading url_manipulation from cache
+2026-02-27 14:43:27,731 [DEBUG] bbot.module_loader modules.py:152 Preloading ffuf_shortnames from cache
+2026-02-27 14:43:27,732 [DEBUG] bbot.module_loader modules.py:152 Preloading censys_ip from cache
+2026-02-27 14:43:27,732 [DEBUG] bbot.module_loader modules.py:152 Preloading builtwith from cache
+2026-02-27 14:43:27,733 [DEBUG] bbot.module_loader modules.py:152 Preloading certspotter from cache
+2026-02-27 14:43:27,733 [DEBUG] bbot.module_loader modules.py:152 Preloading sslcert from cache
+2026-02-27 14:43:27,733 [DEBUG] bbot.module_loader modules.py:152 Preloading gitdumper from cache
+2026-02-27 14:43:27,734 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_idb from cache
+2026-02-27 14:43:27,734 [DEBUG] bbot.module_loader modules.py:152 Preloading hackertarget from cache
+2026-02-27 14:43:27,735 [DEBUG] bbot.module_loader modules.py:152 Preloading c99 from cache
+2026-02-27 14:43:27,735 [DEBUG] bbot.module_loader modules.py:152 Preloading newsletters from cache
+2026-02-27 14:43:27,735 [DEBUG] bbot.module_loader modules.py:152 Preloading apkpure from cache
+2026-02-27 14:43:27,736 [DEBUG] bbot.module_loader modules.py:152 Preloading crt from cache
+2026-02-27 14:43:27,736 [DEBUG] bbot.module_loader modules.py:152 Preloading postman_download from cache
+2026-02-27 14:43:27,736 [DEBUG] bbot.module_loader modules.py:152 Preloading hunt from cache
+2026-02-27 14:43:27,737 [DEBUG] bbot.module_loader modules.py:152 Preloading ffuf from cache
+2026-02-27 14:43:27,737 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbrute_mutations from cache
+2026-02-27 14:43:27,738 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_firebase from cache
+2026-02-27 14:43:27,738 [DEBUG] bbot.module_loader modules.py:152 Preloading nuclei from cache
+2026-02-27 14:43:27,739 [DEBUG] bbot.module_loader modules.py:152 Preloading censys_dns from cache
+2026-02-27 14:43:27,739 [DEBUG] bbot.module_loader modules.py:152 Preloading retirejs from cache
+2026-02-27 14:43:27,740 [DEBUG] bbot.module_loader modules.py:152 Preloading git_clone from cache
+2026-02-27 14:43:27,740 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_amazon from cache
+2026-02-27 14:43:27,740 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_digitalocean from cache
+2026-02-27 14:43:27,741 [DEBUG] bbot.module_loader modules.py:152 Preloading skymem from cache
+2026-02-27 14:43:27,741 [DEBUG] bbot.module_loader modules.py:152 Preloading hunterio from cache
+2026-02-27 14:43:27,741 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_cookies from cache
+2026-02-27 14:43:27,742 [DEBUG] bbot.module_loader modules.py:152 Preloading postman from cache
+2026-02-27 14:43:27,742 [DEBUG] bbot.module_loader modules.py:152 Preloading code_repository from cache
+2026-02-27 14:43:27,743 [DEBUG] bbot.module_loader modules.py:152 Preloading gitlab_com from cache
+2026-02-27 14:43:27,743 [DEBUG] bbot.module_loader modules.py:152 Preloading dnstlsrpt from cache
+2026-02-27 14:43:27,743 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns from cache
+2026-02-27 14:43:27,744 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomaincenter from cache
+2026-02-27 14:43:27,744 [DEBUG] bbot.module_loader modules.py:152 Preloading wayback from cache
+2026-02-27 14:43:27,744 [DEBUG] bbot.module_loader modules.py:152 Preloading ipstack from cache
+2026-02-27 14:43:27,745 [DEBUG] bbot.module_loader modules.py:152 Preloading emailformat from cache
+2026-02-27 14:43:27,745 [DEBUG] bbot.module_loader modules.py:152 Preloading fingerprintx from cache
+2026-02-27 14:43:27,746 [DEBUG] bbot.module_loader modules.py:152 Preloading dnscaa from cache
+2026-02-27 14:43:27,746 [DEBUG] bbot.module_loader modules.py:152 Preloading bypass403 from cache
+2026-02-27 14:43:27,746 [DEBUG] bbot.module_loader modules.py:152 Preloading leakix from cache
+2026-02-27 14:43:27,747 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_getparams from cache
+2026-02-27 14:43:27,747 [DEBUG] bbot.module_loader modules.py:152 Preloading reflected_parameters from cache
+2026-02-27 14:43:27,748 [DEBUG] bbot.module_loader modules.py:152 Preloading crt_db from cache
+2026-02-27 14:43:27,748 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_file_enum from cache
+2026-02-27 14:43:27,748 [DEBUG] bbot.module_loader modules.py:152 Preloading portscan from cache
+2026-02-27 14:43:27,749 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns_direct from cache
+2026-02-27 14:43:27,749 [DEBUG] bbot.module_loader modules.py:152 Preloading ajaxpro from cache
+2026-02-27 14:43:27,750 [DEBUG] bbot.module_loader modules.py:152 Preloading telerik from cache
+2026-02-27 14:43:27,750 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbimi from cache
+2026-02-27 14:43:27,751 [DEBUG] bbot.module_loader modules.py:152 Preloading aspnet_bin_exposure from cache
+2026-02-27 14:43:27,751 [DEBUG] bbot.module_loader modules.py:152 Preloading otx from cache
+2026-02-27 14:43:27,751 [DEBUG] bbot.module_loader modules.py:152 Preloading github_codesearch from cache
+2026-02-27 14:43:27,752 [DEBUG] bbot.module_loader modules.py:152 Preloading dehashed from cache
+2026-02-27 14:43:27,752 [DEBUG] bbot.module_loader modules.py:152 Preloading gowitness from cache
+2026-02-27 14:43:27,753 [DEBUG] bbot.module_loader modules.py:152 Preloading docker_pull from cache
+2026-02-27 14:43:27,753 [DEBUG] bbot.module_loader modules.py:152 Preloading ipneighbor from cache
+2026-02-27 14:43:27,753 [DEBUG] bbot.module_loader modules.py:152 Preloading bufferoverrun from cache
+2026-02-27 14:43:27,754 [DEBUG] bbot.module_loader modules.py:152 Preloading gitlab_onprem from cache
+2026-02-27 14:43:27,754 [DEBUG] bbot.module_loader modules.py:152 Preloading iis_shortnames from cache
+2026-02-27 14:43:27,755 [DEBUG] bbot.module_loader modules.py:152 Preloading badsecrets from cache
+2026-02-27 14:43:27,755 [DEBUG] bbot.module_loader modules.py:152 Preloading myssl from cache
+2026-02-27 14:43:27,755 [DEBUG] bbot.module_loader modules.py:152 Preloading github_workflows from cache
+2026-02-27 14:43:27,756 [DEBUG] bbot.module_loader modules.py:152 Preloading dotnetnuke from cache
+2026-02-27 14:43:27,756 [DEBUG] bbot.module_loader modules.py:152 Preloading smuggler from cache
+2026-02-27 14:43:27,756 [DEBUG] bbot.module_loader modules.py:152 Preloading robots from cache
+2026-02-27 14:43:27,757 [DEBUG] bbot.module_loader modules.py:152 Preloading anubisdb from cache
+2026-02-27 14:43:27,757 [DEBUG] bbot.module_loader modules.py:152 Preloading oauth from cache
+2026-02-27 14:43:27,758 [DEBUG] bbot.module_loader modules.py:152 Preloading github_org from cache
+2026-02-27 14:43:27,758 [DEBUG] bbot.module_loader modules.py:152 Preloading portfilter from cache
+2026-02-27 14:43:27,758 [DEBUG] bbot.module_loader modules.py:152 Preloading sitedossier from cache
+2026-02-27 14:43:27,759 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/output
+2026-02-27 14:43:27,759 [DEBUG] bbot.module_loader modules.py:152 Preloading web_parameters from cache
+2026-02-27 14:43:27,760 [DEBUG] bbot.module_loader modules.py:152 Preloading discord from cache
+2026-02-27 14:43:27,760 [DEBUG] bbot.module_loader modules.py:152 Preloading emails from cache
+2026-02-27 14:43:27,760 [DEBUG] bbot.module_loader modules.py:152 Preloading teams from cache
+2026-02-27 14:43:27,761 [DEBUG] bbot.module_loader modules.py:152 Preloading txt from cache
+2026-02-27 14:43:27,761 [DEBUG] bbot.module_loader modules.py:152 Preloading neo4j from cache
+2026-02-27 14:43:27,762 [DEBUG] bbot.module_loader modules.py:152 Preloading asset_inventory from cache
+2026-02-27 14:43:27,762 [DEBUG] bbot.module_loader modules.py:152 Preloading sqlite from cache
+2026-02-27 14:43:27,763 [DEBUG] bbot.module_loader modules.py:152 Preloading web_report from cache
+2026-02-27 14:43:27,763 [DEBUG] bbot.module_loader modules.py:152 Preloading http from cache
+2026-02-27 14:43:27,764 [DEBUG] bbot.module_loader modules.py:152 Preloading csv from cache
+2026-02-27 14:43:27,764 [DEBUG] bbot.module_loader modules.py:152 Preloading postgres from cache
+2026-02-27 14:43:27,765 [DEBUG] bbot.module_loader modules.py:152 Preloading python from cache
+2026-02-27 14:43:27,765 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomains from cache
+2026-02-27 14:43:27,765 [DEBUG] bbot.module_loader modules.py:152 Preloading stdout from cache
+2026-02-27 14:43:27,766 [DEBUG] bbot.module_loader modules.py:152 Preloading nmap_xml from cache
+2026-02-27 14:43:27,766 [DEBUG] bbot.module_loader modules.py:152 Preloading json from cache
+2026-02-27 14:43:27,767 [DEBUG] bbot.module_loader modules.py:152 Preloading slack from cache
+2026-02-27 14:43:27,767 [DEBUG] bbot.module_loader modules.py:152 Preloading splunk from cache
+2026-02-27 14:43:27,768 [DEBUG] bbot.module_loader modules.py:152 Preloading mysql from cache
+2026-02-27 14:43:27,768 [DEBUG] bbot.module_loader modules.py:152 Preloading websocket from cache
+2026-02-27 14:43:27,769 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/templates
+2026-02-27 14:43:27,770 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/internal
+2026-02-27 14:43:27,770 [DEBUG] bbot.module_loader modules.py:152 Preloading aggregate from cache
+2026-02-27 14:43:27,770 [DEBUG] bbot.module_loader modules.py:152 Preloading cloudcheck from cache
+2026-02-27 14:43:27,771 [DEBUG] bbot.module_loader modules.py:152 Preloading excavate from cache
+2026-02-27 14:43:27,771 [DEBUG] bbot.module_loader modules.py:152 Preloading speculate from cache
+2026-02-27 14:43:27,771 [DEBUG] bbot.module_loader modules.py:152 Preloading unarchive from cache
+2026-02-27 14:43:27,772 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsresolve from cache
+2026-02-27 14:43:27,772 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/report
+2026-02-27 14:43:27,772 [DEBUG] bbot.module_loader modules.py:152 Preloading asn from cache
+2026-02-27 14:43:27,773 [DEBUG] bbot.module_loader modules.py:152 Preloading affiliates from cache
+2026-02-27 14:43:28,565 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:43:28,565 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:43:28,566 [INFO] bbot base.py:99 Starting shodan_idb module test
+2026-02-27 14:43:28,660 [DEBUG] bbot.presets preset.py:1003 Preset : Getting baked
+2026-02-27 14:43:29,038 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "shodan_idb" of type "scan"
+2026-02-27 14:43:29,038 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "python" of type "output"
+2026-02-27 14:43:29,039 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "unarchive" of type "internal"
+2026-02-27 14:43:29,039 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "dnsresolve" of type "internal"
+2026-02-27 14:43:29,169 [WARNING] bbot.scanner scanner.py:1211 You have enabled custom HTTP headers. These will be attached to all in-scope requests and all requests made by httpx.
+2026-02-27 14:43:29,170 [DEBUG] bbot base.py:103 Mocking DNS
+2026-02-27 14:43:29,276 [DEBUG] bbot base.py:105 Executing setup_before_prep()
+2026-02-27 14:43:29,277 [DEBUG] bbot base.py:107 Executing scan._prep()
+2026-02-27 14:43:29,302 [HUGEINFO] bbot.scanner logger.py:151 Scan seeded with 1 targets (1 in whitelist)
+2026-02-27 14:43:29,304 [INFO] bbot.core.helpers.depsinstaller installer.py:470 Installing Ansible Community General Collection
+2026-02-27 14:43:29,304 [HUGEVERBOSE] bbot.core.helpers.command logger.py:151 run: /Users/andriikerekhovetskyi/Library/Caches/pypoetry/virtualenvs/bbot-tTmN0996-py3.13/bin/ansible-galaxy collection install community.general
+2026-02-27 14:43:29,704 [INFO] bbot.core.helpers.depsinstaller installer.py:475 Successfully installed Ansible Community General Collection
+2026-02-27 14:43:29,705 [INFO] bbot.core.helpers.depsinstaller installer.py:492 Installing core BBOT dependencies: openssl_dev_headers
+2026-02-27 14:43:34,336 [SUCCESS] bbot.core.helpers.depsinstaller logger.py:151 Authentication successful
+2026-02-27 14:43:34,337 [DEBUG] bbot.core.helpers.depsinstaller installer.py:363 ansible_run(module=None, args=None, ansible_args=None)
+2026-02-27 14:43:34,337 [DEBUG] bbot.core.helpers.depsinstaller installer.py:375 {
+  "hosts": "all",
+  "tasks": [
+    {
+      "name": "Install OpenSSL library and development headers (Debian/Ubuntu)",
+      "package": {
+        "name": [
+          "libssl-dev",
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Debian'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (RedHat/CentOS/Fedora)",
+      "package": {
+        "name": [
+          "openssl",
+          "openssl-devel"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'RedHat' or ansible_facts['os_family'] == 'Suse' ",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (Arch)",
+      "package": {
+        "name": [
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Archlinux'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (Alpine)",
+      "package": {
+        "name": [
+          "openssl",
+          "openssl-dev"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Alpine'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (FreeBSD)",
+      "package": {
+        "name": [
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'FreeBSD'",
+      "ignore_errors": true
+    }
+  ]
+}
+2026-02-27 14:43:36,054 [DEBUG] bbot.core.helpers.depsinstaller installer.py:397 Ansible status: successful
+2026-02-27 14:43:36,054 [DEBUG] bbot.core.helpers.depsinstaller installer.py:398 Ansible return code: 0
+2026-02-27 14:43:36,058 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing unarchive - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:43:36,058 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "unarchive"
+2026-02-27 14:43:36,058 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing dnsresolve - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:43:36,058 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "dnsresolve"
+2026-02-27 14:43:36,058 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing python - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:43:36,059 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "python"
+2026-02-27 14:43:36,059 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing shodan_idb - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 14:43:36,059 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "shodan_idb"
+2026-02-27 14:43:36,060 [VERBOSE] bbot.scanner logger.py:151 Loading 1 scan modules: shodan_idb
+2026-02-27 14:43:36,124 [VERBOSE] bbot.scanner logger.py:151 Loaded module "shodan_idb"
+2026-02-27 14:43:36,125 [INFO] bbot.scanner scanner.py:1191 Loaded 1/1 scan modules (shodan_idb)
+2026-02-27 14:43:36,125 [VERBOSE] bbot.scanner logger.py:151 Loading 2 internal modules: dnsresolve,unarchive
+2026-02-27 14:43:36,126 [VERBOSE] bbot.scanner logger.py:151 Loaded module "dnsresolve"
+2026-02-27 14:43:36,126 [VERBOSE] bbot.scanner logger.py:151 Loaded module "unarchive"
+2026-02-27 14:43:36,126 [INFO] bbot.scanner scanner.py:1191 Loaded 2/2 internal modules (dnsresolve,unarchive)
+2026-02-27 14:43:36,126 [VERBOSE] bbot.scanner logger.py:151 Loading 1 output modules: python
+2026-02-27 14:43:36,127 [VERBOSE] bbot.scanner logger.py:151 Loaded module "python"
+2026-02-27 14:43:36,127 [INFO] bbot.scanner scanner.py:1191 Loaded 1/1 output modules, (python)
+2026-02-27 14:43:36,127 [VERBOSE] bbot.scanner logger.py:151 Setting up modules
+2026-02-27 14:43:36,128 [DEBUG] bbot.modules._scan_ingress base.py:1563 Setting up module _scan_ingress
+2026-02-27 14:43:36,128 [DEBUG] bbot.modules._scan_ingress base.py:1563 Running _scan_ingress.setup_deps()
+2026-02-27 14:43:36,129 [DEBUG] bbot.modules._scan_ingress base.py:1563 Running _scan_ingress.setup()
+2026-02-27 14:43:36,129 [DEBUG] bbot.modules._scan_ingress base.py:1563 Finished setting up module _scan_ingress
+2026-02-27 14:43:36,129 [DEBUG] bbot.modules.dnsresolve base.py:1563 Setting up module dnsresolve
+2026-02-27 14:43:36,129 [DEBUG] bbot.modules.dnsresolve base.py:1563 Running dnsresolve.setup_deps()
+2026-02-27 14:43:36,129 [DEBUG] bbot.modules.dnsresolve base.py:1563 Running dnsresolve.setup()
+2026-02-27 14:43:36,130 [DEBUG] bbot.modules.dnsresolve base.py:1563 Finished setting up module dnsresolve
+2026-02-27 14:43:36,130 [DEBUG] bbot.modules.shodan_idb base.py:1563 Setting up module shodan_idb
+2026-02-27 14:43:36,130 [DEBUG] bbot.modules.shodan_idb base.py:1563 Running shodan_idb.setup_deps()
+2026-02-27 14:43:36,130 [DEBUG] bbot.modules.shodan_idb base.py:1563 Running shodan_idb.setup()
+2026-02-27 14:43:36,130 [DEBUG] bbot.modules.shodan_idb base.py:1563 Finished setting up module shodan_idb
+2026-02-27 14:43:36,130 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Setting up module unarchive
+2026-02-27 14:43:36,130 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Running unarchive.setup_deps()
+2026-02-27 14:43:36,131 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Running unarchive.setup()
+2026-02-27 14:43:36,131 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Finished setting up module unarchive
+2026-02-27 14:43:36,131 [DEBUG] bbot.modules.output.python base.py:1563 Setting up module python
+2026-02-27 14:43:36,131 [DEBUG] bbot.modules.output.python base.py:1563 Running python.setup_deps()
+2026-02-27 14:43:36,131 [DEBUG] bbot.modules.output.python base.py:1563 Running python.setup()
+2026-02-27 14:43:36,131 [DEBUG] bbot.modules.output.python base.py:1563 Finished setting up module python
+2026-02-27 14:43:36,132 [DEBUG] bbot.modules._scan_egress base.py:1563 Setting up module _scan_egress
+2026-02-27 14:43:36,132 [DEBUG] bbot.modules._scan_egress base.py:1563 Running _scan_egress.setup_deps()
+2026-02-27 14:43:36,132 [DEBUG] bbot.modules._scan_egress base.py:1563 Running _scan_egress.setup()
+2026-02-27 14:43:36,132 [DEBUG] bbot.modules._scan_egress base.py:1563 Finished setting up module _scan_egress
+2026-02-27 14:43:36,132 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for shodan_idb (success)
+2026-02-27 14:43:36,133 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for _scan_ingress (success)
+2026-02-27 14:43:36,133 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for unarchive (success)
+2026-02-27 14:43:36,133 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for python (success)
+2026-02-27 14:43:36,133 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for dnsresolve (success)
+2026-02-27 14:43:36,133 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for _scan_egress (success)
+2026-02-27 14:43:36,133 [DEBUG] bbot.scanner scanner.py:1176 Setting intercept module dnsresolve._incoming_event_queue to previous intercept module _scan_ingress.outgoing_event_queue
+2026-02-27 14:43:36,134 [DEBUG] bbot.scanner scanner.py:1176 Setting intercept module _scan_egress._incoming_event_queue to previous intercept module dnsresolve.outgoing_event_queue
+2026-02-27 14:43:36,134 [SUCCESS] bbot.scanner logger.py:151 Setup succeeded for 6/6 modules.
+2026-02-27 14:43:36,134 [DEBUG] bbot base.py:109 Executing setup_after_prep()
+2026-02-27 14:43:36,134 [DEBUG] bbot base.py:111 Starting scan
+2026-02-27 14:43:36,212 [HUGESUCCESS] bbot.scanner logger.py:151 Starting scan testshodan_idb_test_4z8bbmuspg
+2026-02-27 14:43:36,213 [VERBOSE] bbot.scanner logger.py:151 Starting module worker loops
+2026-02-27 14:43:36,278 [VERBOSE] bbot.scanner logger.py:151 6 modules started
+2026-02-27 14:43:36,278 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to STARTING
+2026-02-27 14:43:36,279 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to RUNNING
+2026-02-27 14:43:36,280 [VERBOSE] bbot.modules._scan_ingress logger.py:151 Target: IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'})
+2026-02-27 14:43:36,380 [DEBUG] bbot.modules._scan_ingress base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'}) passed post-check
+2026-02-27 14:43:36,380 [DEBUG] bbot.modules._scan_ingress base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'})
+2026-02-27 14:43:36,382 [DEBUG] bbot.modules._scan_ingress base.py:1563 Making IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'}) in-scope because its main host matches the scan target
+2026-02-27 14:43:36,382 [DEBUG] bbot.modules._scan_ingress base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 14:43:36,383 [DEBUG] bbot.modules._scan_ingress base.py:1563 SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 14:43:36,384 [DEBUG] bbot.modules._scan_ingress base.py:1563 Intercepting SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:43:36,385 [DEBUG] bbot.modules.dnsresolve base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 14:43:36,385 [DEBUG] bbot.modules.dnsresolve base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 14:43:36,386 [DEBUG] bbot.modules._scan_ingress base.py:1563 Forwarding SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:43:36,387 [DEBUG] bbot.modules.dnsresolve base.py:1563 Not intercepting SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) because postcheck failed (it did not meet custom filter criteria: event does not have host attribute)
+2026-02-27 14:43:36,387 [DEBUG] bbot.modules.dnsresolve base.py:1563 Forwarding SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:43:36,388 [DEBUG] bbot.modules._scan_egress base.py:1563 SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 14:43:36,388 [DEBUG] bbot.modules._scan_egress base.py:1563 Intercepting SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:43:36,390 [DEBUG] bbot.modules._scan_egress base.py:1563 Forwarding SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 14:43:36,390 [DEBUG] bbot.modules.output.python base.py:1563 Queueing SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) because precheck succeeded
+2026-02-27 14:43:36,392 [DEBUG] bbot.modules.dnsresolve base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 14:43:36,392 [DEBUG] bbot.modules._scan_egress base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 14:43:36,392 [DEBUG] bbot.modules._scan_egress base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 14:43:36,393 [DEBUG] bbot.modules._scan_egress base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 14:43:36,393 [DEBUG] bbot.modules.shodan_idb base.py:1563 Queueing IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) because precheck succeeded
+2026-02-27 14:43:36,394 [DEBUG] bbot.modules.output.python base.py:1563 Queueing IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) because precheck succeeded
+2026-02-27 14:43:36,394 [DEBUG] bbot.modules.shodan_idb base.py:1563 Got IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) from TARGET
+2026-02-27 14:43:36,394 [DEBUG] bbot.modules.shodan_idb base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 14:43:36,394 [DEBUG] bbot.modules.shodan_idb base.py:1563 Handling IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 14:43:36,409 [VERBOSE] bbot.core.helpers.web.client logger.py:151 Creating httpx.AsyncClient((), {'transport': <httpx.AsyncHTTPTransport object at 0x10ec212b0>, 'verify': <ssl.SSLContext object at 0x10ec85630>, 'timeout': 10, 'headers': {'User-Agent': 'BBOT Test User-Agent'}, 'cookies': {}, 'proxy': None})
+2026-02-27 14:43:36,414 [DEBUG] bbot.modules.shodan_idb base.py:1563 Finished handling IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 14:43:36,481 [DEBUG] bbot.modules.output.python base.py:1563 Got SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) from TARGET
+2026-02-27 14:43:36,482 [DEBUG] bbot.modules.output.python base.py:1563 SCAN("{'id': 'SCAN:7fa1a82c8551a30a9cf898007f63ed2f08185019', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 14:43:36,501 [DEBUG] bbot.modules.output.python base.py:1563 Got IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) from TARGET
+2026-02-27 14:43:36,503 [DEBUG] bbot.modules.output.python base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 14:43:36,503 [INFO] bbot.scanner scanner.py:790 Finishing scan
+2026-02-27 14:43:36,521 [DEBUG] bbot.modules.shodan_idb base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'shodan-idb'}) because its type is FINISHED
+2026-02-27 14:43:36,522 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'unarchive'}) because its type is FINISHED
+2026-02-27 14:43:36,523 [DEBUG] bbot.modules.output.python base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'python'}) because its type is FINISHED
+2026-02-27 14:43:36,523 [VERBOSE] bbot.scanner logger.py:151 Completed finish()
+2026-02-27 14:43:36,523 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to FINISHING
+2026-02-27 14:43:36,524 [DEBUG] bbot.modules.shodan_idb base.py:1563 Got FINISHED("FINISHED", module=None, tags={'shodan-idb'}) from None
+2026-02-27 14:43:36,524 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Got FINISHED("FINISHED", module=None, tags={'unarchive'}) from None
+2026-02-27 14:43:36,624 [DEBUG] bbot.modules.output.python base.py:1563 Got FINISHED("FINISHED", module=None, tags={'python'}) from None
+2026-02-27 14:43:36,624 [VERBOSE] bbot.scanner logger.py:151 Completed final finish()
+2026-02-27 14:43:36,633 [DEBUG] bbot.scanner scanner.py:1176 Cancelling all scan tasks
+2026-02-27 14:43:36,633 [DEBUG] bbot.scanner scanner.py:1176 Finished cancelling all scan tasks
+2026-02-27 14:43:36,633 [DEBUG] bbot.scanner scanner.py:1176 Awaiting 42 tasks
+2026-02-27 14:43:36,638 [DEBUG] bbot.scanner scanner.py:1176 Awaited 42 tasks
+2026-02-27 14:43:36,638 [VERBOSE] bbot.core.dnshelper logger.py:151 EngineClient DNSHelper: shutting down...
+2026-02-27 14:43:36,639 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to CLEANING_UP
+2026-02-27 14:43:36,639 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine got shutdown signal
+2026-02-27 14:43:36,639 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: shutting down...
+2026-02-27 14:43:36,640 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: finished shutting down
+2026-02-27 14:43:36,641 [VERBOSE] bbot.core.webhelper logger.py:151 EngineClient WebHelper: shutting down...
+2026-02-27 14:43:36,642 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine got shutdown signal
+2026-02-27 14:43:36,642 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine: shutting down...
+2026-02-27 14:43:36,642 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine: finished shutting down
+2026-02-27 14:43:36,708 [HUGESUCCESS] bbot.scanner logger.py:151 Scan testshodan_idb_test_4z8bbmuspg completed in 0 seconds with status FINISHED
+2026-02-27 14:43:36,708 [DEBUG] bbot base.py:113 Finished shodan_idb module test
+2026-02-27 14:43:36,709 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:45:14,110 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules
+2026-02-27 14:45:14,117 [DEBUG] bbot.module_loader modules.py:152 Preloading urlscan from cache
+2026-02-27 14:45:14,117 [DEBUG] bbot.module_loader modules.py:152 Preloading jadx from cache
+2026-02-27 14:45:14,118 [DEBUG] bbot.module_loader modules.py:152 Preloading trufflehog from cache
+2026-02-27 14:45:14,118 [DEBUG] bbot.module_loader modules.py:152 Preloading host_header from cache
+2026-02-27 14:45:14,119 [DEBUG] bbot.module_loader modules.py:152 Preloading securitytxt from cache
+2026-02-27 14:45:14,119 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsdumpster from cache
+2026-02-27 14:45:14,120 [DEBUG] bbot.module_loader modules.py:152 Preloading bevigil from cache
+2026-02-27 14:45:14,120 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_google from cache
+2026-02-27 14:45:14,120 [DEBUG] bbot.module_loader modules.py:152 Preloading git from cache
+2026-02-27 14:45:14,121 [DEBUG] bbot.module_loader modules.py:152 Preloading azure_realm from cache
+2026-02-27 14:45:14,121 [DEBUG] bbot.module_loader modules.py:152 Preloading extractous from cache
+2026-02-27 14:45:14,123 [DEBUG] bbot.module_loader modules.py:152 Preloading credshed from cache
+2026-02-27 14:45:14,124 [DEBUG] bbot.module_loader modules.py:152 Preloading fullhunt from cache
+2026-02-27 14:45:14,124 [DEBUG] bbot.module_loader modules.py:152 Preloading social from cache
+2026-02-27 14:45:14,125 [DEBUG] bbot.module_loader modules.py:152 Preloading pgp from cache
+2026-02-27 14:45:14,125 [DEBUG] bbot.module_loader modules.py:152 Preloading azure_tenant from cache
+2026-02-27 14:45:14,126 [DEBUG] bbot.module_loader modules.py:152 Preloading virustotal from cache
+2026-02-27 14:45:14,126 [DEBUG] bbot.module_loader modules.py:152 Preloading vhost from cache
+2026-02-27 14:45:14,127 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_enterprise from cache
+2026-02-27 14:45:14,127 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbrute from cache
+2026-02-27 14:45:14,127 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_dns from cache
+2026-02-27 14:45:14,128 [DEBUG] bbot.module_loader modules.py:152 Preloading ip2location from cache
+2026-02-27 14:45:14,128 [DEBUG] bbot.module_loader modules.py:152 Preloading rapiddns from cache
+2026-02-27 14:45:14,129 [DEBUG] bbot.module_loader modules.py:152 Preloading wpscan from cache
+2026-02-27 14:45:14,129 [DEBUG] bbot.module_loader modules.py:152 Preloading dnscommonsrv from cache
+2026-02-27 14:45:14,130 [DEBUG] bbot.module_loader modules.py:152 Preloading passivetotal from cache
+2026-02-27 14:45:14,130 [DEBUG] bbot.module_loader modules.py:152 Preloading ntlm from cache
+2026-02-27 14:45:14,130 [DEBUG] bbot.module_loader modules.py:152 Preloading trickest from cache
+2026-02-27 14:45:14,131 [DEBUG] bbot.module_loader modules.py:152 Preloading google_playstore from cache
+2026-02-27 14:45:14,131 [DEBUG] bbot.module_loader modules.py:152 Preloading github_usersearch from cache
+2026-02-27 14:45:14,131 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomainradar from cache
+2026-02-27 14:45:14,132 [DEBUG] bbot.module_loader modules.py:152 Preloading dockerhub from cache
+2026-02-27 14:45:14,132 [DEBUG] bbot.module_loader modules.py:152 Preloading medusa from cache
+2026-02-27 14:45:14,133 [DEBUG] bbot.module_loader modules.py:152 Preloading digitorus from cache
+2026-02-27 14:45:14,133 [DEBUG] bbot.module_loader modules.py:152 Preloading wafw00f from cache
+2026-02-27 14:45:14,133 [DEBUG] bbot.module_loader modules.py:152 Preloading generic_ssrf from cache
+2026-02-27 14:45:14,134 [DEBUG] bbot.module_loader modules.py:152 Preloading filedownload from cache
+2026-02-27 14:45:14,137 [DEBUG] bbot.module_loader modules.py:152 Preloading chaos from cache
+2026-02-27 14:45:14,137 [DEBUG] bbot.module_loader modules.py:152 Preloading httpx from cache
+2026-02-27 14:45:14,138 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns_zone from cache
+2026-02-27 14:45:14,138 [DEBUG] bbot.module_loader modules.py:152 Preloading graphql_introspection from cache
+2026-02-27 14:45:14,139 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_headers from cache
+2026-02-27 14:45:14,139 [DEBUG] bbot.module_loader modules.py:152 Preloading securitytrails from cache
+2026-02-27 14:45:14,139 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_microsoft from cache
+2026-02-27 14:45:14,140 [DEBUG] bbot.module_loader modules.py:152 Preloading viewdns from cache
+2026-02-27 14:45:14,140 [DEBUG] bbot.module_loader modules.py:152 Preloading url_manipulation from cache
+2026-02-27 14:45:14,140 [DEBUG] bbot.module_loader modules.py:152 Preloading ffuf_shortnames from cache
+2026-02-27 14:45:14,141 [DEBUG] bbot.module_loader modules.py:152 Preloading censys_ip from cache
+2026-02-27 14:45:14,142 [DEBUG] bbot.module_loader modules.py:152 Preloading builtwith from cache
+2026-02-27 14:45:14,142 [DEBUG] bbot.module_loader modules.py:152 Preloading certspotter from cache
+2026-02-27 14:45:14,142 [DEBUG] bbot.module_loader modules.py:152 Preloading sslcert from cache
+2026-02-27 14:45:14,143 [DEBUG] bbot.module_loader modules.py:152 Preloading gitdumper from cache
+2026-02-27 14:45:14,143 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_idb from cache
+2026-02-27 14:45:14,144 [DEBUG] bbot.module_loader modules.py:152 Preloading hackertarget from cache
+2026-02-27 14:45:14,144 [DEBUG] bbot.module_loader modules.py:152 Preloading c99 from cache
+2026-02-27 14:45:14,144 [DEBUG] bbot.module_loader modules.py:152 Preloading newsletters from cache
+2026-02-27 14:45:14,145 [DEBUG] bbot.module_loader modules.py:152 Preloading apkpure from cache
+2026-02-27 14:45:14,145 [DEBUG] bbot.module_loader modules.py:152 Preloading crt from cache
+2026-02-27 14:45:14,145 [DEBUG] bbot.module_loader modules.py:152 Preloading postman_download from cache
+2026-02-27 14:45:14,146 [DEBUG] bbot.module_loader modules.py:152 Preloading hunt from cache
+2026-02-27 14:45:14,146 [DEBUG] bbot.module_loader modules.py:152 Preloading ffuf from cache
+2026-02-27 14:45:14,147 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbrute_mutations from cache
+2026-02-27 14:45:14,147 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_firebase from cache
+2026-02-27 14:45:14,147 [DEBUG] bbot.module_loader modules.py:152 Preloading nuclei from cache
+2026-02-27 14:45:14,148 [DEBUG] bbot.module_loader modules.py:152 Preloading censys_dns from cache
+2026-02-27 14:45:14,149 [DEBUG] bbot.module_loader modules.py:152 Preloading retirejs from cache
+2026-02-27 14:45:14,149 [DEBUG] bbot.module_loader modules.py:152 Preloading git_clone from cache
+2026-02-27 14:45:14,150 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_amazon from cache
+2026-02-27 14:45:14,150 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_digitalocean from cache
+2026-02-27 14:45:14,150 [DEBUG] bbot.module_loader modules.py:152 Preloading skymem from cache
+2026-02-27 14:45:14,151 [DEBUG] bbot.module_loader modules.py:152 Preloading hunterio from cache
+2026-02-27 14:45:14,151 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_cookies from cache
+2026-02-27 14:45:14,151 [DEBUG] bbot.module_loader modules.py:152 Preloading postman from cache
+2026-02-27 14:45:14,152 [DEBUG] bbot.module_loader modules.py:152 Preloading code_repository from cache
+2026-02-27 14:45:14,152 [DEBUG] bbot.module_loader modules.py:152 Preloading gitlab_com from cache
+2026-02-27 14:45:14,153 [DEBUG] bbot.module_loader modules.py:152 Preloading dnstlsrpt from cache
+2026-02-27 14:45:14,153 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns from cache
+2026-02-27 14:45:14,153 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomaincenter from cache
+2026-02-27 14:45:14,154 [DEBUG] bbot.module_loader modules.py:152 Preloading wayback from cache
+2026-02-27 14:45:14,154 [DEBUG] bbot.module_loader modules.py:152 Preloading ipstack from cache
+2026-02-27 14:45:14,155 [DEBUG] bbot.module_loader modules.py:152 Preloading emailformat from cache
+2026-02-27 14:45:14,155 [DEBUG] bbot.module_loader modules.py:152 Preloading fingerprintx from cache
+2026-02-27 14:45:14,155 [DEBUG] bbot.module_loader modules.py:152 Preloading dnscaa from cache
+2026-02-27 14:45:14,156 [DEBUG] bbot.module_loader modules.py:152 Preloading bypass403 from cache
+2026-02-27 14:45:14,156 [DEBUG] bbot.module_loader modules.py:152 Preloading leakix from cache
+2026-02-27 14:45:14,156 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_getparams from cache
+2026-02-27 14:45:14,157 [DEBUG] bbot.module_loader modules.py:152 Preloading reflected_parameters from cache
+2026-02-27 14:45:14,157 [DEBUG] bbot.module_loader modules.py:152 Preloading crt_db from cache
+2026-02-27 14:45:14,157 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_file_enum from cache
+2026-02-27 14:45:14,158 [DEBUG] bbot.module_loader modules.py:152 Preloading portscan from cache
+2026-02-27 14:45:14,159 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns_direct from cache
+2026-02-27 14:45:14,159 [DEBUG] bbot.module_loader modules.py:152 Preloading ajaxpro from cache
+2026-02-27 14:45:14,159 [DEBUG] bbot.module_loader modules.py:152 Preloading telerik from cache
+2026-02-27 14:45:14,160 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbimi from cache
+2026-02-27 14:45:14,160 [DEBUG] bbot.module_loader modules.py:152 Preloading aspnet_bin_exposure from cache
+2026-02-27 14:45:14,161 [DEBUG] bbot.module_loader modules.py:152 Preloading otx from cache
+2026-02-27 14:45:14,161 [DEBUG] bbot.module_loader modules.py:152 Preloading github_codesearch from cache
+2026-02-27 14:45:14,161 [DEBUG] bbot.module_loader modules.py:152 Preloading dehashed from cache
+2026-02-27 14:45:14,162 [DEBUG] bbot.module_loader modules.py:152 Preloading gowitness from cache
+2026-02-27 14:45:14,162 [DEBUG] bbot.module_loader modules.py:152 Preloading docker_pull from cache
+2026-02-27 14:45:14,163 [DEBUG] bbot.module_loader modules.py:152 Preloading ipneighbor from cache
+2026-02-27 14:45:14,163 [DEBUG] bbot.module_loader modules.py:152 Preloading bufferoverrun from cache
+2026-02-27 14:45:14,164 [DEBUG] bbot.module_loader modules.py:152 Preloading gitlab_onprem from cache
+2026-02-27 14:45:14,164 [DEBUG] bbot.module_loader modules.py:152 Preloading iis_shortnames from cache
+2026-02-27 14:45:14,164 [DEBUG] bbot.module_loader modules.py:152 Preloading badsecrets from cache
+2026-02-27 14:45:14,165 [DEBUG] bbot.module_loader modules.py:152 Preloading myssl from cache
+2026-02-27 14:45:14,165 [DEBUG] bbot.module_loader modules.py:152 Preloading github_workflows from cache
+2026-02-27 14:45:14,166 [DEBUG] bbot.module_loader modules.py:152 Preloading dotnetnuke from cache
+2026-02-27 14:45:14,166 [DEBUG] bbot.module_loader modules.py:152 Preloading smuggler from cache
+2026-02-27 14:45:14,166 [DEBUG] bbot.module_loader modules.py:152 Preloading robots from cache
+2026-02-27 14:45:14,167 [DEBUG] bbot.module_loader modules.py:152 Preloading anubisdb from cache
+2026-02-27 14:45:14,167 [DEBUG] bbot.module_loader modules.py:152 Preloading oauth from cache
+2026-02-27 14:45:14,167 [DEBUG] bbot.module_loader modules.py:152 Preloading github_org from cache
+2026-02-27 14:45:14,168 [DEBUG] bbot.module_loader modules.py:152 Preloading portfilter from cache
+2026-02-27 14:45:14,168 [DEBUG] bbot.module_loader modules.py:152 Preloading sitedossier from cache
+2026-02-27 14:45:14,168 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/report
+2026-02-27 14:45:14,169 [DEBUG] bbot.module_loader modules.py:152 Preloading asn from cache
+2026-02-27 14:45:14,169 [DEBUG] bbot.module_loader modules.py:152 Preloading affiliates from cache
+2026-02-27 14:45:14,170 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/deadly
+2026-02-27 14:45:14,170 [DEBUG] bbot.module_loader modules.py:152 Preloading legba from cache
+2026-02-27 14:45:14,171 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/internal
+2026-02-27 14:45:14,171 [DEBUG] bbot.module_loader modules.py:152 Preloading aggregate from cache
+2026-02-27 14:45:14,171 [DEBUG] bbot.module_loader modules.py:152 Preloading cloudcheck from cache
+2026-02-27 14:45:14,172 [DEBUG] bbot.module_loader modules.py:152 Preloading excavate from cache
+2026-02-27 14:45:14,172 [DEBUG] bbot.module_loader modules.py:152 Preloading speculate from cache
+2026-02-27 14:45:14,173 [DEBUG] bbot.module_loader modules.py:152 Preloading unarchive from cache
+2026-02-27 14:45:14,173 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsresolve from cache
+2026-02-27 14:45:14,173 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/templates
+2026-02-27 14:45:14,174 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules
+2026-02-27 14:45:14,174 [DEBUG] bbot.module_loader modules.py:154 Preloading esi from disk
+2026-02-27 14:45:14,175 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/esi.py as it is not a valid BBOT module
+2026-02-27 14:45:14,175 [DEBUG] bbot.module_loader modules.py:154 Preloading cmdi from disk
+2026-02-27 14:45:14,176 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/cmdi.py as it is not a valid BBOT module
+2026-02-27 14:45:14,176 [DEBUG] bbot.module_loader modules.py:154 Preloading xss from disk
+2026-02-27 14:45:14,177 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/xss.py as it is not a valid BBOT module
+2026-02-27 14:45:14,178 [DEBUG] bbot.module_loader modules.py:154 Preloading crypto from disk
+2026-02-27 14:45:14,180 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/crypto.py as it is not a valid BBOT module
+2026-02-27 14:45:14,181 [DEBUG] bbot.module_loader modules.py:154 Preloading serial from disk
+2026-02-27 14:45:14,182 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/serial.py as it is not a valid BBOT module
+2026-02-27 14:45:14,182 [DEBUG] bbot.module_loader modules.py:154 Preloading sqli from disk
+2026-02-27 14:45:14,183 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/sqli.py as it is not a valid BBOT module
+2026-02-27 14:45:14,183 [DEBUG] bbot.module_loader modules.py:154 Preloading path from disk
+2026-02-27 14:45:14,184 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/path.py as it is not a valid BBOT module
+2026-02-27 14:45:14,185 [DEBUG] bbot.module_loader modules.py:154 Preloading ssti from disk
+2026-02-27 14:45:14,185 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/ssti.py as it is not a valid BBOT module
+2026-02-27 14:45:14,185 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/output
+2026-02-27 14:45:14,186 [DEBUG] bbot.module_loader modules.py:152 Preloading web_parameters from cache
+2026-02-27 14:45:14,186 [DEBUG] bbot.module_loader modules.py:152 Preloading discord from cache
+2026-02-27 14:45:14,187 [DEBUG] bbot.module_loader modules.py:152 Preloading emails from cache
+2026-02-27 14:45:14,187 [DEBUG] bbot.module_loader modules.py:152 Preloading teams from cache
+2026-02-27 14:45:14,188 [DEBUG] bbot.module_loader modules.py:152 Preloading txt from cache
+2026-02-27 14:45:14,188 [DEBUG] bbot.module_loader modules.py:152 Preloading neo4j from cache
+2026-02-27 14:45:14,189 [DEBUG] bbot.module_loader modules.py:152 Preloading asset_inventory from cache
+2026-02-27 14:45:14,189 [DEBUG] bbot.module_loader modules.py:152 Preloading sqlite from cache
+2026-02-27 14:45:14,190 [DEBUG] bbot.module_loader modules.py:152 Preloading web_report from cache
+2026-02-27 14:45:14,190 [DEBUG] bbot.module_loader modules.py:152 Preloading http from cache
+2026-02-27 14:45:14,191 [DEBUG] bbot.module_loader modules.py:152 Preloading csv from cache
+2026-02-27 14:45:14,191 [DEBUG] bbot.module_loader modules.py:152 Preloading postgres from cache
+2026-02-27 14:45:14,192 [DEBUG] bbot.module_loader modules.py:152 Preloading python from cache
+2026-02-27 14:45:14,192 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomains from cache
+2026-02-27 14:45:14,192 [DEBUG] bbot.module_loader modules.py:152 Preloading stdout from cache
+2026-02-27 14:45:14,193 [DEBUG] bbot.module_loader modules.py:152 Preloading nmap_xml from cache
+2026-02-27 14:45:14,193 [DEBUG] bbot.module_loader modules.py:152 Preloading json from cache
+2026-02-27 14:45:14,194 [DEBUG] bbot.module_loader modules.py:152 Preloading slack from cache
+2026-02-27 14:45:14,194 [DEBUG] bbot.module_loader modules.py:152 Preloading splunk from cache
+2026-02-27 14:45:14,195 [DEBUG] bbot.module_loader modules.py:152 Preloading mysql from cache
+2026-02-27 14:45:14,195 [DEBUG] bbot.module_loader modules.py:152 Preloading websocket from cache
+2026-02-27 14:45:14,196 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz
+2026-02-27 14:45:14,196 [DEBUG] bbot.module_loader modules.py:152 Preloading lightfuzz from cache
+2026-02-27 14:45:14,990 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:45:14,990 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 14:45:14,990 [INFO] bbot base.py:99 Starting shodan_idb module test
+2026-02-27 14:45:15,084 [DEBUG] bbot.presets preset.py:1003 Preset : Getting baked
+2026-02-27 14:45:15,467 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "shodan_idb" of type "scan"
+2026-02-27 14:45:15,467 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "python" of type "output"
+2026-02-27 14:45:15,467 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "unarchive" of type "internal"
+2026-02-27 14:45:15,468 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "dnsresolve" of type "internal"
+2026-02-27 14:45:15,597 [WARNING] bbot.scanner scanner.py:1211 You have enabled custom HTTP headers. These will be attached to all in-scope requests and all requests made by httpx.
+2026-02-27 14:45:15,598 [DEBUG] bbot base.py:103 Mocking DNS
+2026-02-27 14:45:15,705 [DEBUG] bbot base.py:105 Executing setup_before_prep()
+2026-02-27 14:45:15,705 [DEBUG] bbot base.py:107 Executing scan._prep()
+2026-02-27 14:45:15,731 [HUGEINFO] bbot.scanner logger.py:151 Scan seeded with 1 targets (1 in whitelist)
+2026-02-27 14:45:15,733 [INFO] bbot.core.helpers.depsinstaller installer.py:470 Installing Ansible Community General Collection
+2026-02-27 14:45:15,733 [HUGEVERBOSE] bbot.core.helpers.command logger.py:151 run: /Users/andriikerekhovetskyi/Library/Caches/pypoetry/virtualenvs/bbot-tTmN0996-py3.13/bin/ansible-galaxy collection install community.general
+2026-02-27 14:45:16,137 [INFO] bbot.core.helpers.depsinstaller installer.py:475 Successfully installed Ansible Community General Collection
+2026-02-27 14:45:16,137 [INFO] bbot.core.helpers.depsinstaller installer.py:492 Installing core BBOT dependencies: openssl_dev_headers
+2026-02-27 15:00:04,662 [WARNING] bbot.core.helpers.depsinstaller installer.py:443 Incorrect password
+2026-02-27 15:00:09,434 [SUCCESS] bbot.core.helpers.depsinstaller logger.py:151 Authentication successful
+2026-02-27 15:00:09,435 [DEBUG] bbot.core.helpers.depsinstaller installer.py:363 ansible_run(module=None, args=None, ansible_args=None)
+2026-02-27 15:00:09,436 [DEBUG] bbot.core.helpers.depsinstaller installer.py:375 {
+  "hosts": "all",
+  "tasks": [
+    {
+      "name": "Install OpenSSL library and development headers (Debian/Ubuntu)",
+      "package": {
+        "name": [
+          "libssl-dev",
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Debian'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (RedHat/CentOS/Fedora)",
+      "package": {
+        "name": [
+          "openssl",
+          "openssl-devel"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'RedHat' or ansible_facts['os_family'] == 'Suse' ",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (Arch)",
+      "package": {
+        "name": [
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Archlinux'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (Alpine)",
+      "package": {
+        "name": [
+          "openssl",
+          "openssl-dev"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'Alpine'",
+      "ignore_errors": true
+    },
+    {
+      "name": "Install OpenSSL library and development headers (FreeBSD)",
+      "package": {
+        "name": [
+          "openssl"
+        ],
+        "state": "present"
+      },
+      "become": false,
+      "when": "ansible_facts['os_family'] == 'FreeBSD'",
+      "ignore_errors": true
+    }
+  ]
+}
+2026-02-27 15:00:12,930 [DEBUG] bbot.core.helpers.depsinstaller installer.py:397 Ansible status: successful
+2026-02-27 15:00:12,931 [DEBUG] bbot.core.helpers.depsinstaller installer.py:398 Ansible return code: 0
+2026-02-27 15:00:12,935 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing unarchive - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 15:00:12,935 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "unarchive"
+2026-02-27 15:00:12,935 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing dnsresolve - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 15:00:12,935 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "dnsresolve"
+2026-02-27 15:00:12,936 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing python - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 15:00:12,936 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "python"
+2026-02-27 15:00:12,936 [DEBUG] bbot.core.helpers.depsinstaller installer.py:170 Installing shodan_idb - Preloaded Deps {'modules': [], 'pip': [], 'pip_constraints': [], 'shell': [], 'apt': [], 'ansible': [], 'common': []}
+2026-02-27 15:00:12,936 [DEBUG] bbot.core.helpers.depsinstaller installer.py:183 No dependency work to do for module "shodan_idb"
+2026-02-27 15:00:12,937 [VERBOSE] bbot.scanner logger.py:151 Loading 1 scan modules: shodan_idb
+2026-02-27 15:00:13,003 [VERBOSE] bbot.scanner logger.py:151 Loaded module "shodan_idb"
+2026-02-27 15:00:13,003 [INFO] bbot.scanner scanner.py:1191 Loaded 1/1 scan modules (shodan_idb)
+2026-02-27 15:00:13,003 [VERBOSE] bbot.scanner logger.py:151 Loading 2 internal modules: dnsresolve,unarchive
+2026-02-27 15:00:13,005 [VERBOSE] bbot.scanner logger.py:151 Loaded module "dnsresolve"
+2026-02-27 15:00:13,005 [VERBOSE] bbot.scanner logger.py:151 Loaded module "unarchive"
+2026-02-27 15:00:13,006 [INFO] bbot.scanner scanner.py:1191 Loaded 2/2 internal modules (dnsresolve,unarchive)
+2026-02-27 15:00:13,006 [VERBOSE] bbot.scanner logger.py:151 Loading 1 output modules: python
+2026-02-27 15:00:13,007 [VERBOSE] bbot.scanner logger.py:151 Loaded module "python"
+2026-02-27 15:00:13,007 [INFO] bbot.scanner scanner.py:1191 Loaded 1/1 output modules, (python)
+2026-02-27 15:00:13,007 [VERBOSE] bbot.scanner logger.py:151 Setting up modules
+2026-02-27 15:00:13,008 [DEBUG] bbot.modules._scan_ingress base.py:1563 Setting up module _scan_ingress
+2026-02-27 15:00:13,008 [DEBUG] bbot.modules._scan_ingress base.py:1563 Running _scan_ingress.setup_deps()
+2026-02-27 15:00:13,008 [DEBUG] bbot.modules._scan_ingress base.py:1563 Running _scan_ingress.setup()
+2026-02-27 15:00:13,008 [DEBUG] bbot.modules._scan_ingress base.py:1563 Finished setting up module _scan_ingress
+2026-02-27 15:00:13,009 [DEBUG] bbot.modules.dnsresolve base.py:1563 Setting up module dnsresolve
+2026-02-27 15:00:13,009 [DEBUG] bbot.modules.dnsresolve base.py:1563 Running dnsresolve.setup_deps()
+2026-02-27 15:00:13,009 [DEBUG] bbot.modules.dnsresolve base.py:1563 Running dnsresolve.setup()
+2026-02-27 15:00:13,009 [DEBUG] bbot.modules.dnsresolve base.py:1563 Finished setting up module dnsresolve
+2026-02-27 15:00:13,009 [DEBUG] bbot.modules.shodan_idb base.py:1563 Setting up module shodan_idb
+2026-02-27 15:00:13,010 [DEBUG] bbot.modules.shodan_idb base.py:1563 Running shodan_idb.setup_deps()
+2026-02-27 15:00:13,010 [DEBUG] bbot.modules.shodan_idb base.py:1563 Running shodan_idb.setup()
+2026-02-27 15:00:13,010 [DEBUG] bbot.modules.shodan_idb base.py:1563 Finished setting up module shodan_idb
+2026-02-27 15:00:13,010 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Setting up module unarchive
+2026-02-27 15:00:13,010 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Running unarchive.setup_deps()
+2026-02-27 15:00:13,011 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Running unarchive.setup()
+2026-02-27 15:00:13,011 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Finished setting up module unarchive
+2026-02-27 15:00:13,011 [DEBUG] bbot.modules.output.python base.py:1563 Setting up module python
+2026-02-27 15:00:13,011 [DEBUG] bbot.modules.output.python base.py:1563 Running python.setup_deps()
+2026-02-27 15:00:13,011 [DEBUG] bbot.modules.output.python base.py:1563 Running python.setup()
+2026-02-27 15:00:13,011 [DEBUG] bbot.modules.output.python base.py:1563 Finished setting up module python
+2026-02-27 15:00:13,012 [DEBUG] bbot.modules._scan_egress base.py:1563 Setting up module _scan_egress
+2026-02-27 15:00:13,012 [DEBUG] bbot.modules._scan_egress base.py:1563 Running _scan_egress.setup_deps()
+2026-02-27 15:00:13,012 [DEBUG] bbot.modules._scan_egress base.py:1563 Running _scan_egress.setup()
+2026-02-27 15:00:13,012 [DEBUG] bbot.modules._scan_egress base.py:1563 Finished setting up module _scan_egress
+2026-02-27 15:00:13,012 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for python (success)
+2026-02-27 15:00:13,013 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for _scan_ingress (success)
+2026-02-27 15:00:13,013 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for unarchive (success)
+2026-02-27 15:00:13,013 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for shodan_idb (success)
+2026-02-27 15:00:13,013 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for dnsresolve (success)
+2026-02-27 15:00:13,013 [DEBUG] bbot.scanner scanner.py:1176 Setup succeeded for _scan_egress (success)
+2026-02-27 15:00:13,013 [DEBUG] bbot.scanner scanner.py:1176 Setting intercept module dnsresolve._incoming_event_queue to previous intercept module _scan_ingress.outgoing_event_queue
+2026-02-27 15:00:13,014 [DEBUG] bbot.scanner scanner.py:1176 Setting intercept module _scan_egress._incoming_event_queue to previous intercept module dnsresolve.outgoing_event_queue
+2026-02-27 15:00:13,014 [SUCCESS] bbot.scanner logger.py:151 Setup succeeded for 6/6 modules.
+2026-02-27 15:00:13,014 [DEBUG] bbot base.py:109 Executing setup_after_prep()
+2026-02-27 15:00:13,014 [DEBUG] bbot base.py:111 Starting scan
+2026-02-27 15:00:13,094 [HUGESUCCESS] bbot.scanner logger.py:151 Starting scan testshodan_idb_test_2xbsmsfupf
+2026-02-27 15:00:13,094 [VERBOSE] bbot.scanner logger.py:151 Starting module worker loops
+2026-02-27 15:00:13,160 [VERBOSE] bbot.scanner logger.py:151 6 modules started
+2026-02-27 15:00:13,160 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to STARTING
+2026-02-27 15:00:13,161 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to RUNNING
+2026-02-27 15:00:13,162 [VERBOSE] bbot.modules._scan_ingress logger.py:151 Target: IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'})
+2026-02-27 15:00:13,263 [DEBUG] bbot.modules._scan_ingress base.py:1563 SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 15:00:13,264 [DEBUG] bbot.modules._scan_ingress base.py:1563 Intercepting SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 15:00:13,265 [DEBUG] bbot.modules._scan_ingress base.py:1563 Forwarding SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 15:00:13,265 [DEBUG] bbot.modules._scan_ingress base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'}) passed post-check
+2026-02-27 15:00:13,265 [DEBUG] bbot.modules._scan_ingress base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'})
+2026-02-27 15:00:13,267 [DEBUG] bbot.modules.dnsresolve base.py:1563 Not intercepting SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) because postcheck failed (it did not meet custom filter criteria: event does not have host attribute)
+2026-02-27 15:00:13,267 [DEBUG] bbot.modules.dnsresolve base.py:1563 Forwarding SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 15:00:13,268 [DEBUG] bbot.modules._scan_ingress base.py:1563 Making IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'distance-1', 'target'}) in-scope because its main host matches the scan target
+2026-02-27 15:00:13,268 [DEBUG] bbot.modules._scan_egress base.py:1563 SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 15:00:13,269 [DEBUG] bbot.modules._scan_egress base.py:1563 Intercepting SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 15:00:13,269 [DEBUG] bbot.modules._scan_ingress base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 15:00:13,270 [DEBUG] bbot.modules.dnsresolve base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 15:00:13,270 [DEBUG] bbot.modules.dnsresolve base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 15:00:13,270 [DEBUG] bbot.modules._scan_egress base.py:1563 Forwarding SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set())
+2026-02-27 15:00:13,271 [DEBUG] bbot.modules.output.python base.py:1563 Queueing SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) because precheck succeeded
+2026-02-27 15:00:13,274 [DEBUG] bbot.modules.dnsresolve base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 15:00:13,275 [DEBUG] bbot.modules._scan_egress base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 15:00:13,275 [DEBUG] bbot.modules._scan_egress base.py:1563 Intercepting IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 15:00:13,276 [DEBUG] bbot.modules._scan_egress base.py:1563 Forwarding IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 15:00:13,276 [DEBUG] bbot.modules.shodan_idb base.py:1563 Queueing IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) because precheck succeeded
+2026-02-27 15:00:13,276 [DEBUG] bbot.modules.output.python base.py:1563 Queueing IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) because precheck succeeded
+2026-02-27 15:00:13,277 [DEBUG] bbot.modules.shodan_idb base.py:1563 Got IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) from TARGET
+2026-02-27 15:00:13,277 [DEBUG] bbot.modules.shodan_idb base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 15:00:13,277 [DEBUG] bbot.modules.shodan_idb base.py:1563 Handling IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 15:00:13,293 [VERBOSE] bbot.core.helpers.web.client logger.py:151 Creating httpx.AsyncClient((), {'transport': <httpx.AsyncHTTPTransport object at 0x1175792b0>, 'verify': <ssl.SSLContext object at 0x117599770>, 'timeout': 10, 'headers': {'User-Agent': 'BBOT Test User-Agent'}, 'cookies': {}, 'proxy': None})
+2026-02-27 15:00:13,298 [DEBUG] bbot.modules.shodan_idb base.py:1563 Finished handling IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'})
+2026-02-27 15:00:13,363 [DEBUG] bbot.modules.output.python base.py:1563 Got SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) from TARGET
+2026-02-27 15:00:13,364 [DEBUG] bbot.modules.output.python base.py:1563 SCAN("{'id': 'SCAN:08a1f7e60a83d14b4384e36d0fb626e3ab4c1783', 'name': 'testshodan_idb_...", module=TARGET, tags=set()) passed post-check
+2026-02-27 15:00:13,364 [DEBUG] bbot.modules.output.python base.py:1563 Got IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) from TARGET
+2026-02-27 15:00:13,364 [DEBUG] bbot.modules.output.python base.py:1563 IP_ADDRESS("1.2.3.4", module=TARGET, tags={'ipv4', 'in-scope', 'target'}) passed post-check
+2026-02-27 15:00:13,365 [INFO] bbot.scanner scanner.py:790 Finishing scan
+2026-02-27 15:00:13,365 [DEBUG] bbot.modules.shodan_idb base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'shodan-idb'}) because its type is FINISHED
+2026-02-27 15:00:13,366 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'unarchive'}) because its type is FINISHED
+2026-02-27 15:00:13,366 [DEBUG] bbot.modules.output.python base.py:1563 Queueing FINISHED("FINISHED", module=None, tags={'python'}) because its type is FINISHED
+2026-02-27 15:00:13,367 [VERBOSE] bbot.scanner logger.py:151 Completed finish()
+2026-02-27 15:00:13,367 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to FINISHING
+2026-02-27 15:00:13,367 [DEBUG] bbot.modules.shodan_idb base.py:1563 Got FINISHED("FINISHED", module=None, tags={'shodan-idb'}) from None
+2026-02-27 15:00:13,368 [DEBUG] bbot.modules.internal.unarchive base.py:1563 Got FINISHED("FINISHED", module=None, tags={'unarchive'}) from None
+2026-02-27 15:00:13,468 [DEBUG] bbot.modules.output.python base.py:1563 Got FINISHED("FINISHED", module=None, tags={'python'}) from None
+2026-02-27 15:00:13,469 [VERBOSE] bbot.scanner logger.py:151 Completed final finish()
+2026-02-27 15:00:13,478 [DEBUG] bbot.scanner scanner.py:1176 Cancelling all scan tasks
+2026-02-27 15:00:13,478 [DEBUG] bbot.scanner scanner.py:1176 Finished cancelling all scan tasks
+2026-02-27 15:00:13,479 [DEBUG] bbot.scanner scanner.py:1176 Awaiting 42 tasks
+2026-02-27 15:00:13,486 [DEBUG] bbot.scanner scanner.py:1176 Awaited 42 tasks
+2026-02-27 15:00:13,486 [VERBOSE] bbot.core.dnshelper logger.py:151 EngineClient DNSHelper: shutting down...
+2026-02-27 15:00:13,487 [DEBUG] bbot.scanner scanner.py:1176 Setting scan status to CLEANING_UP
+2026-02-27 15:00:13,487 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine got shutdown signal
+2026-02-27 15:00:13,487 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: shutting down...
+2026-02-27 15:00:13,488 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: finished shutting down
+2026-02-27 15:00:13,489 [VERBOSE] bbot.core.webhelper logger.py:151 EngineClient WebHelper: shutting down...
+2026-02-27 15:00:13,490 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine got shutdown signal
+2026-02-27 15:00:13,490 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine: shutting down...
+2026-02-27 15:00:13,490 [VERBOSE] bbot.core.httpengine logger.py:151 EngineServer HTTPEngine: finished shutting down
+2026-02-27 15:00:13,558 [HUGESUCCESS] bbot.scanner logger.py:151 Scan testshodan_idb_test_2xbsmsfupf completed in 0 seconds with status FINISHED
+2026-02-27 15:00:13,558 [DEBUG] bbot base.py:113 Finished shodan_idb module test
+2026-02-27 15:00:13,559 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 15:00:59,945 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/report
+2026-02-27 15:00:59,952 [DEBUG] bbot.module_loader modules.py:152 Preloading asn from cache
+2026-02-27 15:00:59,953 [DEBUG] bbot.module_loader modules.py:152 Preloading affiliates from cache
+2026-02-27 15:00:59,953 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/templates
+2026-02-27 15:00:59,954 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/internal
+2026-02-27 15:00:59,954 [DEBUG] bbot.module_loader modules.py:152 Preloading aggregate from cache
+2026-02-27 15:00:59,955 [DEBUG] bbot.module_loader modules.py:152 Preloading cloudcheck from cache
+2026-02-27 15:00:59,955 [DEBUG] bbot.module_loader modules.py:152 Preloading excavate from cache
+2026-02-27 15:00:59,956 [DEBUG] bbot.module_loader modules.py:152 Preloading speculate from cache
+2026-02-27 15:00:59,956 [DEBUG] bbot.module_loader modules.py:152 Preloading unarchive from cache
+2026-02-27 15:00:59,957 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsresolve from cache
+2026-02-27 15:00:59,957 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/output
+2026-02-27 15:00:59,957 [DEBUG] bbot.module_loader modules.py:152 Preloading web_parameters from cache
+2026-02-27 15:00:59,958 [DEBUG] bbot.module_loader modules.py:152 Preloading discord from cache
+2026-02-27 15:00:59,958 [DEBUG] bbot.module_loader modules.py:152 Preloading emails from cache
+2026-02-27 15:00:59,959 [DEBUG] bbot.module_loader modules.py:152 Preloading teams from cache
+2026-02-27 15:00:59,959 [DEBUG] bbot.module_loader modules.py:152 Preloading txt from cache
+2026-02-27 15:00:59,960 [DEBUG] bbot.module_loader modules.py:152 Preloading neo4j from cache
+2026-02-27 15:00:59,960 [DEBUG] bbot.module_loader modules.py:152 Preloading asset_inventory from cache
+2026-02-27 15:00:59,961 [DEBUG] bbot.module_loader modules.py:152 Preloading sqlite from cache
+2026-02-27 15:00:59,961 [DEBUG] bbot.module_loader modules.py:152 Preloading web_report from cache
+2026-02-27 15:00:59,962 [DEBUG] bbot.module_loader modules.py:152 Preloading http from cache
+2026-02-27 15:00:59,962 [DEBUG] bbot.module_loader modules.py:152 Preloading csv from cache
+2026-02-27 15:00:59,963 [DEBUG] bbot.module_loader modules.py:152 Preloading postgres from cache
+2026-02-27 15:00:59,963 [DEBUG] bbot.module_loader modules.py:152 Preloading python from cache
+2026-02-27 15:00:59,964 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomains from cache
+2026-02-27 15:00:59,964 [DEBUG] bbot.module_loader modules.py:152 Preloading stdout from cache
+2026-02-27 15:00:59,965 [DEBUG] bbot.module_loader modules.py:152 Preloading nmap_xml from cache
+2026-02-27 15:00:59,965 [DEBUG] bbot.module_loader modules.py:152 Preloading json from cache
+2026-02-27 15:00:59,966 [DEBUG] bbot.module_loader modules.py:152 Preloading slack from cache
+2026-02-27 15:00:59,966 [DEBUG] bbot.module_loader modules.py:152 Preloading splunk from cache
+2026-02-27 15:00:59,967 [DEBUG] bbot.module_loader modules.py:152 Preloading mysql from cache
+2026-02-27 15:00:59,967 [DEBUG] bbot.module_loader modules.py:152 Preloading websocket from cache
+2026-02-27 15:00:59,968 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/deadly
+2026-02-27 15:00:59,968 [DEBUG] bbot.module_loader modules.py:152 Preloading legba from cache
+2026-02-27 15:00:59,969 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules
+2026-02-27 15:00:59,969 [DEBUG] bbot.module_loader modules.py:152 Preloading urlscan from cache
+2026-02-27 15:00:59,970 [DEBUG] bbot.module_loader modules.py:152 Preloading jadx from cache
+2026-02-27 15:00:59,970 [DEBUG] bbot.module_loader modules.py:152 Preloading trufflehog from cache
+2026-02-27 15:00:59,971 [DEBUG] bbot.module_loader modules.py:152 Preloading host_header from cache
+2026-02-27 15:00:59,971 [DEBUG] bbot.module_loader modules.py:152 Preloading securitytxt from cache
+2026-02-27 15:00:59,972 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsdumpster from cache
+2026-02-27 15:00:59,972 [DEBUG] bbot.module_loader modules.py:152 Preloading bevigil from cache
+2026-02-27 15:00:59,972 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_google from cache
+2026-02-27 15:00:59,973 [DEBUG] bbot.module_loader modules.py:152 Preloading git from cache
+2026-02-27 15:00:59,973 [DEBUG] bbot.module_loader modules.py:152 Preloading azure_realm from cache
+2026-02-27 15:00:59,973 [DEBUG] bbot.module_loader modules.py:152 Preloading extractous from cache
+2026-02-27 15:00:59,976 [DEBUG] bbot.module_loader modules.py:152 Preloading credshed from cache
+2026-02-27 15:00:59,976 [DEBUG] bbot.module_loader modules.py:152 Preloading fullhunt from cache
+2026-02-27 15:00:59,977 [DEBUG] bbot.module_loader modules.py:152 Preloading social from cache
+2026-02-27 15:00:59,977 [DEBUG] bbot.module_loader modules.py:152 Preloading pgp from cache
+2026-02-27 15:00:59,978 [DEBUG] bbot.module_loader modules.py:152 Preloading azure_tenant from cache
+2026-02-27 15:00:59,978 [DEBUG] bbot.module_loader modules.py:152 Preloading virustotal from cache
+2026-02-27 15:00:59,978 [DEBUG] bbot.module_loader modules.py:152 Preloading vhost from cache
+2026-02-27 15:00:59,979 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_enterprise from cache
+2026-02-27 15:00:59,979 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbrute from cache
+2026-02-27 15:00:59,980 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_dns from cache
+2026-02-27 15:00:59,980 [DEBUG] bbot.module_loader modules.py:152 Preloading ip2location from cache
+2026-02-27 15:00:59,981 [DEBUG] bbot.module_loader modules.py:152 Preloading rapiddns from cache
+2026-02-27 15:00:59,981 [DEBUG] bbot.module_loader modules.py:152 Preloading wpscan from cache
+2026-02-27 15:00:59,982 [DEBUG] bbot.module_loader modules.py:152 Preloading dnscommonsrv from cache
+2026-02-27 15:00:59,982 [DEBUG] bbot.module_loader modules.py:152 Preloading passivetotal from cache
+2026-02-27 15:00:59,982 [DEBUG] bbot.module_loader modules.py:152 Preloading ntlm from cache
+2026-02-27 15:00:59,983 [DEBUG] bbot.module_loader modules.py:152 Preloading trickest from cache
+2026-02-27 15:00:59,983 [DEBUG] bbot.module_loader modules.py:152 Preloading google_playstore from cache
+2026-02-27 15:00:59,983 [DEBUG] bbot.module_loader modules.py:152 Preloading github_usersearch from cache
+2026-02-27 15:00:59,984 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomainradar from cache
+2026-02-27 15:00:59,984 [DEBUG] bbot.module_loader modules.py:152 Preloading dockerhub from cache
+2026-02-27 15:00:59,985 [DEBUG] bbot.module_loader modules.py:152 Preloading medusa from cache
+2026-02-27 15:00:59,985 [DEBUG] bbot.module_loader modules.py:152 Preloading digitorus from cache
+2026-02-27 15:00:59,986 [DEBUG] bbot.module_loader modules.py:152 Preloading wafw00f from cache
+2026-02-27 15:00:59,986 [DEBUG] bbot.module_loader modules.py:152 Preloading generic_ssrf from cache
+2026-02-27 15:00:59,987 [DEBUG] bbot.module_loader modules.py:152 Preloading filedownload from cache
+2026-02-27 15:00:59,990 [DEBUG] bbot.module_loader modules.py:152 Preloading chaos from cache
+2026-02-27 15:00:59,990 [DEBUG] bbot.module_loader modules.py:152 Preloading httpx from cache
+2026-02-27 15:00:59,991 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns_zone from cache
+2026-02-27 15:00:59,991 [DEBUG] bbot.module_loader modules.py:152 Preloading graphql_introspection from cache
+2026-02-27 15:00:59,992 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_headers from cache
+2026-02-27 15:00:59,992 [DEBUG] bbot.module_loader modules.py:152 Preloading securitytrails from cache
+2026-02-27 15:00:59,992 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_microsoft from cache
+2026-02-27 15:00:59,993 [DEBUG] bbot.module_loader modules.py:152 Preloading viewdns from cache
+2026-02-27 15:00:59,993 [DEBUG] bbot.module_loader modules.py:152 Preloading url_manipulation from cache
+2026-02-27 15:00:59,993 [DEBUG] bbot.module_loader modules.py:152 Preloading ffuf_shortnames from cache
+2026-02-27 15:00:59,994 [DEBUG] bbot.module_loader modules.py:152 Preloading censys_ip from cache
+2026-02-27 15:00:59,995 [DEBUG] bbot.module_loader modules.py:152 Preloading builtwith from cache
+2026-02-27 15:00:59,995 [DEBUG] bbot.module_loader modules.py:152 Preloading certspotter from cache
+2026-02-27 15:00:59,996 [DEBUG] bbot.module_loader modules.py:152 Preloading sslcert from cache
+2026-02-27 15:00:59,996 [DEBUG] bbot.module_loader modules.py:152 Preloading gitdumper from cache
+2026-02-27 15:00:59,997 [DEBUG] bbot.module_loader modules.py:152 Preloading shodan_idb from cache
+2026-02-27 15:00:59,997 [DEBUG] bbot.module_loader modules.py:152 Preloading hackertarget from cache
+2026-02-27 15:00:59,997 [DEBUG] bbot.module_loader modules.py:152 Preloading c99 from cache
+2026-02-27 15:00:59,998 [DEBUG] bbot.module_loader modules.py:152 Preloading newsletters from cache
+2026-02-27 15:00:59,998 [DEBUG] bbot.module_loader modules.py:152 Preloading apkpure from cache
+2026-02-27 15:00:59,998 [DEBUG] bbot.module_loader modules.py:152 Preloading crt from cache
+2026-02-27 15:00:59,999 [DEBUG] bbot.module_loader modules.py:152 Preloading postman_download from cache
+2026-02-27 15:00:59,999 [DEBUG] bbot.module_loader modules.py:152 Preloading hunt from cache
+2026-02-27 15:01:00,000 [DEBUG] bbot.module_loader modules.py:152 Preloading ffuf from cache
+2026-02-27 15:01:00,000 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbrute_mutations from cache
+2026-02-27 15:01:00,001 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_firebase from cache
+2026-02-27 15:01:00,001 [DEBUG] bbot.module_loader modules.py:152 Preloading nuclei from cache
+2026-02-27 15:01:00,002 [DEBUG] bbot.module_loader modules.py:152 Preloading censys_dns from cache
+2026-02-27 15:01:00,003 [DEBUG] bbot.module_loader modules.py:152 Preloading retirejs from cache
+2026-02-27 15:01:00,003 [DEBUG] bbot.module_loader modules.py:152 Preloading git_clone from cache
+2026-02-27 15:01:00,004 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_amazon from cache
+2026-02-27 15:01:00,004 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_digitalocean from cache
+2026-02-27 15:01:00,004 [DEBUG] bbot.module_loader modules.py:152 Preloading skymem from cache
+2026-02-27 15:01:00,005 [DEBUG] bbot.module_loader modules.py:152 Preloading hunterio from cache
+2026-02-27 15:01:00,005 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_cookies from cache
+2026-02-27 15:01:00,006 [DEBUG] bbot.module_loader modules.py:152 Preloading postman from cache
+2026-02-27 15:01:00,006 [DEBUG] bbot.module_loader modules.py:152 Preloading code_repository from cache
+2026-02-27 15:01:00,006 [DEBUG] bbot.module_loader modules.py:152 Preloading gitlab_com from cache
+2026-02-27 15:01:00,007 [DEBUG] bbot.module_loader modules.py:152 Preloading dnstlsrpt from cache
+2026-02-27 15:01:00,007 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns from cache
+2026-02-27 15:01:00,008 [DEBUG] bbot.module_loader modules.py:152 Preloading subdomaincenter from cache
+2026-02-27 15:01:00,008 [DEBUG] bbot.module_loader modules.py:152 Preloading wayback from cache
+2026-02-27 15:01:00,009 [DEBUG] bbot.module_loader modules.py:152 Preloading ipstack from cache
+2026-02-27 15:01:00,009 [DEBUG] bbot.module_loader modules.py:152 Preloading emailformat from cache
+2026-02-27 15:01:00,009 [DEBUG] bbot.module_loader modules.py:152 Preloading fingerprintx from cache
+2026-02-27 15:01:00,010 [DEBUG] bbot.module_loader modules.py:152 Preloading dnscaa from cache
+2026-02-27 15:01:00,010 [DEBUG] bbot.module_loader modules.py:152 Preloading bypass403 from cache
+2026-02-27 15:01:00,011 [DEBUG] bbot.module_loader modules.py:152 Preloading leakix from cache
+2026-02-27 15:01:00,011 [DEBUG] bbot.module_loader modules.py:152 Preloading paramminer_getparams from cache
+2026-02-27 15:01:00,012 [DEBUG] bbot.module_loader modules.py:152 Preloading reflected_parameters from cache
+2026-02-27 15:01:00,012 [DEBUG] bbot.module_loader modules.py:152 Preloading crt_db from cache
+2026-02-27 15:01:00,013 [DEBUG] bbot.module_loader modules.py:152 Preloading bucket_file_enum from cache
+2026-02-27 15:01:00,013 [DEBUG] bbot.module_loader modules.py:152 Preloading portscan from cache
+2026-02-27 15:01:00,014 [DEBUG] bbot.module_loader modules.py:152 Preloading baddns_direct from cache
+2026-02-27 15:01:00,014 [DEBUG] bbot.module_loader modules.py:152 Preloading ajaxpro from cache
+2026-02-27 15:01:00,014 [DEBUG] bbot.module_loader modules.py:152 Preloading telerik from cache
+2026-02-27 15:01:00,015 [DEBUG] bbot.module_loader modules.py:152 Preloading dnsbimi from cache
+2026-02-27 15:01:00,015 [DEBUG] bbot.module_loader modules.py:152 Preloading aspnet_bin_exposure from cache
+2026-02-27 15:01:00,016 [DEBUG] bbot.module_loader modules.py:152 Preloading otx from cache
+2026-02-27 15:01:00,016 [DEBUG] bbot.module_loader modules.py:152 Preloading github_codesearch from cache
+2026-02-27 15:01:00,017 [DEBUG] bbot.module_loader modules.py:152 Preloading dehashed from cache
+2026-02-27 15:01:00,017 [DEBUG] bbot.module_loader modules.py:152 Preloading gowitness from cache
+2026-02-27 15:01:00,018 [DEBUG] bbot.module_loader modules.py:152 Preloading docker_pull from cache
+2026-02-27 15:01:00,018 [DEBUG] bbot.module_loader modules.py:152 Preloading ipneighbor from cache
+2026-02-27 15:01:00,019 [DEBUG] bbot.module_loader modules.py:152 Preloading bufferoverrun from cache
+2026-02-27 15:01:00,019 [DEBUG] bbot.module_loader modules.py:152 Preloading gitlab_onprem from cache
+2026-02-27 15:01:00,020 [DEBUG] bbot.module_loader modules.py:152 Preloading iis_shortnames from cache
+2026-02-27 15:01:00,020 [DEBUG] bbot.module_loader modules.py:152 Preloading badsecrets from cache
+2026-02-27 15:01:00,021 [DEBUG] bbot.module_loader modules.py:152 Preloading myssl from cache
+2026-02-27 15:01:00,021 [DEBUG] bbot.module_loader modules.py:152 Preloading github_workflows from cache
+2026-02-27 15:01:00,021 [DEBUG] bbot.module_loader modules.py:152 Preloading dotnetnuke from cache
+2026-02-27 15:01:00,022 [DEBUG] bbot.module_loader modules.py:152 Preloading smuggler from cache
+2026-02-27 15:01:00,022 [DEBUG] bbot.module_loader modules.py:152 Preloading robots from cache
+2026-02-27 15:01:00,022 [DEBUG] bbot.module_loader modules.py:152 Preloading anubisdb from cache
+2026-02-27 15:01:00,023 [DEBUG] bbot.module_loader modules.py:152 Preloading oauth from cache
+2026-02-27 15:01:00,023 [DEBUG] bbot.module_loader modules.py:152 Preloading github_org from cache
+2026-02-27 15:01:00,024 [DEBUG] bbot.module_loader modules.py:152 Preloading portfilter from cache
+2026-02-27 15:01:00,024 [DEBUG] bbot.module_loader modules.py:152 Preloading sitedossier from cache
+2026-02-27 15:01:00,024 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz
+2026-02-27 15:01:00,025 [DEBUG] bbot.module_loader modules.py:152 Preloading lightfuzz from cache
+2026-02-27 15:01:00,026 [DEBUG] bbot.module_loader modules.py:141 Preloading modules from /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules
+2026-02-27 15:01:00,026 [DEBUG] bbot.module_loader modules.py:154 Preloading esi from disk
+2026-02-27 15:01:00,027 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/esi.py as it is not a valid BBOT module
+2026-02-27 15:01:00,027 [DEBUG] bbot.module_loader modules.py:154 Preloading cmdi from disk
+2026-02-27 15:01:00,028 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/cmdi.py as it is not a valid BBOT module
+2026-02-27 15:01:00,029 [DEBUG] bbot.module_loader modules.py:154 Preloading xss from disk
+2026-02-27 15:01:00,030 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/xss.py as it is not a valid BBOT module
+2026-02-27 15:01:00,031 [DEBUG] bbot.module_loader modules.py:154 Preloading crypto from disk
+2026-02-27 15:01:00,034 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/crypto.py as it is not a valid BBOT module
+2026-02-27 15:01:00,034 [DEBUG] bbot.module_loader modules.py:154 Preloading serial from disk
+2026-02-27 15:01:00,036 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/serial.py as it is not a valid BBOT module
+2026-02-27 15:01:00,036 [DEBUG] bbot.module_loader modules.py:154 Preloading sqli from disk
+2026-02-27 15:01:00,037 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/sqli.py as it is not a valid BBOT module
+2026-02-27 15:01:00,038 [DEBUG] bbot.module_loader modules.py:154 Preloading path from disk
+2026-02-27 15:01:00,039 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/path.py as it is not a valid BBOT module
+2026-02-27 15:01:00,039 [DEBUG] bbot.module_loader modules.py:154 Preloading ssti from disk
+2026-02-27 15:01:00,040 [DEBUG] bbot.module_loader modules.py:351 Skipping /Users/andriikerekhovetskyi/Desktop/DEV/bbot/bbot/modules/lightfuzz/submodules/ssti.py as it is not a valid BBOT module
+2026-02-27 15:01:00,967 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 15:01:00,968 [DEBUG] asyncio selector_events.py:64 Using selector: KqueueSelector
+2026-02-27 15:01:00,968 [INFO] bbot base.py:99 Starting shodan_enterprise module test
+2026-02-27 15:01:01,064 [DEBUG] bbot.presets preset.py:1003 Preset : Getting baked
+2026-02-27 15:01:01,475 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "shodan_enterprise" of type "scan"
+2026-02-27 15:01:01,476 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "python" of type "output"
+2026-02-27 15:01:01,476 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "unarchive" of type "internal"
+2026-02-27 15:01:01,476 [DEBUG] bbot.presets preset.py:1003 Preset : Adding module "dnsresolve" of type "internal"
+2026-02-27 15:01:01,611 [WARNING] bbot.scanner scanner.py:1211 You have enabled custom HTTP headers. These will be attached to all in-scope requests and all requests made by httpx.
+2026-02-27 15:01:01,612 [DEBUG] bbot base.py:103 Mocking DNS
+2026-02-27 15:01:01,719 [DEBUG] bbot base.py:105 Executing setup_before_prep()
+2026-02-27 15:01:02,470 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: shutting down...
+2026-02-27 15:01:02,472 [VERBOSE] bbot.core.dnsengine logger.py:151 EngineServer DNSEngine: finished shutting down
