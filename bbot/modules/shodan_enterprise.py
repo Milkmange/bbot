@@ -12,12 +12,8 @@ class shodan_enterprise(BaseModule):
         "description": "Shodan Enterprise API integration module.",
     }
     deps_pip = ["shodan"]
-    options = {"api_key": "", "history": False, "minify": False}
-    options_desc = {
-        "api_key": "Shodan API Key",
-        "history": "(optional) True if you want to grab the historical (non-current) banners for the host, False otherwise.",
-        "minify": "(optional) True to only return the list of ports and the general host information, no banners, False otherwise.",
-    }
+    options = {"api_key": ""}
+    options_desc = {"api_key": "Shodan API Key"}
     per_host_only = True
     scope_distance_modifier = 1
     target_only = True
@@ -25,17 +21,14 @@ class shodan_enterprise(BaseModule):
     async def setup(self):
         if not self.config.get("api_key"):
             return None, "No API key specified"
-
         self.api_key = self.config.get("api_key")
-        self.history = self.config.get("history")
-        self.minify = self.config.get("minify")
         return True
 
     async def handle_event(self, event):
         try:
             api = shodan.Shodan(self.api_key)
-            host = api.host(ips=event.data, history=self.history, minify=self.minify)
-            # self.info(f"{host}")
+            host = api.host(ips=event.data, history=False, minify=False)
+            self.info(f"{host}")
             # ASN Extraction
             asn = {
                 "asn": host["asn"][2:],
@@ -166,7 +159,10 @@ class shodan_enterprise(BaseModule):
                             )
 
             else:
-                self.info("[INFO] No data to extract")
+                self.info(f"No Shodan data about {event.data}")
 
         except shodan.APIError as e:
-            self.error(f"[ERROR] Shodan API key error: {e}")
+            if self.history:
+                self.info(f"No Shodan history data about {event.data}")
+            else:
+                self.error(f"Shodan API error: {e}")
