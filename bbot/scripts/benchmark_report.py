@@ -37,7 +37,7 @@ def checkout_branch(branch: str, repo_path: Path = None):
     # Remove untracked files before checkout. Without this, files generated
     # by one branch's toolchain (e.g. uv.lock from `uv run` on a Poetry
     # branch) block checkout to a branch that tracks those same files.
-    print(f"Cleaning untracked files before checkout")
+    print("Cleaning untracked files before checkout")
     run_command(["git", "clean", "-fd"], cwd=repo_path)
     print(f"Checking out branch: {branch}")
     run_command(["git", "checkout", branch], cwd=repo_path)
