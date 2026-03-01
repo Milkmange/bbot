@@ -109,7 +109,7 @@ class shodan_enterprise(BaseModule):
                                 "OPEN_TCP_PORT",
                                 parent=event,
                                 tags=data.get("tags") or [],
-                                context=f"Shodan API {event.data} request and find TECHNOLOGY: {data.get("port")}",
+                                context=f"Shodan API {event.data} request and find TECHNOLOGY: {data.get('port')}",
                             )
 
                         elif data["transport"] == "udp":
@@ -118,7 +118,7 @@ class shodan_enterprise(BaseModule):
                                 "OPEN_UDP_PORT",
                                 parent=event,
                                 tags=data.get("tags") or [],
-                                context=f"Shodan API {event.data} request and find TECHNOLOGY: {data.get("port")}",
+                                context=f"Shodan API {event.data} request and find TECHNOLOGY: {data.get('port')}",
                             )
 
                         else:
@@ -126,13 +126,7 @@ class shodan_enterprise(BaseModule):
 
                     # VULNERABILITY Extraction
                     # NIST cvss score severity mapping
-                    severity_map = {
-                        "NONE": 0.0,
-                        "LOW": 0.1,
-                        "MEDIUM": 4.0,
-                        "HIGH": 7.0,
-                        "CRITICAL": 9.0,
-                    }
+                    severity_map = {"NONE": 0.0, "LOW": 0.1, "MEDIUM": 4.0, "HIGH": 7.0, "CRITICAL": 9.0}
 
                     if "vulns" in data:
                         for item in data["vulns"]:
