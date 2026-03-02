@@ -3,7 +3,7 @@ from bbot.modules.base import BaseModule
 
 class shodan_enterprise(BaseModule):
     watched_events = ["IP_ADDRESS"]
-    produced_events = ["OPEN_TCP_PORT", "TECHNOLOGY", "OPEN_UDP_PORT", "ASN", "VULNERABILITY"]
+    produced_events = ["OPEN_TCP_PORT", "TECHNOLOGY", "OPEN_UDP_PORT", "ASN", "FINDING"]
     flags = ["passive", "safe"]
     meta = {
         "created_date": "2026-01-27",
@@ -71,7 +71,7 @@ class shodan_enterprise(BaseModule):
                 "ASN",
                 parent=event,
                 tags=host.get("tags") or [],
-                context=f"Shodan API {ip} request and find ASN",
+                context=f"{{module}} queried Shodan API for {ip} and found ASN",
             )
 
         if "data" not in host:
@@ -91,7 +91,7 @@ class shodan_enterprise(BaseModule):
                     "TECHNOLOGY",
                     parent=event,
                     tags=data.get("tags") or [],
-                    context=f"Shodan API {ip} request and find TECHNOLOGY: {technology}",
+                    context=f"{{module}} queried Shodan API for {ip} and found TECHNOLOGY: {technology}",
                 )
 
             for technology in data.get("cpe23", []):
@@ -101,7 +101,7 @@ class shodan_enterprise(BaseModule):
                     "TECHNOLOGY",
                     parent=event,
                     tags=data.get("tags") or [],
-                    context=f"Shodan API {ip} request and find TECHNOLOGY: {technology}",
+                    context=f"{{module}} queried Shodan API for {ip} and found TECHNOLOGY: {technology}",
                 )
 
             # TECHNOLOGY Additional Formats
@@ -116,7 +116,7 @@ class shodan_enterprise(BaseModule):
                     "TECHNOLOGY",
                     parent=event,
                     tags=data.get("tags") or [],
-                    context=f"Shodan API {ip} request and find TECHNOLOGY: {data['product']}",
+                    context=f"{{module}} queried Shodan API for {ip} and found TECHNOLOGY: {data['product']}",
                 )
 
             if "http" in data:
@@ -130,7 +130,7 @@ class shodan_enterprise(BaseModule):
                             "TECHNOLOGY",
                             parent=event,
                             tags=tags,
-                            context=f"Shodan API {ip} request and find TECHNOLOGY: {technology}",
+                            context=f"{{module}} queried Shodan API for {ip} and found TECHNOLOGY: {technology}",
                         )
 
             # OPEN_TCP_PORT, OPEN_UDP_PORT Extraction
@@ -141,7 +141,7 @@ class shodan_enterprise(BaseModule):
                         "OPEN_TCP_PORT",
                         parent=event,
                         tags=data.get("tags") or [],
-                        context=f"Shodan API {ip} request and find OPEN_TCP_PORT: {data.get('port')}",
+                        context=f"{{module}} queried Shodan API for {ip} and found OPEN_TCP_PORT: {data.get('port')}",
                     )
                 elif data["transport"] == "udp":
                     await self.emit_event(
@@ -149,12 +149,12 @@ class shodan_enterprise(BaseModule):
                         "OPEN_UDP_PORT",
                         parent=event,
                         tags=data.get("tags") or [],
-                        context=f"Shodan API {ip} request and find OPEN_UDP_PORT: {data.get('port')}",
+                        context=f"{{module}} queried Shodan API for {ip} and found OPEN_UDP_PORT: {data.get('port')}",
                     )
                 else:
                     self.warning(f"Unknown transport {data['transport']}")
 
-            # VULNERABILITY Extraction
+            # FINDING Extraction
             if "vulns" in data:
                 for cve, vuln_data in data["vulns"].items():
                     cvss = vuln_data.get("cvss", 0)
@@ -163,14 +163,16 @@ class shodan_enterprise(BaseModule):
                         key=lambda x: severity_map[x],
                     )
                     vuln = {
+                        "name": "Shodan - Possible Vulnerabilities",
                         "host": data.get("ip_str"),
                         "severity": severity,
                         "description": cve,
+                        "confidence": "LOW"
                     }
                     await self.emit_event(
                         vuln,
-                        "VULNERABILITY",
+                        "FINDING",
                         parent=event,
                         tags=[],
-                        context=f"Shodan API {ip} request and find VULNERABILITY {cve}",
+                        context=f"{{module}} queried Shodan API for {ip} and found FINDING {cve}",
                     )

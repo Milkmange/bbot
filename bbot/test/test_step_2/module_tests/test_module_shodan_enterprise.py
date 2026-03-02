@@ -62,15 +62,15 @@ class TestShodan_Enterprise(ModuleTestBase):
         udp_ports = [e.data for e in events if e.type == "OPEN_UDP_PORT"]
         assert any("8.8.8.8:53" in str(p) for p in tcp_ports), "TCP port 53 not detected"
         assert any("8.8.8.8:53" in str(p) for p in udp_ports), "UDP port 53 not detected"
-        vuln_events = [e for e in events if e.type == "VULNERABILITY"]
-        vuln_map = {e.data.get("description"): e.data.get("severity") for e in vuln_events}
-        assert "CVE-2021-12345" in vuln_map
-        assert vuln_map["CVE-2021-12345"] == "HIGH"
-        assert "CVE-2020-00001" in vuln_map
-        assert vuln_map["CVE-2020-00001"] == "LOW"
+        finding_events = [e for e in events if e.type == "FINDING"]
+        finding_map = {e.data.get("description"): e.data.get("severity") for e in finding_events}
+        assert "CVE-2021-12345" in finding_map
+        assert finding_map["CVE-2021-12345"] == "HIGH"
+        assert "CVE-2020-00001" in finding_map
+        assert finding_map["CVE-2020-00001"] == "LOW"
         tech_events = [e for e in events if e.type == "TECHNOLOGY"]
         tech_names = {e.data.get("technology") for e in tech_events}
         assert "cpe:/a:google:dns" in tech_names
-        assert "Google Public DNS" in tech_names
-        assert "OpenSSL" in tech_names
+        assert "google public dns" in tech_names
+        assert "openssl" in tech_names
         assert "nginx" in tech_names
