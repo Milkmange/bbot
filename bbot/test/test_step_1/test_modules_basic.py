@@ -90,7 +90,13 @@ async def test_modules_basic_checks(events, httpx_mock):
     assert url._omit is True
 
     # omitted always_emit events should still be omitted
-    finding_data = {"host": "evilcorp.com", "description": "test", "severity": "LOW", "confidence": "LOW", "name": "test"}
+    finding_data = {
+        "host": "evilcorp.com",
+        "description": "test",
+        "severity": "LOW",
+        "confidence": "LOW",
+        "name": "test",
+    }
     finding = scan.make_event(finding_data, "FINDING", parent=scan.root_event)
     assert finding.always_emit is True
     finding._omit = True
@@ -99,7 +105,13 @@ async def test_modules_basic_checks(events, httpx_mock):
     assert reason == "its type is omitted in the config"
 
     # always_emit should bypass the internal check
-    finding_data2 = {"host": "evilcorp.com", "description": "test2", "severity": "LOW", "confidence": "LOW", "name": "test2"}
+    finding_data2 = {
+        "host": "evilcorp.com",
+        "description": "test2",
+        "severity": "LOW",
+        "confidence": "LOW",
+        "name": "test2",
+    }
     finding2 = scan.make_event(finding_data2, "FINDING", parent=scan.root_event)
     assert finding2.always_emit is True
     finding2._internal = True
