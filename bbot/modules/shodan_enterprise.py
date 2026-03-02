@@ -167,7 +167,7 @@ class shodan_enterprise(BaseModule):
                         "host": data.get("ip_str"),
                         "severity": severity,
                         "description": cve,
-                        "confidence": "LOW"
+                        "confidence": "LOW",
                     }
                     await self.emit_event(
                         vuln,
