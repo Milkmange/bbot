@@ -3,7 +3,7 @@ from ..bbot_fixtures import *
 
 @pytest.mark.asyncio
 async def test_python_api():
-    from bbot import Scanner
+    from bbot.scanner import Scanner
 
     # make sure events are properly yielded
     scan1 = Scanner("127.0.0.1")
@@ -54,7 +54,8 @@ async def test_python_api():
     # custom target types
     custom_target_scan = Scanner("ORG:evilcorp")
     events = [e async for e in custom_target_scan.async_start()]
-    assert 1 == len([e for e in events if e.type == "ORG_STUB" and e.data == "evilcorp" and "target" in e.tags])
+
+    assert 1 == len([e for e in events if e.type == "ORG_STUB" and e.data == "evilcorp" and "seed" in e.tags])
 
     # presets
     scan6 = Scanner("evilcorp.com", presets=["subdomain-enum"])
@@ -95,7 +96,7 @@ def test_python_api_validation():
     # invalid output module
     with pytest.raises(ValidationError) as error:
         Scanner(output_modules=["asdf"])
-    assert str(error.value) == 'Could not find output module "asdf". Did you mean "teams"?'
+    assert str(error.value) == 'Could not find output module "asdf". Did you mean "nats"?'
     # invalid excluded module
     with pytest.raises(ValidationError) as error:
         Scanner(exclude_modules=["asdf"])
@@ -119,7 +120,7 @@ def test_python_api_validation():
     # normal module as output module
     with pytest.raises(ValidationError) as error:
         Scanner(output_modules=["robots"])
-    assert str(error.value) == 'Could not find output module "robots". Did you mean "web_report"?'
+    assert str(error.value) == 'Could not find output module "robots". Did you mean "rabbitmq"?'
     # invalid preset type
     with pytest.raises(ValidationError) as error:
         Scanner(preset="asdf")
