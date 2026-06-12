@@ -5,6 +5,10 @@ on:
   pull_request_target:
     types: [opened, closed, synchronize]
 
+permissions:
+  pull-requests: write
+  statuses: write
+
 jobs:
   cla:
     uses: blacklanternsecurity/.github/.github/workflows/cla-reusable.yml@main
