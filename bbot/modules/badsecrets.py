@@ -17,7 +17,7 @@ class badsecrets(BaseModule):
     options_desc = {
         "custom_secrets": "Include custom secrets loaded from a local file",
     }
-    deps_pip = ["badsecrets~=1.0.170", "PyJWT<2.13"]
+    deps_pip = ["badsecrets~=1.0.170"]
 
     async def setup(self):
         self.custom_secrets = None
