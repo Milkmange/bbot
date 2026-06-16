@@ -518,11 +518,11 @@ class TestDockerPullRealmValidation(ModuleTestBase):
     modules_overrides = ["speculate", "dockerhub", "docker_pull"]
 
     async def setup_before_prep(self, module_test):
-        module_test.blasthttp_mock.add_response(
+        module_test.httpx_mock.add_response(
             url="https://hub.docker.com/v2/users/blacklanternsecurity",
             json={"id": "test", "uuid": "test", "username": "blacklanternsecurity", "type": "User"},
         )
-        module_test.blasthttp_mock.add_response(
+        module_test.httpx_mock.add_response(
             url="https://hub.docker.com/v2/repositories/blacklanternsecurity?page_size=25&page=1",
             json={
                 "count": 1,
@@ -539,7 +539,7 @@ class TestDockerPullRealmValidation(ModuleTestBase):
             },
         )
         # realm points to a non-HTTPS internal address
-        module_test.blasthttp_mock.add_response(
+        module_test.httpx_mock.add_response(
             url="https://registry-1.docker.io/v2/blacklanternsecurity/testimage/tags/list",
             json={"errors": [{"code": "UNAUTHORIZED", "message": "authentication required"}]},
             headers={
@@ -547,7 +547,7 @@ class TestDockerPullRealmValidation(ModuleTestBase):
             },
             status_code=401,
         )
-        module_test.blasthttp_mock.add_response(
+        module_test.httpx_mock.add_response(
             url="http://169.254.169.254/latest/meta-data?service=registry.docker.io&scope=blacklanternsecurity/testimage:pull",
             json={"token": "test_token_value"},
         )
