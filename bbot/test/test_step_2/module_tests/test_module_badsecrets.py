@@ -160,9 +160,8 @@ class TestBadSecrets_JWTIdentifyOnly(ModuleTestBase):
         )
 
     def check(self, module_test, events):
-        # Vulnerable JWT (SecretFound) should still produce a FINDING
         assert any(
-            e.type == "FINDING"
+            e.type == "VULNERABILITY"
             and "Known Secret Found." in e.data["description"]
             and self.vuln_jwt in e.data["description"]
             for e in events
